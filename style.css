@@ -168,50 +168,7 @@ button {
     background: rgba(0,0,0,0.03);
 }
 
-.sub-toggle i {
-    transition: transform 0.3s ease;
-}
 
-.sub-toggle.active i {
-    transform: translateX(3px);
-}
-
-.gnb .sub-submenu {
-    display: none;
-    position: absolute;
-    left: 100%;
-    top: -5px;
-    min-width: 160px;
-    background: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    padding: 8px 0;
-    z-index: 20;
-}
-
-.gnb .sub-submenu.active {
-    display: block;
-    animation: slideRight 0.2s ease forwards;
-}
-
-@keyframes slideRight {
-    from { opacity: 0; transform: translateX(-5px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-.gnb .sub-submenu a {
-    padding: 8px 24px;
-    font-size: 0.85rem;
-    color: var(--color-text-light);
-    display: block;
-    width: 100%;
-}
-
-.gnb .sub-submenu a:hover {
-    color: var(--color-primary);
-    background: rgba(0,0,0,0.03);
-}
 
 .header-utils {
     display: flex;
@@ -226,32 +183,22 @@ button {
 }
 
 .search-input {
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    opacity: 0;
-    padding: 0;
-    border: 1px solid transparent;
-    border-radius: 20px;
+    width: 220px;
     height: 36px;
+    padding: 0 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
     background: #fff;
-    transition: all 0.3s ease;
-    margin-right: 10px;
     outline: none;
     font-family: inherit;
     color: var(--color-text);
-    pointer-events: none;
+    margin-right: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    transition: border-color 0.3s ease;
 }
 
-.search-wrapper.active .search-input {
-    width: 220px;
-    opacity: 1;
-    padding: 0 15px;
-    border-color: var(--color-border);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    pointer-events: auto;
+.search-input:focus {
+    border-color: var(--color-accent);
 }
 
 .header-utils a {
@@ -311,6 +258,12 @@ button {
     object-fit: cover;
     z-index: -1;
     filter: brightness(0.7);
+    transition: transform 6s ease-out;
+    transform: scale(1);
+}
+
+.slide.active .slide-img {
+    transform: scale(1.1);
 }
 
 .slide-content {
@@ -459,6 +412,18 @@ button {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Scroll Reveal */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .product-grid {
     display: flex;
     gap: 30px;
@@ -487,6 +452,11 @@ button {
 .product-img {
     height: 250px;
     background: #eaeaea; /* Placeholder */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.08);
 }
 
 .product-info {

@@ -163,26 +163,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetContent = document.getElementById(targetId);
             if (targetContent) {
                 targetContent.classList.add('active');
+                
+                // Trigger reveal for cards in newly active tab with stagger
+                targetContent.querySelectorAll('.product-card').forEach((card, index) => {
+                    card.classList.remove('visible'); // Reset
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, 50 + (index * 100)); // Staggered reveal
+                });
             }
         });
     });
 
-    // 4. Search Popup Logic
+    // 4. Search Focus Logic
     const headerSearchBtn = document.getElementById('headerSearchBtn');
-    const searchWrapper = document.querySelector('.search-wrapper');
     const searchInput = document.querySelector('.search-input');
     const asideSearchBtn = document.querySelector('.search-btn-aside');
 
-    function toggleSearch(e) {
-        if (e) e.preventDefault();
-        searchWrapper.classList.toggle('active');
-        if (searchWrapper.classList.contains('active')) {
-            searchInput.focus();
-        }
-    }
-
     if (headerSearchBtn) {
-        headerSearchBtn.addEventListener('click', toggleSearch);
+        headerSearchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchInput.focus();
+        });
     }
     
     if (asideSearchBtn) {
@@ -192,58 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 top: 0,
                 behavior: 'smooth'
             });
-            if (!searchWrapper.classList.contains('active')) {
-                setTimeout(() => toggleSearch(), 500);
-            }
+            setTimeout(() => {
+                searchInput.focus();
+            }, 500);
         });
     }
-
-    // 5. GNB Sub-submenu Toggle Logic
-    const subToggles = document.querySelectorAll('.sub-toggle');
-    subToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const parentSubmenu = this.closest('.submenu');
-            const siblings = parentSubmenu.querySelectorAll('.sub-submenu.active');
-            const siblingToggles = parentSubmenu.querySelectorAll('.sub-toggle.active');
-            
-            siblings.forEach(sibling => {
-                if(sibling !== this.nextElementSibling) {
-                    sibling.classList.remove('active');
-                }
-            });
-            siblingToggles.forEach(sibToggle => {
-                if(sibToggle !== this) {
-                    sibToggle.classList.remove('active');
-                }
-            });
-
-            const targetSubSubmenu = this.nextElementSibling;
-            if (targetSubSubmenu) {
-                targetSubSubmenu.classList.toggle('active');
-                this.classList.toggle('active');
-            }
-        });
-    });
-
-    const hasSubmenus = document.querySelectorAll('.has-submenu');
-    hasSubmenus.forEach(menu => {
-        menu.addEventListener('mouseleave', () => {
-            const activeSubSubmenus = menu.querySelectorAll('.sub-submenu.active');
-            const activeToggles = menu.querySelectorAll('.sub-toggle.active');
-            activeSubSubmenus.forEach(el => el.classList.remove('active'));
-            activeToggles.forEach(el => el.classList.remove('active'));
-        });
-    });
-
-    // Close search when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-wrapper') && !e.target.closest('.search-btn-aside') && searchWrapper.classList.contains('active')) {
-            searchWrapper.classList.remove('active');
-        }
-    });
 
     // 6. Live Chat Widget Logic
     const chatFab = document.getElementById('chatFab');
@@ -294,4 +249,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') sendChatMessage();
         });
     }
+
+    // 7. Scroll Reveal Animation Logic
+    const revealElements = document.querySelectorAll('.section-title, .product-tabs, .product-card');
+    
+    // Add base class immediately so they are hidden before scroll
+    revealElements.forEach(el => el.classList.add('reveal-up'));
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add stagger effect based on element index in the viewport
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, 50);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    setTimeout(() => {
+        revealElements.forEach((el) => {
+            revealObserver.observe(el);
+        });
+    }, 100);
 });

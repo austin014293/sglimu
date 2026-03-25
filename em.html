@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EM시스템 - 에스지라이뮤</title>
+    <meta name="description" content="EM시스템, 도서관용품, 도서관물품">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .category-page { padding: 120px 5% 100px; max-width: 1400px; margin: 0 auto; min-height: 800px; }
+        .category-header { text-align: center; margin-bottom: 60px; }
+        .category-title { font-size: 2.5rem; color: var(--color-text); font-weight: 700; margin-bottom: 20px; }
+        .subcategory-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+        .subcategory-item { padding: 12px 30px; font-size: 1.1rem; font-weight: 600; color: var(--color-text-light); background: #fff; border: 1px solid var(--color-border); border-radius: 30px; cursor: pointer; transition: var(--transition-smooth); }
+        .subcategory-item:hover, .subcategory-item.active { color: #fff; background: var(--color-primary); border-color: var(--color-primary); }
+        .product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .sub-content { display: none; animation: fadeIn 0.5s ease; }
+        .sub-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <h1 class="logo"><a href="index.html">SG LIMU</a></h1>
+            <nav class="gnb">
+                <ul>
+                    <li class="has-submenu"><a href="#">도서관리 시스템</a><ul class="submenu"><li><a href="rfid.html">RFID시스템</a></li><li><a href="em.html">EM시스템</a></li><li><a href="access.html">출입통제시스템</a></li></ul></li>
+                    <li class="has-submenu"><a href="#">도서관 용품</a><ul class="submenu"><li><a href="supplies-arrange.html">도서정리 용품</a></li><li><a href="supplies-protect.html">도서보호, 보수용품</a></li><li><a href="supplies-lend.html">대출용품</a></li><li><a href="sterilizer.html">책소독기</a></li><li><a href="discount.html">할인상품</a></li></ul></li>
+                    <li class="has-submenu"><a href="#">도서관 가구</a><ul class="submenu"><li><a href="furniture-koas.html">코아스</a></li><li><a href="furniture-fomus.html">포머스</a></li><li><a href="furniture-fursys.html">퍼시스</a></li><li><a href="furniture-custom.html">제작가구</a></li></ul></li>
+                    <li class="has-submenu"><a href="#">사인물</a><ul class="submenu"><li><a href="sign-class.html">한국십진분류/대분류표지판</a></li><li><a href="sign-board.html">게시판/이용안내</a></li><li><a href="sign-date.html">대출반납일력표</a></li><li><a href="sign-custom.html">제작사인물</a></li></ul></li>
+                </ul>
+            </nav>
+            <div class="header-utils">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                    <a href="#" class="search-btn" id="headerSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></a>
+                </div>
+                <a href="#"><i class="fa-regular fa-user"></i></a>
+                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="category-page">
+        <div class="category-header">
+            <h2 class="category-title">EM시스템</h2>
+            <p>가장 확실한 도서 분실 방지 시스템입니다.</p>
+        </div>
+
+        <ul class="subcategory-nav" id="subCategoryNav">
+            <li class="subcategory-item active" data-target="cat-0">분실 방지기</li>
+            <li class="subcategory-item" data-target="cat-1">감응제거재생기</li>
+            <li class="subcategory-item" data-target="cat-2">감응 테이프</li>
+        </ul>
+
+        <div id="cat-0" class="sub-content active">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/em_equipment.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info"><h4>분실 방지기 상품</h4></div>
+                </div>
+            </div>
+        </div>
+        <div id="cat-1" class="sub-content">
+            <div class="product-list">
+                <div class="product-card">
+                    <div class="product-img" style="background-image: url('assets/em_equipment.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info"><h4>감응제거재생기 상품</h4></div>
+                </div>
+            </div>
+        </div>
+        <div id="cat-2" class="sub-content">
+            <div class="product-list">
+                <div class="product-card">
+                    <div class="product-img" style="background-image: url('assets/em_tape.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info"><h4>감응 테이프 상품</h4></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <p><strong>(주)에스지라이뮤</strong> &nbsp;|&nbsp; Tel : 1544-5703 &nbsp;|&nbsp; 팩스 : 051-518-5985</p>
+                <p class="copyright">Copyright(c)2023 www.sgperzoom.com. All right Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <aside class="right-fixed-banner">
+        <ul class="banner-menu">
+            <li><a href="#" class="banner-btn scroll-top" id="scrollTopBtn"><i class="fa-solid fa-chevron-up"></i></a></li>
+        </ul>
+    </aside>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const subNavItems = document.querySelectorAll('.subcategory-item');
+            const subContents = document.querySelectorAll('.sub-content');
+            subNavItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    subNavItems.forEach(n => n.classList.remove('active'));
+                    subContents.forEach(c => c.classList.remove('active'));
+                    item.classList.add('active');
+                    const targetContent = document.getElementById(item.getAttribute('data-target'));
+                    if(targetContent) {
+                        targetContent.classList.add('active');
+                        const cards = targetContent.querySelectorAll('.product-card');
+                        cards.forEach((card, i) => {
+                            card.classList.remove('visible');
+                            setTimeout(() => card.classList.add('visible'), 50 + (i * 100));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
