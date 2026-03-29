@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SG LIMU - 관리자 페이지</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- 로그인 오버레이 -->
+    <div id="loginOverlay" style="display: none;">
+        <div class="login-box">
+            <h2><i class="fa-solid fa-lock"></i> 관리자 접속</h2>
+            <div class="login-form-group">
+                <label for="adminEmail">이메일 계정</label>
+                <input type="email" id="adminEmail" placeholder="admin@example.com">
+            </div>
+            <div class="login-form-group">
+                <label for="adminPassword">비밀번호</label>
+                <input type="password" id="adminPassword" placeholder="비밀번호 입력">
+            </div>
+            <button id="loginBtn" class="login-btn">로그인</button>
+            <div id="loginMessage"></div>
+        </div>
+    </div>
+
+    <!-- 좌측 사이드바 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>SG LIMU Admin</h2>
+            <p style="font-size:0.8rem; color:#ccc; margin-top:5px;">통합 관리 시스템</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"><i class="fa-solid fa-box-open"></i> 제품 전/후 관리</li>
+            <li><i class="fa-solid fa-chart-line"></i> 주문 통계 (준비중)</li>
+            <li><i class="fa-solid fa-users"></i> 회원 관리 (준비중)</li>
+            <li><i class="fa-solid fa-gear"></i> 환경 설정 (준비중)</li>
+        </ul>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</button>
+        </div>
+    </aside>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">제품 관리</h1>
+            <button id="addProductBtn" class="btn-primary"><i class="fa-solid fa-plus"></i> 새 제품 등록</button>
+        </div>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>이미지</th>
+                        <th>제품명</th>
+                        <th>카테고리</th>
+                        <th>가격</th>
+                        <th>재고</th>
+                        <th>등록일</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <tr><td colspan="7" class="empty-state">로딩 중이거나 등록된 제품이 없습니다.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- 제품 등록/수정 팝업(모달) -->
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modalTitle">제품 등록</h3>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="productId">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>제품 이미지 업로드 (권장.jpg/.png) - Supabase Storage 연동</label>
+                        <input type="file" id="productImageFile" class="form-control" accept="image/*">
+                        <input type="hidden" id="productImageUrl">
+                        <div class="image-preview" id="imagePreview">
+                            <i class="fa-regular fa-image" style="font-size: 2rem; color: #ccc;"></i>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>제품명 *</label>
+                        <input type="text" id="productName" class="form-control" placeholder="예: 코아스 CAM 메쉬 의자">
+                    </div>
+                    <div class="form-group">
+                        <label>카테고리 구분 *</label>
+                        <select id="productCategory" class="form-control">
+                            <!-- Index Home -->
+                            <option value="best_product">메인화면 베스트 상품</option>
+                            <!-- Library System -->
+                            <option value="rfid_tag">RFID 태그</option>
+                            <option value="rfid_anti">분실 방지기 / 리더기</option>
+                            <option value="em_system">EM 시스템 장비</option>
+                            <!-- Supplies -->
+                            <option value="supplies_arrange">도서정리용품</option>
+                            <option value="supplies_protect">도서보호용품</option>
+                            <option value="supplies_lend">대출용품</option>
+                            <option value="sterilizer">책소독기</option>
+                            <option value="discount">할인상품</option>
+                            <!-- Furniture -->
+                            <option value="furniture_koas_bookshelf">코아스 - 서가</option>
+                            <option value="furniture_koas_table">코아스 - 테이블</option>
+                            <option value="furniture_koas_chair">코아스 - 의자</option>
+                            <option value="furniture_fomus">포머스 가구</option>
+                            <option value="furniture_fursys">퍼시스 가구</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>가격 표시</label>
+                        <input type="text" id="productPrice" class="form-control" placeholder="예: 150,000원 또는 전화문의" value="전화문의">
+                    </div>
+                    <div class="form-group">
+                        <label>재고 수량</label>
+                        <input type="number" id="productStock" class="form-control" placeholder="숫자만 입력 (0은 품절)" value="999">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>제품 상세 요약 표기 (Sub-text)</label>
+                        <textarea id="productDesc" class="form-control" rows="3" placeholder="목록에 함께 표시될 간단한 상품 설명을 입력하세요."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancelModalBtn">취소</button>
+                <button type="button" class="btn-primary" id="saveProductBtn">저장하기</button>
+                <div id="saveMsg" style="color:var(--danger); margin-top:10px; text-align:right; font-size:0.9rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase 연동 로직 -->
+    <script type="module" src="admin.js"></script>
+
+</body>
+</html>

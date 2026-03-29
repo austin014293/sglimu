@@ -1,0 +1,405 @@
+/* admin.css */
+:root {
+    --admin-primary: #8ec342;
+    --admin-primary-dark: #7ab033;
+    --admin-bg: #f4f6f9;
+    --admin-sidebar: #2c3e50;
+    --admin-sidebar-hover: #34495e;
+    --admin-text: #333;
+    --admin-text-light: #666;
+    --admin-border: #e0e6ed;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: var(--admin-bg);
+    color: var(--admin-text);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* -------------------------------------
+   LOGIN OVERLAY (Full Screen)
+-------------------------------------- */
+#loginOverlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.login-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.login-box h2 {
+    margin-bottom: 25px;
+    color: var(--admin-sidebar);
+}
+
+.login-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--admin-text-light);
+}
+
+.login-form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.login-form-group input:focus {
+    border-color: var(--admin-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(142, 195, 66, 0.2);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--admin-primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: var(--admin-primary-dark);
+}
+
+#loginMessage {
+    color: var(--danger);
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* -------------------------------------
+   SIDEBAR & LAYOUT
+-------------------------------------- */
+.sidebar {
+    width: 250px;
+    background: var(--admin-sidebar);
+    color: #fff;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.2);
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    flex-grow: 1;
+    padding-top: 20px;
+}
+
+.sidebar-menu li {
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1.1rem;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-menu li:hover {
+    background: var(--admin-sidebar-hover);
+}
+
+.sidebar-menu li.active {
+    background: var(--admin-sidebar-hover);
+    border-left-color: var(--admin-primary);
+    font-weight: 600;
+}
+
+.sidebar-menu li i {
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+    color: var(--admin-primary);
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.logout-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--admin-border);
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: var(--admin-sidebar);
+}
+
+.btn-primary {
+    background: var(--admin-primary);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--admin-primary-dark);
+}
+
+/* -------------------------------------
+   PRODUCT TABLE
+-------------------------------------- */
+.table-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+th {
+    background: #f8f9fa;
+    color: var(--admin-text-light);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+td {
+    color: var(--admin-text);
+    vertical-align: middle;
+}
+
+.td-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px;
+    color: var(--admin-text-light);
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-right: 15px;
+    color: var(--admin-text-light);
+    transition: color 0.2s;
+}
+
+.action-btn.edit:hover { color: #3498db; }
+.action-btn.delete:hover { color: var(--danger); }
+
+/* -------------------------------------
+   PRODUCT MODAL
+-------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: #fff;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.modal-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--admin-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--admin-text-light);
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--admin-border);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--admin-primary);
+}
+
+.image-preview {
+    margin-top: 10px;
+    max-width: 100%;
+    height: 150px;
+    border: 1px dashed var(--admin-border);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--admin-border);
+    text-align: right;
+    background: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+.btn-secondary {
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #f1f1f1;
+}

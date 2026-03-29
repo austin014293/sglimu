@@ -1,22 +1,65 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도서정리 용품 - 에스지라이뮤</title>
+    <meta name="description" content="RFID시스템, 도서관용품, 도서관물품">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .category-page { padding: 120px 5% 100px; max-width: 1400px; margin: 0 auto; min-height: 800px; }
-        .category-header { text-align: center; margin-bottom: 60px; }
-        .category-title { font-size: 2.5rem; color: var(--color-text); font-weight: 700; margin-bottom: 20px; }
-        .subcategory-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
-        .subcategory-item { padding: 12px 30px; font-size: 1.1rem; font-weight: 600; color: var(--color-text-light); background: #fff; border: 1px solid var(--color-border); border-radius: 30px; cursor: pointer; transition: var(--transition-smooth); }
-        .subcategory-item:hover, .subcategory-item.active { color: #fff; background: var(--color-primary); border-color: var(--color-primary); }
-        .product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .sub-content { display: none; animation: fadeIn 0.5s ease; }
-        .sub-content.active { display: block; }
+        .category-page {
+            padding: 120px 5% 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 800px;
+        }
+        .category-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .category-title {
+            font-size: 2.5rem;
+            color: var(--color-text);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .subcategory-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .subcategory-item {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text-light);
+            background: #fff;
+            border: 1px solid var(--color-border);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .subcategory-item:hover, .subcategory-item.active {
+            color: #fff;
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .sub-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .sub-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -25,10 +68,42 @@
             <h1 class="logo"><a href="index.html">SG LIMU</a></h1>
             <nav class="gnb">
                 <ul>
-                    <li class="has-submenu"><a href="#">도서관리 시스템</a><ul class="submenu"><li><a href="rfid.html">RFID시스템</a></li><li><a href="em.html">EM시스템</a></li><li><a href="access.html">출입통제시스템</a></li></ul></li>
-                    <li class="has-submenu"><a href="#">도서관 용품</a><ul class="submenu"><li><a href="supplies-arrange.html">도서정리 용품</a></li><li><a href="supplies-protect.html">도서보호, 보수용품</a></li><li><a href="supplies-lend.html">대출용품</a></li><li><a href="sterilizer.html">책소독기</a></li><li><a href="discount.html">할인상품</a></li></ul></li>
-                    <li class="has-submenu"><a href="#">도서관 가구</a><ul class="submenu"><li><a href="furniture-koas.html">코아스</a></li><li><a href="furniture-fomus.html">포머스</a></li><li><a href="furniture-fursys.html">퍼시스</a></li><li><a href="furniture-custom.html">제작가구</a></li></ul></li>
-                    <li class="has-submenu"><a href="#">사인물</a><ul class="submenu"><li><a href="sign-class.html">한국십진분류/대분류표지판</a></li><li><a href="sign-board.html">게시판/이용안내</a></li><li><a href="sign-date.html">대출반납일력표</a></li><li><a href="sign-custom.html">제작사인물</a></li></ul></li>
+                    <li class="has-submenu">
+                        <a href="#">도서관리 시스템</a>
+                        <ul class="submenu">
+                            <li><a href="rfid.html">RFID시스템</a></li>
+                            <li><a href="em.html">EM시스템</a></li>
+                            <li><a href="access.html">출입통제시스템</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">도서관 용품</a>
+                        <ul class="submenu">
+                            <li><a href="supplies-arrange.html">도서정리 용품</a></li>
+                            <li><a href="supplies-protect.html">도서보호, 보수용품</a></li>
+                            <li><a href="supplies-lend.html">대출용품</a></li>
+                            <li><a href="sterilizer.html">책소독기</a></li>
+                            <li><a href="discount.html">할인상품</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">도서관 가구</a>
+                        <ul class="submenu">
+                            <li><a href="furniture-koas.html">코아스</a></li>
+                            <li><a href="furniture-fomus.html">포머스</a></li>
+                            <li><a href="furniture-fursys.html">퍼시스</a></li>
+                            <li><a href="furniture-custom.html">제작가구</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">사인물</a>
+                        <ul class="submenu">
+                            <li><a href="sign-class.html">한국십진분류/대분류표지판</a></li>
+                            <li><a href="sign-board.html">게시판/이용안내</a></li>
+                            <li><a href="sign-date.html">대출반납일력표</a></li>
+                            <li><a href="sign-custom.html">제작사인물</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <div class="header-utils">
@@ -58,52 +133,172 @@
             <li class="subcategory-item" data-target="cat-6">기타</li>
         </ul>
 
-        <div id="cat-0" class="sub-content active"><div class="product-list"><div class="product-card visible"><div class="product-info"><h4>키퍼 상품</h4></div></div></div></div>
-        <div id="cat-1" class="sub-content"><div class="product-list"><div class="product-card"><div class="product-info"><h4>색띠라벨 상품</h4></div></div></div></div>
-        <div id="cat-2" class="sub-content"><div class="product-list"><div class="product-card"><div class="product-info"><h4>라벨용지 상품</h4></div></div></div></div>
-        <div id="cat-3" class="sub-content"><div class="product-list"><div class="product-card"><div class="product-info"><h4>장갑 상품</h4></div></div></div></div>
-        <div id="cat-4" class="sub-content"><div class="product-list"><div class="product-card"><div class="product-info"><h4>도장 상품</h4></div></div></div></div>
-        <div id="cat-5" class="sub-content"><div class="product-list"><div class="product-card"><div class="product-info"><h4>북앤드 상품</h4></div></div></div></div>
-        <div id="cat-6" class="sub-content"><div class="product-list"><div class="product-card"><div class="product-info"><h4>기타 상품</h4></div></div></div></div>
+        <div id="cat-0" class="sub-content active">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>키퍼 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-1" class="sub-content">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>색띠라벨 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-2" class="sub-content">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>라벨용지 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-3" class="sub-content">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>장갑 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-4" class="sub-content">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>도장 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-5" class="sub-content">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>북앤드 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-6" class="sub-content">
+            <div class="product-list">
+                <div class="product-card visible">
+                    <div class="product-img" style="background-image: url('assets/public_library.png'); background-size: cover; background-position: center;"></div>
+                    <div class="product-info">
+                        <h4>기타 샘플상품</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-info">
-                <p><strong>(주)에스지라이뮤</strong> &nbsp;|&nbsp; Tel : 1544-5703 &nbsp;|&nbsp; 팩스 : 051-518-5985 &nbsp;|&nbsp; E-Mail : limu101@nate.com</p>
-                <p class="copyright">Copyright(c)2023 www.sgperzoom.com. All right Reserved.</p>
+                <p>
+                    <strong>(주)에스지라이뮤</strong> &nbsp;|&nbsp; 
+                    Tel : 1544-5703 &nbsp;|&nbsp; 
+                    팩스 : 051-518-5985 &nbsp;|&nbsp; 
+                    점심시간 (12:00~13:00) &nbsp;|&nbsp; 
+                    E-Mail : limu101@nate.com
+                </p>
+                <p>
+                    Address : 부산광역시 금정구 놀이마당로 29-1 (청룡동)
+                </p>
+                <p>
+                    대표자명 : 강인숙 &nbsp;|&nbsp; 
+                    개인정보취급담당자 : 강인숙 &nbsp;|&nbsp; 
+                    사업자번호 : 621-81-42086 &nbsp;|&nbsp; 
+                    통신판매업신고번호 : 제 2018-부산금정-0045호
+                </p>
+                <p class="copyright">
+                    Copyright(c)2023 www.sgperzoom.com. All right Reserved.
+                </p>
             </div>
         </div>
     </footer>
 
     <aside class="right-fixed-banner">
         <ul class="banner-menu">
-            <li><a href="#" class="banner-btn search-btn-aside" title="검색"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+            <li><a href="#" class="banner-btn search-btn-aside" title="검색"><i class="fa-solid fa-magnifying-glass"></i><span class="tooltip">검색</span></a></li>
+            <li><a href="#" class="banner-btn" title="주문배송"><i class="fa-solid fa-truck"></i><span class="tooltip">주문배송</span></a></li>
+            <li><a href="#" class="banner-btn" title="장바구니"><i class="fa-solid fa-cart-shopping"></i><span class="tooltip">장바구니</span></a></li>
+            <li><a href="#" class="banner-btn" title="관심상품"><i class="fa-regular fa-heart"></i><span class="tooltip">관심상품</span></a></li>
+            <li><a href="#" class="banner-btn naver-talk" title="네이버톡톡"><i class="fa-solid fa-comment-dots"></i><span class="tooltip">네이버톡톡</span></a></li>
             <li class="scroll-btns">
-                <button class="banner-btn scroll-top" id="scrollTopBtn"><i class="fa-solid fa-chevron-up"></i></button>
-                <button class="banner-btn scroll-bottom" id="scrollBottomBtn"><i class="fa-solid fa-chevron-down"></i></button>
+                <button class="banner-btn scroll-top" id="scrollTopBtn" title="위로"><i class="fa-solid fa-chevron-up"></i></button>
+                <button class="banner-btn scroll-bottom" id="scrollBottomBtn" title="아래로"><i class="fa-solid fa-chevron-down"></i></button>
             </li>
         </ul>
     </aside>
-    <div class="chat-widget"><button class="chat-fab" id="chatFab"><i class="fa-solid fa-comment-dots"></i></button></div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-fab" id="chatFab">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h5>실시간 상담</h5>
+                <button id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message system-msg">
+                    안녕하세요! 에스지라이뮤입니다.<br>무엇을 도와드릴까요?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="메시지를 입력하세요...">
+                <button id="chatSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script>
+        // Subcategory Content Toggle Logic for RFID page
         document.addEventListener('DOMContentLoaded', () => {
             const subNavItems = document.querySelectorAll('.subcategory-item');
             const subContents = document.querySelectorAll('.sub-content');
+
             subNavItems.forEach(item => {
                 item.addEventListener('click', () => {
                     subNavItems.forEach(n => n.classList.remove('active'));
                     subContents.forEach(c => c.classList.remove('active'));
+
                     item.classList.add('active');
-                    const targetContent = document.getElementById(item.getAttribute('data-target'));
+                    const targetId = item.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
                     if(targetContent) {
                         targetContent.classList.add('active');
+                        // Optional: add some animation stagger to cards here if needed
                         const cards = targetContent.querySelectorAll('.product-card');
                         cards.forEach((card, i) => {
                             card.classList.remove('visible');
-                            setTimeout(() => card.classList.add('visible'), 50 + (i * 100));
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, 50 + (i * 100));
                         });
                     }
                 });

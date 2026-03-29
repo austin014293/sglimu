@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코아스 CAM 의자 - 에스지라이뮤</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+        .spec-table th, .spec-table td {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .spec-table th {
+            background-color: #f9f9f9;
+            width: 25%;
+            font-weight: 600;
+            color: #333;
+        }
+        .spec-table td {
+            color: #555;
+        }
+        .detail-features {
+            margin: 40px 0;
+        }
+        .feature-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        .feature-item h5 {
+            font-size: 1.2rem;
+            color: #222;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .feature-item h5 span {
+            display: inline-block;
+            background: #8ec342;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        .feature-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <h1 class="logo"><a href="index.html">SG LIMU</a></h1>
+            <nav class="gnb">
+                <ul>
+                    <li class="has-submenu"><a href="#">도서관리 시스템</a><ul class="submenu"><li><a href="rfid.html">RFID시스템</a></li><li><a href="em.html">EM시스템</a></li><li><a href="access.html">출입통제시스템</a></li></ul></li>
+                    <li class="has-submenu"><a href="#">도서관 용품</a><ul class="submenu"><li><a href="supplies-arrange.html">도서정리 용품</a></li><li><a href="supplies-protect.html">도서보호, 보수용품</a></li><li><a href="supplies-lend.html">대출용품</a></li><li><a href="sterilizer.html">책소독기</a></li></ul></li>
+                    <li class="has-submenu"><a href="#">도서관 가구</a><ul class="submenu"><li><a href="furniture-koas.html">코아스</a></li><li><a href="furniture-fomus.html">포머스</a></li><li><a href="furniture-fursys.html">퍼시스</a></li><li><a href="furniture-custom.html">제작가구</a></li></ul></li>
+                    <li class="has-submenu"><a href="#">사인물</a><ul class="submenu"><li><a href="sign-class.html">한국십진분류/대분류표지판</a></li><li><a href="sign-board.html">게시판/이용안내</a></li><li><a href="sign-date.html">대출반납일력표</a></li><li><a href="sign-custom.html">제작사인물</a></li></ul></li>
+                    <li><a href="discount.html">할인상품</a></li>
+                </ul>
+            </nav>
+            <div class="header-utils">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                    <a href="#" class="search-btn" id="headerSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></a>
+                </div>
+                <a href="#"><i class="fa-regular fa-user"></i></a>
+                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="product-detail-page">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> <span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></span> 
+            <a href="furniture-koas.html">도서관 가구</a> <span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></span> 
+            <strong>코아스 의자</strong>
+        </div>
+
+        <div class="product-detail-top">
+            <!-- Left: Gallery -->
+            <div class="gallery-wrapper">
+                <div class="main-image-container" style="position: relative; cursor: pointer;" onclick="nextSlide(event)">
+                    <img src="cam-1.jpg" alt="코아스 CAM 의자 1" id="mainImage" style="transition: opacity 0.3s ease; width: 100%;">
+                    <button onclick="prevSlide(event)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); color: #333; border: 1px solid #ddd; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="nextSlide(event)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); color: #333; border: 1px solid #ddd; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="thumbnail-list">
+                    <div class="thumb-item active" onclick="changeImage('cam-1.jpg', 0)">
+                        <img src="cam-1.jpg" alt="제품 1">
+                    </div>
+                    <div class="thumb-item" onclick="changeImage('cam-2.jpg', 1)">
+                        <img src="cam-2.jpg" alt="제품 2">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="info-wrapper">
+                <div class="product-badges">
+                    <span class="badge badge-best">BEST</span>
+                    <span class="badge badge-new" style="background:#8ec342;">KOAS</span>
+                </div>
+                <h2 class="product-title">코아스 CAM 다목적 메쉬 의자</h2>
+                <p class="product-desc">부드러운 폴딩과 뛰어난 착석감을 제공하는 코아스 베스트셀러 모델입니다. 메쉬 등받이와 백틸팅 기능으로 편안함을 유지합니다.</p>
+                
+                <div class="product-price">
+                    전화문의
+                </div>
+
+                <div class="purchase-options">
+                    <div class="option-group">
+                        <label for="colorOption">제품 선택</label>
+                        <select id="colorOption" class="option-select" onchange="syncSlideWithOption(this)">
+                            <option value="">제품을 선택하세요</option>
+                            <option value="0">CAM(팔걸이)</option>
+                            <option value="1">CAM(팔걸이, 메쉬좌판)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group" style="margin-top: 20px;">
+                        <label>수량</label>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                            <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
+                            <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buy-btn-group" style="margin-top:30px;">
+                    <button class="btn-icon-large" title="관심상품"><i class="fa-regular fa-heart"></i></button>
+                    <button class="btn-large btn-cart">장바구니</button>
+                    <button class="btn-large btn-buy">견적문의</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-detail-bottom">
+            <div class="detail-tabs-nav">
+                <div class="detail-tab-btn active" onclick="switchTab(0, this)">상세정보</div>
+                <div class="detail-tab-btn" onclick="switchTab(1, this)">구매안내</div>
+                <div class="detail-tab-btn" onclick="switchTab(2, this)">상품후기 (0)</div>
+                <div class="detail-tab-btn" onclick="switchTab(3, this)">Q&A (0)</div>
+            </div>
+
+            <div class="detail-tab-content active" id="tab0">
+                
+                <div class="spec-image-container" style="text-align: center; margin-bottom: 50px;">
+                    <img src="cam-detail.jpg" alt="CAM 상세설명 오리지널 이미지" style="max-width: 100%; height: auto; display: inline-block;">
+                </div>
+
+                <div class="info-text-box">
+                    <h4 style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 30px;">DETAIL VIEW</h4>
+                    <div class="detail-features">
+                        <div class="feature-item">
+                            <h5><span>01</span> 메쉬 소재</h5>
+                            <p>메쉬 형 개방이 사용자 체형에 맞춰 허리의 곡선을 감싸주어 시원하고 편안한 느낌을 줍니다.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h5><span>02</span> 백틸팅 (Back Tilting)</h5>
+                            <p>텐션 마디절식 백틸팅(Back Tilting) 기능으로 등판이 젖혀지며 편안하게 몸을 받쳐줍니다.</p>
+                        </div>
+                        <div class="feature-item" style="border-bottom: none;">
+                            <h5><span>03</span> 폴딩 기능</h5>
+                            <p>좌판이 폴딩되어 수평 적층이 가능해 좁은 공간을 효율적으로 활용할 수 있습니다.</p>
+                        </div>
+                    </div>
+
+                    <h4 style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; margin-top: 60px;">DIMENSION (제품 사양)</h4>
+                    <table class="spec-table">
+                        <tbody>
+                            <tr>
+                                <th>크기</th>
+                                <td>595 x 525 x 820 mm</td>
+                            </tr>
+                            <tr>
+                                <th>색상</th>
+                                <td>상세페이지 참조 (Mesh, Fabric 라인업)</td>
+                            </tr>
+                            <tr>
+                                <th>소재</th>
+                                <td>스틸, 알루미늄, 플라스틱, 메쉬</td>
+                            </tr>
+                            <tr>
+                                <th>구성품</th>
+                                <td>의자 1EA</td>
+                            </tr>
+                            <tr>
+                                <th>제조국</th>
+                                <td>대한민국</td>
+                            </tr>
+                            <tr>
+                                <th>제조사</th>
+                                <td>(주)코아스</td>
+                            </tr>
+                            <tr>
+                                <th>품질보증기준</th>
+                                <td>무상 A/S 기간 1년, 이후 유상 A/S (1년 이내여도 고객과실은 유상 A/S)</td>
+                            </tr>
+                            <tr>
+                                <th>배송/설치</th>
+                                <td>전국 배송 / 일부 산간벽지 및 도서산간지역은 배송불가</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="detail-tab-content" id="tab1">
+                <div class="info-text-box">
+                    <h4>배송/교환/반품 안내</h4>
+                    <p>
+                        <strong>배송안내</strong><br>
+                        - 결제 완료 후 3~5일 내에 출고됩니다. (주말/공휴일 제외)<br>
+                        - 코아스 공장 직배송 상품으로 지역에 따라 일정이 상이할 수 있습니다.<br><br>
+                        
+                        <strong>교환/반품 안내</strong><br>
+                        - 상품 수령 후 7일 이내에 고객센터를 통해 접수해 주셔야 합니다.<br>
+                        - 단순 변심으로 인한 반품 시 왕복 택배비는 고객님 부담입니다.<br>
+                        - 포장 훼손 및 조립 후에는 상품 가치 상실로 인해 교환/반품이 불가합니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="detail-tab-content" id="tab2">
+                <div class="info-text-box" style="text-align:center; padding: 100px 0;">
+                    <i class="fa-regular fa-comment-dots" style="font-size: 3rem; color: #ddd; margin-bottom: 20px;"></i>
+                    <h3 style="color: #666;">등록된 상품후기가 없습니다.</h3>
+                    <p style="color: #999;">첫 번째 리뷰를 남겨주세요!</p>
+                </div>
+            </div>
+
+            <div class="detail-tab-content" id="tab3">
+                <div class="info-text-box" style="text-align:center; padding: 100px 0;">
+                    <i class="fa-regular fa-circle-question" style="font-size: 3rem; color: #ddd; margin-bottom: 20px;"></i>
+                    <h3 style="color: #666;">등록된 Q&A가 없습니다.</h3>
+                    <p style="color: #999;">상품에 대한 궁금증을 남겨주시면 빠르게 답변해 드립니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <p>
+                    <strong>(주)에스지라이뮤</strong> &nbsp;|&nbsp; 
+                    Tel : 1544-5703 &nbsp;|&nbsp; 
+                    팩스 : 051-518-5985 &nbsp;|&nbsp; 
+                    점심시간 (12:00~13:00) &nbsp;|&nbsp; 
+                    E-Mail : limu101@nate.com
+                </p>
+                <p>
+                    Address : 부산광역시 금정구 체육공원로 29-1 (청룡동)
+                </p>
+                <p>
+                    대표자명: 강인묵 &nbsp;|&nbsp; 
+                    개인정보취급담당자: 강인묵 &nbsp;|&nbsp; 
+                    사업자번호: 621-81-42086 &nbsp;|&nbsp; 
+                    통신판매업신고번호 : 제2018-부산금정-0045호
+                </p>
+                <p class="copyright">
+                    Copyright(c)2023 www.sgperzoom.com. All right Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <aside class="right-fixed-banner">
+        <ul class="banner-menu">
+            <li><a href="#" class="banner-btn search-btn-aside" title="검색"><i class="fa-solid fa-magnifying-glass"></i><span class="tooltip">검색</span></a></li>
+            <li><a href="#" class="banner-btn" title="주문배송"><i class="fa-solid fa-truck"></i><span class="tooltip">주문배송</span></a></li>
+            <li><a href="#" class="banner-btn" title="장바구니"><i class="fa-solid fa-cart-shopping"></i><span class="tooltip">장바구니</span></a></li>
+            <li><a href="#" class="banner-btn" title="관심상품"><i class="fa-regular fa-heart"></i><span class="tooltip">관심상품</span></a></li>
+            <li><a href="#" class="banner-btn naver-talk" title="네이버톡톡"><i class="fa-solid fa-comment-dots"></i><span class="tooltip">네이버톡톡</span></a></li>
+            <li class="scroll-btns">
+                <button class="banner-btn scroll-top" id="scrollTopBtn" title="위로"><i class="fa-solid fa-chevron-up"></i></button>
+                <button class="banner-btn scroll-bottom" id="scrollBottomBtn" title="아래로"><i class="fa-solid fa-chevron-down"></i></button>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-fab" id="chatFab">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h5>실시간 상담</h5>
+                <button id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message system-msg">
+                    안녕하세요! 에스지라이뮤입니다.<br>무엇을 도와드릴까요?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="메시지를 입력하세요...">
+                <button id="chatSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const images = ['cam-1.jpg', 'cam-2.jpg'];
+        let currentIndex = 0;
+
+        function changeImage(src, index) {
+            currentIndex = index;
+            document.getElementById('mainImage').src = src;
+            const thumbs = document.querySelectorAll('.thumb-item');
+            thumbs.forEach(el => el.classList.remove('active'));
+            if(thumbs[index]) thumbs[index].classList.add('active');
+            
+            const select = document.getElementById('colorOption');
+            if (select) {
+                const optionExists = Array.from(select.options).some(opt => opt.value === index.toString());
+                if (optionExists && select.value !== index.toString()) {
+                    select.value = index.toString();
+                } else if (!optionExists) {
+                    select.value = ""; // Option does not correspond to a specific product
+                }
+            }
+        }
+
+        function prevSlide(event) {
+            if(event) event.stopPropagation();
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            changeImage(images[currentIndex], currentIndex);
+        }
+
+        function nextSlide(event) {
+            if(event) event.stopPropagation();
+            currentIndex = (currentIndex + 1) % images.length;
+            changeImage(images[currentIndex], currentIndex);
+        }
+        
+        function syncSlideWithOption(selectElem) {
+            if(selectElem.value !== "") {
+                const idx = parseInt(selectElem.value);
+                changeImage(images[idx], idx);
+            }
+        }
+
+        function updateQty(change) {
+            const input = document.getElementById('qtyInput');
+            let current = parseInt(input.value);
+            let newVal = current + change;
+            if (newVal < 1) newVal = 1;
+            input.value = newVal;
+        }
+
+        function switchTab(index, element) {
+            document.querySelectorAll('.detail-tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.detail-tab-content').forEach(el => el.classList.remove('active'));
+            
+            element.classList.add('active');
+            document.getElementById('tab' + index).classList.add('active');
+        }
+    </script>
+</body>
+</html>
