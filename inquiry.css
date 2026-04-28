@@ -1,0 +1,117 @@
+/* inquiry.css - 실시간 견적 문의 팝업 모달 */
+.inquiry-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001; /* 장바구니보다 위 */
+}
+
+.inquiry-overlay.active {
+    display: flex;
+}
+
+.inquiry-box {
+    background: #fff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.inquiry-header {
+    background: var(--primary, #2c3e50); /* SG LIMU 메인컬러 연동 */
+    color: #fff;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inquiry-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.inquiry-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.inquiry-body {
+    padding: 25px;
+}
+
+.inquiry-form-group {
+    margin-bottom: 20px;
+}
+
+.inquiry-form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.inquiry-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background: #fdfdfd;
+}
+
+.inquiry-control:focus {
+    border-color: #8ec342;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(142, 195, 66, 0.15);
+    background: #fff;
+}
+
+.inquiry-footer {
+    padding: 20px 25px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+.btn-inquiry-submit {
+    background: #8ec342;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.btn-inquiry-submit:hover {
+    background: #7ab033;
+}
+
+.inquiry-desc {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 15px;
+}

@@ -366,7 +366,7 @@ td {
 .image-preview {
     margin-top: 10px;
     max-width: 100%;
-    height: 150px;
+    height: 200px;
     border: 1px dashed var(--admin-border);
     border-radius: 5px;
     display: flex;
@@ -377,9 +377,16 @@ td {
 }
 
 .image-preview img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    max-width: 86%;
+    max-height: 90%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.image-preview:hover img {
+    transform: scale(1.05);
 }
 
 .modal-footer {
@@ -402,4 +409,190 @@ td {
 
 .btn-secondary:hover {
     background: #f1f1f1;
+}
+
+/* -------------------------------------
+   TAB SYSTEM & DASHBOARD (NEW)
+-------------------------------------- */
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-success {
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-success:hover {
+    background: #219653;
+}
+
+/* -------------------------------------
+   CATEGORY SELECTION UI (NEW)
+-------------------------------------- */
+.major-btn {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #555;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.major-btn i {
+    font-size: 1.5rem;
+    color: #95a5a6;
+    transition: color 0.2s;
+}
+
+.major-btn:hover {
+    border-color: #3498db;
+    background: #f0f7ff;
+    transform: translateY(-2px);
+}
+
+.major-btn.active {
+    background: #3498db;
+    color: #fff;
+    border-color: #2980b9;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.major-btn.active i {
+    color: #fff;
+}
+
+.minor-btn {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #dae0e5;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.minor-btn:hover {
+    background: #f1f3f5;
+    border-color: #ced4da;
+    transform: translateY(-1px);
+}
+
+.minor-btn.active {
+    background: #2ecc71;
+    color: #fff;
+    border-color: #27ae60;
+    box-shadow: 0 3px 8px rgba(46, 204, 113, 0.3);
+}
+
+
+/* -------------------------------------
+   DASHBOARD CARDS
+-------------------------------------- */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #eee;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--admin-primary);
+    color: #fff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-right: 20px;
+}
+
+.stat-info h3 {
+    font-size: 0.95rem;
+    color: var(--admin-text-light);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.stat-info p {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--admin-sidebar);
+}
+
+/* -------------------------------------
+   CHARTS GRID
+-------------------------------------- */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: relative;
+    height: 400px;
+    border: 1px solid #eee;
+}
+
+@media (max-width: 1100px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
 }

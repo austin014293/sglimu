@@ -1,30 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Slider Logic
-    const slidesData = [
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const SUPABASE_URL = 'https://xxvfgnoffomrhtxitqkj.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Q4t2p9WcUBdtUxd7HYV56A_MvxnZRk9';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 기본 슬라이드 데이터 (Supabase 연결 실패나 데이터 없을 때 폴백용)
+    const fallbackSlides = [
         {
             title: "프리미엄 북엔드 시리즈",
             desc: "흔들림 없는 독서의 완성",
-            imgId: "hero_slide_1"
+            imgUrl: "assets/hero_slide_1.png",
+            link: "#"
         },
         {
             title: "모던 도서관 공간",
             desc: "공간을 가치있게 만드는 디자인",
-            imgId: "hero_slide_2"
+            imgUrl: "assets/hero_slide_2.png",
+            link: "#"
         },
         {
-            title: "스마트 관리 시스템",
-            desc: "빠르고 정확한 도서 관리 시스템",
-            imgId: "hero_slide_3"
-        },
-        {
-            title: "독서 보조 용품",
-            desc: "더 편안한 독서 경험을 위해",
-            imgId: "hero_slide_4"
-        },
-        {
-            title: "데스크 문구 기획전",
-            desc: "에스지라이뮤의 새로운 아이템",
-            imgId: "hero_slide_5"
+            title: "🎉 쇼핑몰 재오픈 기념! 🎉",
+            desc: "지금만 누릴 수 있는 특별 할인",
+            imgUrl: "assets/hero_slide_update_3.png",
+            link: "#"
         }
     ];
 
@@ -35,7 +34,27 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentSlide = 0;
     let slideInterval;
-    const intervalTime = 3000; // 3 seconds
+    const intervalTime = 5000; // 5 seconds
+
+    // Supabase에서 배너/팝업 데이터 가져오기
+    let slidesData = [];
+    let popupsData = [];
+    try {
+        const { data, error } = await supabase.from('banners').select('*').eq('is_active', true).order('display_order', { ascending: true }).order('created_at', { ascending: false });
+        if (!error && data && data.length > 0) {
+            slidesData = data.filter(b => b.type === 'slide').map(b => ({
+                imgUrl: b.image_url,
+                link: b.link_url || '#'
+            }));
+            popupsData = data.filter(b => b.type === 'popup');
+        }
+    } catch (err) {
+        console.error("Banner fetch error", err);
+    }
+
+    if (slidesData.length === 0) {
+        slidesData = fallbackSlides;
+    }
 
     function initSlider() {
         sliderContainer.innerHTML = '';
@@ -46,16 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const slideEl = document.createElement('div');
             slideEl.className = `slide ${index === 0 ? 'active' : ''}`;
             
-            // Assume images will be in assets folder, or load a fallback
-            const imgPath = `assets/${slide.imgId}.png`;
-            
-            slideEl.innerHTML = `
-                <img src="${imgPath}" alt="${slide.title}" class="slide-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'1920\\' height=\\'1080\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%2334495e\\'/></svg>'">
+            // 링크가 '#'이 아니면 전체 슬라이드를 감싸는 a태그 적용, 아니면 단순 div 처리
+            const hasLink = slide.link && slide.link !== '#';
+            const imgEl = `<img src="${slide.imgUrl}" alt="Main Slide Banner" class="slide-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'1920\\' height=\\'1080\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%2334495e\\'/></svg>'">`;
+            const contentEl = slide.title ? `
                 <div class="slide-content">
                     <h2>${slide.title}</h2>
                     <p>${slide.desc}</p>
                 </div>
-            `;
+            ` : ''; // DB에서 오는 배너는 title, desc가 없을 수 있음 (이미지로 대체 통일)
+
+            if(hasLink) {
+                slideEl.innerHTML = `<a href="${slide.link}" style="display:block; width:100%; height:100%;">${imgEl}${contentEl}</a>`;
+            } else {
+                slideEl.innerHTML = `${imgEl}${contentEl}`;
+            }
             sliderContainer.appendChild(slideEl);
 
             // Create dot
@@ -142,8 +166,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize
+    // Initialize Sliders
     initSlider();
+
+    // 팝업 띄우기 로직 (오늘 하루 보지 않기 쿠키 확인)
+    function getCookie(name) {
+        const matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    function setCookie(name, value, days) {
+        let date = new Date();
+        date.setDate(date.getDate() + days);
+        document.cookie = name + "=" + value + "; path=/; expires=" + date.toUTCString();
+    }
+
+    popupsData.forEach((popup, index) => {
+        const cookieName = `hide_popup_${popup.id}`;
+        if (!getCookie(cookieName)) {
+            // 팝업 생성
+            const popupEl = document.createElement('div');
+            popupEl.className = 'main-popup-layer';
+            // 기본 스타일 (인라인 CSS)
+            popupEl.style.position = 'fixed';
+            popupEl.style.top = '100px';
+            // 여러 개일 경우 위치 겹침 방지위해 레프트 오프셋 조정
+            popupEl.style.left = (100 + (index * 520)) + 'px'; 
+            popupEl.style.width = '450px';
+            popupEl.style.backgroundColor = '#fff';
+            popupEl.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            popupEl.style.zIndex = '9999';
+            popupEl.style.borderRadius = '8px';
+            popupEl.style.overflow = 'hidden';
+
+            const linkStr = (popup.link_url && popup.link_url !== '#') ? `href="${popup.link_url}" target="_blank"` : '';
+            const aTagStart = linkStr ? `<a ${linkStr} style="display:block;">` : '<div>';
+            const aTagEnd = linkStr ? `</a>` : '</div>';
+
+            popupEl.innerHTML = `
+                ${aTagStart}
+                    <img src="${popup.image_url}" alt="Popup" style="width:100%; display:block; border-bottom:1px solid #eee;">
+                ${aTagEnd}
+                <div style="background:#f9f9f9; padding:10px; display:flex; justify-content:space-between; align-items:center; font-size:0.9rem;">
+                    <label style="cursor:pointer; display:flex; align-items:center; gap:5px;">
+                        <input type="checkbox" id="nottoday_${popup.id}"> 오늘 하루 보지 않기
+                    </label>
+                    <button id="close_popup_${popup.id}" style="border:none; background:transparent; cursor:pointer; font-weight:bold; color:#666;">닫기 <i class="fa-solid fa-xmark"></i></button>
+                </div>
+            `;
+            document.body.appendChild(popupEl);
+
+            // 이벤트 할당
+            document.getElementById(`close_popup_${popup.id}`).addEventListener('click', () => {
+                const isChecked = document.getElementById(`nottoday_${popup.id}`).checked;
+                if (isChecked) {
+                    setCookie(cookieName, 'true', 1);
+                }
+                popupEl.style.display = 'none';
+            });
+        }
+    });
 
     // 3. Product Tabs Logic
     const tabItems = document.querySelectorAll('.tab-item');

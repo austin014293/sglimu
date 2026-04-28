@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="inquiry.css">
+    <link rel="stylesheet" href="auth.css">
 </head>
 <body>
     <header class="header">
@@ -18,6 +21,7 @@
                     <li class="has-submenu"><a href="#">도서관 용품</a><ul class="submenu"><li><a href="supplies-arrange.html">도서정리 용품</a></li><li><a href="supplies-protect.html">도서보호, 보수용품</a></li><li><a href="supplies-lend.html">대출용품</a></li><li><a href="sterilizer.html">책소독기</a></li></ul></li>
                     <li class="has-submenu"><a href="#">도서관 가구</a><ul class="submenu"><li><a href="furniture-koas.html">코아스</a></li><li><a href="furniture-fomus.html">포머스</a></li><li><a href="furniture-fursys.html">퍼시스</a></li><li><a href="furniture-custom.html">제작가구</a></li></ul></li>
                     <li class="has-submenu"><a href="#">사인물</a><ul class="submenu"><li><a href="sign-class.html">한국십진분류/대분류표지판</a></li><li><a href="sign-board.html">게시판/이용안내</a></li><li><a href="sign-date.html">대출반납일력표</a></li><li><a href="sign-custom.html">제작사인물</a></li></ul></li>
+                
                     <li><a href="discount.html">할인상품</a></li>
                 </ul>
             </nav>
@@ -65,7 +69,7 @@
                     <span class="badge badge-best">BEST</span>
                 </div>
                 <h2 class="product-title">SG프리미엄 원목 인체공학 도서관 의자 SG-C500</h2>
-                <p class="product-desc">장시간 앉아도 편안한 인체공학적 설계와 천연 원목의 만남. 프리미엄 도서관 열람실에 최적화된 최고급 의자입니다.</p>
+                <p class="product-desc" id="dynamicDesc">장시간 앉아도 편안한 인체공학적 설계와 천연 원목의 만남. 프리미엄 도서관 열람실에 최적화된 최고급 의자입니다.</p>
                 
                 <div class="product-price">
                     235,000<span>원</span>
@@ -79,6 +83,14 @@
                             <option value="오크">내추럴 오크</option>
                             <option value="월넛">다크 월넛 (+15,000원)</option>
                             <option value="화이트">모던 화이트</option>
+                        </select>
+                    </div>
+
+                    <!-- [신규] 사이즈 선택 옵션 -->
+                    <div class="option-group" style="margin-top: 15px;">
+                        <label for="sizeOption">사이즈 선택</label>
+                        <select id="sizeOption" class="option-select">
+                            <option value="">사이즈를 선택하세요</option>
                         </select>
                     </div>
                     
@@ -114,20 +126,32 @@
             </div>
 
             <div class="detail-tab-content active" id="tab0">
-                <div class="spec-image-container">
-                    <img src="product-lifestyle.png" alt="라이프스타일 컷">
-                    <img src="product-specs.png" alt="스펙 도면">
+                <div class="spec-image-container" style="text-align:center; margin-bottom:40px;">
+                    <img src="product-lifestyle.png" id="dynamicDetailImg" alt="제품 상세 이미지" style="max-width:100%;">
                 </div>
+                
                 <div class="info-text-box">
-                    <h4>제품 스펙 요약</h4>
-                    <p>
-                        <strong>재질:</strong> 최고급 북미산 천연 오크 원목, 고밀도 메모리폼(패브릭)<br>
-                        <strong>크기:</strong> (W)580 x (D)550 x (H)890 mm<br>
-                        <strong>무게:</strong> 6.5 kg<br>
-                        <strong>제조국:</strong> 대한민국<br>
-                        <strong>품질보증기준:</strong> 구매형일로부터 1년 무상 A/S<br><br>
-                        사용자의 체형에 맞게 등받이 각도가 미세하게 조절되는 플렉스 틸팅 기술이 적용되어, 장시간의 독서나 공부에도 허리에 무리가 가지 않습니다. 프리미엄 패브릭은 오염에 강한 발수 처리로 관리하기 용이합니다.
-                    </p>
+                    <h4 style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 25px;">DETAIL VIEW</h4>
+                    <div class="detail-features" id="dynamicFeatures">
+                        <!-- 동적 특징 데이터 삽입 영역 -->
+                         <div class="feature-item">
+                            <p>관리자 페이지에서 '특징'을 추가하면 이곳에 표시됩니다.</p>
+                         </div>
+                    </div>
+
+                    <h4 style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; margin-top: 50px;">DIMENSION (제품 사양)</h4>
+                    <table class="spec-table" style="width:100%; border-collapse:collapse;">
+                        <tbody id="dynamicSpecTable">
+                            <tr>
+                                <th style="background:#f9f9f9; padding:12px; border-top:1px solid #ddd; border-bottom:1px solid #ddd; text-align:left; width:25%;">재질</th>
+                                <td style="padding:12px; border-top:1px solid #ddd; border-bottom:1px solid #ddd;">최고급 북미산 천연 오크 원목, 고밀도 메모리폼(패브릭)</td>
+                            </tr>
+                            <tr>
+                                <th style="background:#f9f9f9; padding:12px; border-bottom:1px solid #ddd; text-align:left;">크기</th>
+                                <td style="padding:12px; border-bottom:1px solid #ddd;">(W)580 x (D)550 x (H)890 mm</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             
@@ -203,18 +227,26 @@
             if (newVal < 1) newVal = 1;
             input.value = newVal;
             
-            // Calc Total Price based on options too
-            const select = document.getElementById('colorOption');
+            // [개선] 옵션 추가 금액 동적 계산
             let optPrice = 0;
-            if(select.value === '월넛') optPrice = 15000;
             
-            const total = (basePrice + optPrice) * newVal;
+            // 1. 색상 옵션 (기존 하드코딩 유지)
+            const colorSelect = document.getElementById('colorOption');
+            if(colorSelect && colorSelect.value === '월넛') optPrice += 15000;
+
+            // 2. 사이즈 옵션 (동적 추가 금액 합산)
+            const sizeSelect = document.getElementById('sizeOption');
+            if(sizeSelect && sizeSelect.value) {
+                const parts = sizeSelect.value.split('|');
+                optPrice += parseInt(parts[0]) || 0;
+            }
+            
+            const total = (window.basePrice + optPrice) * newVal;
             document.getElementById('totalPrice').innerText = total.toLocaleString();
         }
 
-        document.getElementById('colorOption')?.addEventListener('change', function() {
-            updateQty(0); // recalculate total
-        });
+        document.getElementById('colorOption')?.addEventListener('change', () => updateQty(0));
+        document.getElementById('sizeOption')?.addEventListener('change', () => updateQty(0));
 
         function switchTab(index, element) {
             document.querySelectorAll('.detail-tab-btn').forEach(el => el.classList.remove('active'));
@@ -224,5 +256,246 @@
             document.getElementById('tab' + index).classList.add('active');
         }
     </script>
+    <!-- SG LIMU Global Scripts -->
+    <script src="cart.js"></script>
+    <script type="module" src="inquiry.js"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const SUPABASE_URL = 'https://xxvfgnoffomrhtxitqkj.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_Q4t2p9WcUBdtUxd7HYV56A_MvxnZRk9';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 1. URL에서 ID 추출
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        async function initProductDetail() {
+            if(!productId) {
+                console.warn("Product ID missing in URL.");
+                return;
+            }
+
+            // 2. Supabase에서 기본 정보 가져오기
+            const { data: product, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('id', productId)
+                .single();
+
+            if (error || !product) {
+                console.error("Product fetch error:", error);
+                return;
+            }
+
+            // 3. UI 업데이트 (기본 정보)
+            document.title = product.name + " - 에스지라이뮤";
+            document.querySelector('.product-title').innerText = product.name;
+            document.querySelector('.product-price').innerHTML = 
+                (product.price === '전화문의' || !product.price) ? '전화문의' : 
+                Number(product.price).toLocaleString() + '<span>원</span>';
+            
+            // 전역 가격 변수 업데이트 (수량 계산용)
+            window.basePrice = (product.price === '전화문의' || !product.price) ? 0 : Number(product.price);
+            
+            // 브레드크럼 업데이트
+            const breadcrumbLast = document.querySelector('.breadcrumb strong');
+            if(breadcrumbLast) breadcrumbLast.innerText = product.name;
+
+            // 메인 이미지 초기화 (Supabase 이미지 우선)
+            const mainImgElem = document.getElementById('mainImage');
+            if(product.image_url && mainImgElem) {
+                mainImgElem.src = product.image_url;
+                const thumbList = document.querySelector('.thumbnail-list');
+                if(thumbList) {
+                    thumbList.innerHTML = `
+                        <div class="thumb-item active" onclick="changeImage('${product.image_url}', this)">
+                            <img src="${product.image_url}" alt="메인 이미지">
+                        </div>
+                    `;
+                }
+            }
+            
+            // [추가] 색상(Option) 연동 로직
+            const colorOption = document.getElementById('colorOption');
+            if(colorOption) {
+                let colorList = [];
+                if(product.colors) colorList = product.colors.split(',').map(c => c.trim());
+                else if(product.description) {
+                    const match = product.description.match(/\[\[C:(.*?)\]\]/);
+                    if(match) colorList = match[1].split(',').map(c => c.trim());
+                }
+
+                if(colorList.length > 0) {
+                    colorOption.innerHTML = '<option value="">색상을 선택하세요</option>';
+                    colorList.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c; opt.innerText = c;
+                        colorOption.appendChild(opt);
+                    });
+                    colorOption.parentElement.style.display = 'block';
+                } else {
+                    colorOption.parentElement.style.display = 'none';
+                }
+            }
+
+            // [신규] 사이즈(Option) 연동 로직
+            const sizeOption = document.getElementById('sizeOption');
+            if(sizeOption) {
+                let sizeList = [];
+                if(product.sizes) sizeList = product.sizes.split(',').map(s => s.trim());
+                else if(product.description) {
+                    const match = product.description.match(/\[\[S:(.*?)\]\]/);
+                    if(match) sizeList = match[1].split(',').map(s => s.trim());
+                }
+
+                if(sizeList.length > 0) {
+                    sizeOption.innerHTML = '<option value="0|">사이즈를 선택하세요</option>';
+                    sizeList.forEach(s => {
+                        const parts = s.split(':');
+                        const name = parts[0];
+                        const price = parseInt(parts[1]) || 0;
+                        
+                        const opt = document.createElement('option');
+                        opt.value = `${price}|${name}`;
+                        opt.innerText = price > 0 ? `${name} (+${price.toLocaleString()}원)` : name;
+                        sizeOption.appendChild(opt);
+                    });
+                    sizeOption.parentElement.style.display = 'block';
+                } else {
+                    sizeOption.parentElement.style.display = 'none';
+                }
+            }
+
+            // [추가] 기본 상세 설명(Supabase) 출력 및 태그 제거
+            const descElem = document.getElementById('dynamicDesc');
+            if(descElem && product.description) {
+                descElem.innerHTML = product.description.replace(/\[\[C:.*?\]\]/g, '').replace(/\[\[S:.*?\]\]/g, '').replace(/\n/g, '<br>').trim();
+            }
+
+            // 4. 상세페이지 관리(localStorage) 연동
+            const savedDataRaw = localStorage.getItem('pageData_' + productId);
+            if(savedDataRaw) {
+                const data = JSON.parse(savedDataRaw);
+                
+                // 제품 설명 (Summary)
+                if(data.description) {
+                    const descElem = document.getElementById('dynamicDesc');
+                    // localStorage 데이터 출력 시에도 색상/사이즈 태그 제거
+                    if(descElem) descElem.innerHTML = data.description.replace(/\[\[C:.*?\]\]/g, '').replace(/\[\[S:.*?\]\]/g, '').replace(/\n/g, '<br>').trim();
+                }
+
+                // 갤러리 추가 (관리자에서 추가한 이미지가 있다면 썸네리에 추가)
+                if(data.mainImages && data.mainImages.length > 0) {
+                    const thumbList = document.querySelector('.thumbnail-list');
+                    if(thumbList) {
+                        data.mainImages.forEach((src, idx) => {
+                            // 중복 방지 (Supabase URL이랑 같으면 스킵)
+                            if(src === product.image_url) return;
+                            thumbList.innerHTML += `
+                                <div class="thumb-item" onclick="changeImage('${src}', this)">
+                                    <img src="${src}" alt="제품 이미지 ${idx+1}">
+                                </div>
+                            `;
+                        });
+                    }
+                }
+                
+                // 상세페이지 세로형 통이미지 (다중 이미지 대응)
+                if(data.detailImages || data.detailImage) {
+                    const detailImgElem = document.getElementById('dynamicDetailImg');
+                    if(detailImgElem) {
+                        const container = detailImgElem.parentElement;
+                        container.innerHTML = ''; // 기존 이미지 제거
+                        const imgs = data.detailImages || [data.detailImage];
+                        imgs.forEach(src => {
+                            if(!src) return;
+                            const img = document.createElement('img');
+                            img.src = src;
+                            img.style.cssText = "max-width:100%; display:block; margin: 0 auto 10px auto;";
+                            container.appendChild(img);
+                        });
+                    }
+                }
+                
+                // 제품 사양 (DIMENSION) 테이블
+                if(data.specs && data.specs.length > 0) {
+                    const specBody = document.getElementById('dynamicSpecTable');
+                    if(specBody) {
+                        specBody.innerHTML = '';
+                        data.specs.forEach(s => {
+                            specBody.innerHTML += `<tr><th style="background:#f9f9f9; padding:12px; border-bottom:1px solid #ddd; text-align:left; width:25%;">${s.key}</th><td style="padding:12px; border-bottom:1px solid #ddd;">${s.val}</td></tr>`;
+                        });
+                    }
+                }
+                
+                // 제품 특징 (DETAIL VIEW) 리스트
+                if(data.features && data.features.length > 0) {
+                    const featureContainer = document.getElementById('dynamicFeatures');
+                    if(featureContainer) {
+                        featureContainer.innerHTML = '';
+                        data.features.forEach((feat, i) => {
+                            const isLast = (i === data.features.length - 1) ? 'style="border-bottom: none;"' : '';
+                            const num = (i + 1).toString().padStart(2, '0');
+                            featureContainer.innerHTML += `
+                                <div class="feature-item" ${isLast}>
+                                    <h5 style="font-size:1.1rem; color:#222; margin-bottom:10px; display:flex; align-items:center;">
+                                        <span style="display:inline-block; background:#8ec342; color:#fff; width:24px; height:24px; line-height:24px; text-align:center; border-radius:50%; margin-right:10px; font-size:0.8rem;">${num}</span>
+                                        ${feat.title}
+                                    </h5>
+                                    <p style="color:#666; line-height:1.6; padding-left:34px;">${feat.desc.replace(/\n/g, '<br>')}</p>
+                                </div>
+                            `;
+                        });
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initProductDetail);
+    </script>
+    <!-- Auth Modal Overlay -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <div class="auth-close" id="authClose">&times;</div>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-target="loginPane">濡쒓렇??/div>
+                <div class="auth-tab" data-target="signupPane">?뚯썝媛??/div>
+            </div>
+            <div class="auth-content">
+                <div class="auth-pane active" id="loginPane">
+                    <div class="auth-header"><h2>?섏쁺?⑸땲??</h2><p>媛꾪렪濡쒓렇?몄쑝濡?鍮좊Ⅴ寃??쒖옉?섏꽭??</p></div>
+                    <div class="social-login-grid">
+                        <button class="social-btn btn-kakao" id="kakaoLoginBtn"><i class="fa-solid fa-comment"></i> 移댁뭅??濡쒓렇??/button>
+                        <button class="social-btn btn-naver" id="naverLoginBtn"><i class="fa-solid fa-n" style="font-size: 0.8rem;"></i> ?ㅼ씠踰?濡쒓렇??/button>
+                        <button class="social-btn btn-google" id="googleLoginBtn"><i class="fa-brands fa-google"></i> Google 濡쒓렇??/button>
+                    </div>
+                    <div class="auth-divider"><span>?먮뒗</span></div>
+                    <form id="loginForm">
+                        <div class="auth-form-group"><label>?대찓??/label><input type="email" id="loginEmail" class="auth-input" placeholder="example@email.com" required></div>
+                        <div class="auth-form-group"><label>鍮꾨?踰덊샇</label><input type="password" id="loginPassword" class="auth-input" placeholder="鍮꾨?踰덊샇瑜??낅젰?섏꽭?? required></div>
+                        <button type="submit" class="auth-submit-btn">濡쒓렇??/button>
+                    </form>
+                    <div id="loginMsg" class="auth-message"></div>
+                </div>
+                <div class="auth-pane" id="signupPane">
+                    <div class="auth-header"><h2>?뚯썝媛??/h2><p>媛꾨떒???뺣낫 ?낅젰?쇰줈 ??留롮? ?쒗깮???꾨━?몄슂.</p></div>
+                    <form id="signupForm">
+                        <div class="auth-row">
+                            <div class="auth-form-group"><label>?대쫫 *</label><input type="text" id="signupName" class="auth-input" placeholder="?띻만?? required></div>
+                            <div class="auth-form-group"><label>?꾪솕踰덊샇 *</label><input type="tel" id="signupPhone" class="auth-input" placeholder="010-0000-0000" required></div>
+                        </div>
+                        <div class="auth-form-group"><label>?대찓??*</label><input type="email" id="signupEmail" class="auth-input" placeholder="example@email.com" required></div>
+                        <div class="auth-form-group"><label>鍮꾨?踰덊샇 *</label><input type="password" id="signupPassword" class="auth-input" placeholder="6???댁긽 ?낅젰" minlength="6" required></div>
+                        <div class="auth-form-group"><label>?뚯냽湲곌? / ?숆탳 / ?꾩꽌愿紐?/label><input type="text" id="signupOrg" class="auth-input" placeholder="?? ?쒓뎅??숆탳 ?꾩꽌愿"></div>
+                        <div class="auth-form-group"><label>諛곗넚/諛⑸Ц??二쇱냼</label><input type="text" id="signupAddress" class="auth-input" placeholder="?꾩껜 二쇱냼瑜??낅젰?섏꽭??></div>
+                        <button type="submit" class="auth-submit-btn">媛?낇븯湲?/button>
+                    </form>
+                    <div id="signupMsg" class="auth-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="auth.js"></script>
 </body>
 </html>
+
