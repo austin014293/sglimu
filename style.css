@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #050505;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Hide scrollbar for cleaner look but keep functionality */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+/* 3D Canvas fixed at the back */
+#webgl-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none; /* Let clicks pass through to potential future interactions */
+}
+
+/* Presentation Container */
+.presentation {
+    position: relative;
+    z-index: 1;
+}
+
+/* Each slide takes full viewport height to allow smooth scrolling between them */
+.slide {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10%;
+    position: relative;
+}
+
+.content {
+    max-width: 800px;
+    opacity: 0; /* Will be animated by GSAP */
+    transform: translateY(50px); /* Will be animated by GSAP */
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.content.align-left {
+    align-self: flex-start;
+}
+
+.content.align-right {
+    align-self: flex-end;
+    text-align: right;
+}
+
+.content.center-focus {
+    align-self: center;
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+p.sub-text {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-top: 1rem;
+}
+
+.highlight {
+    color: #4da8da; /* Cool blue for positive/tech aspects */
+}
+
+.highlight-danger {
+    color: #ff4d4d; /* Red for danger */
+}
+
+.conclusion {
+    margin-top: 3rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.7;
+}
+
+.scroll-indicator span {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.mouse {
+    width: 30px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    position: relative;
+}
+
+.mouse::before {
+    content: '';
+    width: 4px;
+    height: 8px;
+    background: #fff;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    animation: scroll 1.5s infinite;
+}
+
+@keyframes scroll {
+    0% { top: 10px; opacity: 1; }
+    100% { top: 25px; opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    p { font-size: 1.1rem; }
+    .content { padding: 0 5%; }
+}
