@@ -33,27 +33,7 @@ let anchorPCB, anchorESP32, anchorSensor, anchorRelay;
 
 // Fog for atmospheric control
 scene.fog = new THREE.FogExp2(0x99aab5, 0.0015);
-
-// Load Background Textures
-const textureLoader = new THREE.TextureLoader();
-let backgroundDayTex = null;
-let backgroundNightTex = null;
-
-textureLoader.load('background_day.png', (texture) => {
-    backgroundDayTex = texture;
-    if (SIM_STATE.timeOfDay === 'day') {
-        scene.background = texture;
-        scene.backgroundIntensity = 0.45;
-    }
-});
-
-textureLoader.load('background.png', (texture) => {
-    backgroundNightTex = texture;
-    if (SIM_STATE.timeOfDay === 'night') {
-        scene.background = texture;
-        scene.backgroundIntensity = 0.1;
-    }
-});
+scene.background = scene.fog.color; // Infinite clean horizon blend
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(4, 1.2, 5);
@@ -515,10 +495,7 @@ function animate() {
     const elapsedTime = clock.getElapsedTime();
     const currentZ = carGroup.position.z;
     
-    // Subtle road vibration camera shake
-    const shakeAmount = Math.abs(currentZ) > 10 ? 0.015 : 0;
-    camera.position.x += (Math.random() - 0.5) * shakeAmount;
-    camera.position.y += (Math.random() - 0.5) * shakeAmount;
+    // Subtle road vibration camera shake removed for presentation stability
 
     // Idle vehicle suspension sway
     carGroup.position.y = Math.sin(elapsedTime * 12) * 0.008; 
@@ -665,19 +642,7 @@ function animate() {
     scene.fog.color.lerp(targetFogColor, 0.05);
     scene.fog.density = THREE.MathUtils.lerp(scene.fog.density, targetFogDensity, 0.1);
 
-    // Apply background weather/light textures
-    if (backgroundDayTex && backgroundNightTex) {
-        if (SIM_STATE.timeOfDay === 'day') {
-            scene.background = backgroundDayTex;
-            scene.backgroundIntensity = THREE.MathUtils.lerp(scene.backgroundIntensity, currentZ < tunnelStartZ ? 0.02 : 0.45, 0.1);
-        } else if (SIM_STATE.timeOfDay === 'sunset') {
-            scene.background = backgroundDayTex; // Use day background but darkened with orange hue
-            scene.backgroundIntensity = THREE.MathUtils.lerp(scene.backgroundIntensity, currentZ < tunnelStartZ ? 0.01 : 0.15, 0.1);
-        } else {
-            scene.background = backgroundNightTex;
-            scene.backgroundIntensity = THREE.MathUtils.lerp(scene.backgroundIntensity, currentZ < tunnelStartZ ? 0.005 : 0.08, 0.1);
-        }
-    }
+    // Background image rendering disabled for a clean sky color matching the fog
 
     // Render HTML Telemetry HUD Displays
     updateHUDDisplays();
