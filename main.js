@@ -277,107 +277,39 @@ function createMCU() {
     mcuGroup.scale.set(0, 0, 0); 
     carGroup.add(mcuGroup);
 
-    // Anchors for holographic floating text label projection
+    // Anchors for holographic floating text label projection (positioned relative to circuit.png diagram layout)
     anchorPCB = new THREE.Object3D();
-    anchorPCB.position.set(0, 0, 0);
+    anchorPCB.position.set(0, 0.4, 0.02); // Upper-center Buck Converter / PCB
     mcuGroup.add(anchorPCB);
 
     anchorESP32 = new THREE.Object3D();
-    anchorESP32.position.set(0, 0.2, 0.12);
+    anchorESP32.position.set(0.1, -0.1, 0.02); // Center ESP32 module
     mcuGroup.add(anchorESP32);
 
     anchorSensor = new THREE.Object3D();
-    anchorSensor.position.set(0.4, -0.6, 0.08);
+    anchorSensor.position.set(0.5, -0.9, 0.02); // Bottom-right Lux sensor (조도센서)
     mcuGroup.add(anchorSensor);
 
     anchorRelay = new THREE.Object3D();
-    anchorRelay.position.set(0.55, 0.4, 0);
+    anchorRelay.position.set(-0.6, 0.2, 0.02); // Left breadboard MOSFET control / driver circuitry
     mcuGroup.add(anchorRelay);
 
-    // 1. PCB
-    const pcbGeo = new THREE.BoxGeometry(1.2, 2.0, 0.1);
-    const pcbMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0d, roughness: 0.85, metalness: 0.2 });
-    const pcb = new THREE.Mesh(pcbGeo, pcbMat);
-    mcuGroup.add(pcb);
+    // Create Plane with the user's circuit schematic texture
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load('circuit.png', (texture) => {
+        texture.minFilter = THREE.LinearFilter;
+        texture.generateMipmaps = false;
 
-    // 2. Metal Shield (High Polish)
-    const shieldGeo = new THREE.BoxGeometry(0.8, 1.0, 0.12);
-    const shieldMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.95, roughness: 0.1 });
-    const shield = new THREE.Mesh(shieldGeo, shieldMat);
-    shield.position.set(0, 0.2, 0.1);
-    mcuGroup.add(shield);
-
-    // 3. ESP32 Logo Label
-    textureLoader.load('esp32.png', (texture) => {
-        const labelGeo = new THREE.PlaneGeometry(0.75, 0.95);
-        const labelMat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
-        const label = new THREE.Mesh(labelGeo, labelMat);
-        label.position.set(0, 0.2, 0.165);
-        mcuGroup.add(label);
+        const planeGeo = new THREE.PlaneGeometry(3.2, 2.8);
+        const planeMat = new THREE.MeshBasicMaterial({ 
+            map: texture, 
+            transparent: true, 
+            side: THREE.DoubleSide 
+        });
+        const plane = new THREE.Mesh(planeGeo, planeMat);
+        plane.position.set(0, 0, 0);
+        mcuGroup.add(plane);
     });
-
-    // 4. SMD Components
-    const smdGeo = new THREE.BoxGeometry(0.08, 0.15, 0.05);
-    const resMat = new THREE.MeshStandardMaterial({ color: 0x222222 });
-    const capMat = new THREE.MeshStandardMaterial({ color: 0x8f593b });
-
-    for (let i = 0; i < 15; i++) {
-        const comp = new THREE.Mesh(smdGeo, Math.random() > 0.5 ? resMat : capMat);
-        comp.position.set((Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 1.5, 0.06);
-        comp.rotation.z = Math.random() * Math.PI;
-        mcuGroup.add(comp);
-    }
-
-    // 5. LEDs
-    const ledGeo = new THREE.BoxGeometry(0.06, 0.06, 0.05);
-    const powerLed = new THREE.Mesh(ledGeo, new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0xff0000, emissiveIntensity: 2.0 }));
-    powerLed.position.set(0.4, -0.6, 0.08);
-    mcuGroup.add(powerLed);
-
-    const dataLed = new THREE.Mesh(ledGeo, new THREE.MeshStandardMaterial({ color: 0x33ff33, emissive: 0x00ff00, emissiveIntensity: 2.0 }));
-    dataLed.position.set(0.2, -0.6, 0.08);
-    mcuGroup.add(dataLed);
-
-    // 6. Buttons
-    const btnBaseGeo = new THREE.BoxGeometry(0.15, 0.15, 0.05);
-    const btnCapGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.08, 8);
-    const btnMat = new THREE.MeshStandardMaterial({ color: 0x111111 });
-    const silverMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.9 });
-
-    const createButton = (x, y) => {
-        const btn = new THREE.Group();
-        const base = new THREE.Mesh(btnBaseGeo, btnMat);
-        const cap = new THREE.Mesh(btnCapGeo, silverMat);
-        cap.rotation.x = Math.PI / 2;
-        cap.position.z = 0.05;
-        btn.add(base, cap);
-        btn.position.set(x, y, 0.08);
-        mcuGroup.add(btn);
-    };
-    createButton(-0.4, -0.85);
-    createButton(0.4, -0.85);
-
-    // 7. Gold Pins
-    const pinGeo = new THREE.CylinderGeometry(0.015, 0.015, 0.25, 8);
-    const pinMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.95, roughness: 0.1 });
-    for (let i = 0; i < 15; i++) {
-        const yPos = -0.8 + (i * 0.12);
-        const pinL = new THREE.Mesh(pinGeo, pinMat);
-        pinL.rotation.z = Math.PI / 2;
-        pinL.position.set(-0.55, yPos, 0);
-        mcuGroup.add(pinL);
-        const pinR = new THREE.Mesh(pinGeo, pinMat);
-        pinR.rotation.z = Math.PI / 2;
-        pinR.position.set(0.55, yPos, 0);
-        mcuGroup.add(pinR);
-    }
-
-    // 8. USB-C Port
-    const usbGeo = new THREE.BoxGeometry(0.4, 0.3, 0.15);
-    const usbMat = new THREE.MeshStandardMaterial({ color: 0x999999, metalness: 0.85, roughness: 0.2 });
-    const usb = new THREE.Mesh(usbGeo, usbMat);
-    usb.position.set(0, -1.1, 0.05);
-    mcuGroup.add(usb);
 
     mcuGroup.position.y = 0.5; 
 }
