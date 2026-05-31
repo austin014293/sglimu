@@ -557,10 +557,9 @@ function animate() {
     SIM_STATE.speed = Math.round(targetSpeed);
 
     // 2. Distance to Tunnel (Entrance is at Z = -700)
-    SIM_STATE.distance = Math.max(0, Math.round(tunnelStartZ - currentZ));
-    if (currentZ <= tunnelStartZ) {
-        SIM_STATE.distance = 0;
-    }
+    // Fix: currentZ starts at -100 and goes negative to -1200. Tunnel is at -700.
+    // So distance before tunnel is: currentZ - (-700) = currentZ + 700.
+    SIM_STATE.distance = Math.max(0, Math.round(currentZ - tunnelStartZ));
 
     // 3. Ambient Light (Sensor Adaptation Lux)
     if (!SIM_STATE.isSliderOverridden) {
@@ -584,15 +583,27 @@ function animate() {
     }
 
     // 4. Sidelight Activation Logical Matrix
+    // Distance-based auto trigger starts at 100m, becoming fully active by 50m.
     if (SIM_STATE.autoLight) {
-        SIM_STATE.lightActive = SIM_STATE.lux < 500;
+        SIM_STATE.lightActive = (SIM_STATE.lux < 500) || (SIM_STATE.distance <= 100);
     } else {
         SIM_STATE.lightActive = SIM_STATE.manualLightOn;
     }
 
-    // Update 3D Lighting & Materials
-    const lightsIntensity = SIM_STATE.lightActive ? 1.0 : 0.0;
-    
+    // Determine target intensity factor (0.0 to 1.0)
+    let lightsIntensity = 0.0;
+    if (SIM_STATE.lightActive) {
+        if (SIM_STATE.autoLight && SIM_STATE.distance > 50 && SIM_STATE.distance <= 100) {
+            // Gradual fade in based on distance: 0% at 100m -> 100% at 50m
+            let progress = (100 - SIM_STATE.distance) / 50; // 0 to 1
+            lightsIntensity = progress;
+        } else {
+            // Fully on inside 50m, or manual override, or dark lux
+            lightsIntensity = 1.0;
+        }
+    }
+    SIM_STATE.lightsIntensity = lightsIntensity; // Cache for HUD display
+
     // Taillights
     taillightMat.emissiveIntensity = THREE.MathUtils.lerp(taillightMat.emissiveIntensity, lightsIntensity * 10, 0.1);
     tailPointLightLeft.intensity = THREE.MathUtils.lerp(tailPointLightLeft.intensity, lightsIntensity * 40, 0.1);
@@ -731,12 +742,17 @@ function updateHUDDisplays() {
 
     if (SIM_STATE.lightActive) {
         if (statusBox) statusBox.classList.add('active');
-        if (statusLabel) statusLabel.innerText = 'REAR LIGHTS AUTO ON';
         
-        if (statusDot) {
-            statusDot.className = 'status-dot green';
+        if (SIM_STATE.autoLight && SIM_STATE.distance > 50 && SIM_STATE.distance <= 100) {
+            const pct = Math.round(SIM_STATE.lightsIntensity * 100);
+            if (statusLabel) statusLabel.innerText = `AUTO DIMMING (${pct}%)`;
+            if (statusText) statusText.innerText = `PRE-ACTIVATING: ${pct}% ON`;
+            if (statusDot) statusDot.className = 'status-dot orange';
+        } else {
+            if (statusLabel) statusLabel.innerText = 'REAR LIGHTS AUTO ON';
+            if (statusText) statusText.innerText = 'SYSTEM ACTIVE: LIGHTS ON';
+            if (statusDot) statusDot.className = 'status-dot green';
         }
-        if (statusText) statusText.innerText = 'SYSTEM ACTIVE: LIGHTS ON';
     } else {
         if (statusBox) statusBox.classList.remove('active');
         if (statusLabel) statusLabel.innerText = 'REAR LIGHTS OFF';
