@@ -583,9 +583,9 @@ function animate() {
     }
 
     // 4. Sidelight Activation Logical Matrix
-    // Distance-based auto trigger starts at 100m, becoming fully active by 50m.
+    // Distance-based auto trigger starts at 300m, becoming fully active by 50m.
     if (SIM_STATE.autoLight) {
-        SIM_STATE.lightActive = (SIM_STATE.lux < 500) || (SIM_STATE.distance <= 100);
+        SIM_STATE.lightActive = (SIM_STATE.lux < 500) || (SIM_STATE.distance <= 300);
     } else {
         SIM_STATE.lightActive = SIM_STATE.manualLightOn;
     }
@@ -593,9 +593,9 @@ function animate() {
     // Determine target intensity factor (0.0 to 1.0)
     let lightsIntensity = 0.0;
     if (SIM_STATE.lightActive) {
-        if (SIM_STATE.autoLight && SIM_STATE.distance > 50 && SIM_STATE.distance <= 100) {
-            // Gradual fade in based on distance: 0% at 100m -> 100% at 50m
-            let progress = (100 - SIM_STATE.distance) / 50; // 0 to 1
+        if (SIM_STATE.autoLight && SIM_STATE.distance > 50 && SIM_STATE.distance <= 300) {
+            // Gradual fade in based on distance: 0% at 300m -> 100% at 50m
+            let progress = (300 - SIM_STATE.distance) / 250; // 0 to 1 over 250m span
             lightsIntensity = progress;
         } else {
             // Fully on inside 50m, or manual override, or dark lux
@@ -751,7 +751,7 @@ function updateHUDDisplays() {
     if (SIM_STATE.lightActive) {
         if (statusBox) statusBox.classList.add('active');
         
-        if (SIM_STATE.autoLight && SIM_STATE.distance > 50 && SIM_STATE.distance <= 100) {
+        if (SIM_STATE.autoLight && SIM_STATE.distance > 50 && SIM_STATE.distance <= 300) {
             const pct = Math.round(SIM_STATE.lightsIntensity * 100);
             if (statusLabel) statusLabel.innerText = `AUTO DIMMING (${pct}%)`;
             if (statusText) statusText.innerText = `PRE-ACTIVATING: ${pct}% ON`;
