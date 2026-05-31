@@ -300,7 +300,7 @@ function createMCU() {
         texture.minFilter = THREE.LinearFilter;
         texture.generateMipmaps = false;
 
-        const planeGeo = new THREE.PlaneGeometry(3.2, 2.8);
+        const planeGeo = new THREE.PlaneGeometry(3.2, 2.769);
         const planeMat = new THREE.MeshBasicMaterial({ 
             map: texture, 
             transparent: true, 
@@ -795,6 +795,42 @@ function initSlideAnimations() {
         });
     });
 
+    // Performance metrics count-up animation on scroll (Slide 12)
+    ScrollTrigger.create({
+        trigger: "#slide-12",
+        start: "top 60%",
+        onEnter: () => {
+            const gpsObj = { value: 0 };
+            gsap.to(gpsObj, {
+                value: 90,
+                duration: 1.6,
+                ease: "power2.out",
+                onUpdate: () => {
+                    const el = document.getElementById("stat-gps-val");
+                    if (el) el.innerText = `${Math.round(gpsObj.value)}%`;
+                }
+            });
+
+            const testObj = { value: 0 };
+            gsap.to(testObj, {
+                value: 100,
+                duration: 1.8,
+                ease: "power2.out",
+                onUpdate: () => {
+                    const el = document.getElementById("stat-test-val");
+                    if (el) el.innerText = `${Math.round(testObj.value)}%`;
+                }
+            });
+        },
+        onLeaveBack: () => {
+            // Reset when scrolling back up
+            const gpsEl = document.getElementById("stat-gps-val");
+            if (gpsEl) gpsEl.innerText = "0%";
+            const testEl = document.getElementById("stat-test-val");
+            if (testEl) testEl.innerText = "0%";
+        }
+    });
+
     // Patent & Competition progress count-up animation on scroll
     ScrollTrigger.create({
         trigger: "#slide-13",
@@ -865,9 +901,10 @@ function init3DAnimations() {
 
     // 2. Slide 2 -> 3 (0.1875 to 0.25): Disassembly and MCU zoom in-place (z = -100)
     // Zoom camera in front of the MCU position, offset to the right (x: 1.5) to clear the slide content cards, at eye level (y: 0.9)
+    // Pulled back further (z: -93.5 instead of -96) to prevent vertical layout clipping
     tl.to(camera.position, {
         x: 1.5, 
-        z: -96, 
+        z: -93.5, 
         y: 0.9, 
         duration: 0.0625,
         ease: "power2.inOut" 
@@ -905,39 +942,40 @@ function init3DAnimations() {
     }
 
     // D. Scale up the circuit schematic MCU group smoothly (without rotation)
+    // Optimized scale from 2.5 to 2.0 to ensure zero border cropping
     if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 2.5, y: 2.5, z: 2.5, duration: 0.05, ease: "power2.out" }, 0.19);
+        tl.to(mcuGroup.scale, { x: 2.0, y: 2.0, z: 2.0, duration: 0.05, ease: "power2.out" }, 0.19);
         // Tilt the board at y: 0.358 rad (approx 20.5 degrees) to face the camera directly (eliminating perspective skewing)
         tl.to(mcuGroup.rotation, { x: 0, y: 0.358, z: 0, duration: 0.01 }, 0.19);
     }
 
     // 3. Slide 3 -> 4 -> 5 (0.25 to 0.375): Architecture & Component details
-    // Zoom camera slightly closer to the diagram (still keeping it perfectly parallel and flat)
+    // Zoom camera slightly closer to the diagram (still keeping it perfectly parallel, flat, and safely visible at z: -94.2)
     tl.to(camera.position, {
         x: 1.5,
         y: 0.9,
-        z: -96.8,
+        z: -94.2,
         duration: 0.0625,
         ease: "power2.out"
     }, 0.25);
 
     // 4. Slide 5 -> 6 -> 7 (0.375 to 0.50): GPS Error Analysis & Improvements
-    // Keep camera stable, parallel, and centered on the schematic
+    // Keep camera stable, parallel, and centered on the schematic (z: -93.8)
     tl.to(camera.position, {
         x: 1.5,
         y: 0.9,
-        z: -96.5,
+        z: -93.8,
         duration: 0.0625,
         ease: "power2.out"
     }, 0.375);
 
     // 5. Slide 7 -> 8 (0.50 to 0.5625): IMU Gyro Calibration (Board remains stable as requested)
     // Board rotation and tilt tweens removed to keep the schematic fully readable.
-    // We maintain a stable parallel view without skewing.
+    // We maintain a stable parallel view without skewing (z: -94.0).
     tl.to(camera.position, {
         x: 1.5,
         y: 0.9,
-        z: -96.6,
+        z: -94.0,
         duration: 0.0625,
         ease: "power1.inOut"
     }, 0.50);
