@@ -266,6 +266,7 @@ loader.load('ferrari.glb', function(gltf) {
     runIntro();
 }, undefined, (error) => {
     console.error('Error loading car model:', error);
+    gsap.set(".slide#slide-0 .content", { opacity: 1, y: 0 });
     initSlideAnimations();
     init3DAnimations();
 });
