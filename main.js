@@ -843,6 +843,49 @@ function initSlideAnimations() {
             }
         });
     });
+
+    // Patent & Competition progress count-up animation on scroll
+    ScrollTrigger.create({
+        trigger: "#slide-13",
+        start: "top 60%",
+        onEnter: () => {
+            // Animate progress bar widths
+            gsap.to("#patent-pct-fill", { width: "75%", duration: 1.5, ease: "power2.out" });
+            gsap.to("#contest-pct-fill", { width: "60%", duration: 1.5, ease: "power2.out" });
+
+            // Animate percentage numbers
+            const patentObj = { value: 0 };
+            gsap.to(patentObj, {
+                value: 75,
+                duration: 1.5,
+                ease: "power2.out",
+                onUpdate: () => {
+                    const el = document.getElementById("patent-pct-val");
+                    if (el) el.innerText = `${Math.round(patentObj.value)}% 진행`;
+                }
+            });
+
+            const contestObj = { value: 0 };
+            gsap.to(contestObj, {
+                value: 60,
+                duration: 1.5,
+                ease: "power2.out",
+                onUpdate: () => {
+                    const el = document.getElementById("contest-pct-val");
+                    if (el) el.innerText = `${Math.round(contestObj.value)}% 진행`;
+                }
+            });
+        },
+        onLeaveBack: () => {
+            // Reset when scrolling back up
+            gsap.set("#patent-pct-fill", { width: "0%" });
+            gsap.set("#contest-pct-fill", { width: "0%" });
+            const pVal = document.getElementById("patent-pct-val");
+            if (pVal) pVal.innerText = "0% 진행";
+            const cVal = document.getElementById("contest-pct-val");
+            if (cVal) cVal.innerText = "0% 진행";
+        }
+    });
 }
 
 function init3DAnimations() {
