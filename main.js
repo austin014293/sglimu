@@ -31,8 +31,8 @@ let mcuGroup = null;
 // Anchors for 3D label tags
 let anchorPCB, anchorESP32, anchorSensor, anchorRelay;
 
-// Fog for atmospheric control
-scene.fog = new THREE.FogExp2(0x99aab5, 0.0015);
+// Fog for atmospheric control (configured as a dark premium void instead of a bright haze)
+scene.fog = new THREE.FogExp2(0x0a0e17, 0.002);
 scene.background = scene.fog.color; // Infinite clean horizon blend
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -601,22 +601,22 @@ function animate() {
     // Dynamic Weather/TOD Scene Lighting
     let targetAmbient = 0.35;
     let targetDir = 0.8;
-    let targetFogColor = new THREE.Color(0x99aab5);
+    let targetFogColor = new THREE.Color(0x0a0e17);
     let targetFogDensity = 0.0015;
 
     // Base Weather lighting profiles
     if (SIM_STATE.timeOfDay === 'day') {
         targetAmbient = 0.35;
         targetDir = 0.8;
-        targetFogColor.setHex(0x99aab5);
+        targetFogColor.setHex(0x0a0e17);
     } else if (SIM_STATE.timeOfDay === 'sunset') {
         targetAmbient = 0.15;
         targetDir = 0.3;
-        targetFogColor.setHex(0x553344);
+        targetFogColor.setHex(0x140e1b);
     } else if (SIM_STATE.timeOfDay === 'night') {
         targetAmbient = 0.03;
         targetDir = 0.02;
-        targetFogColor.setHex(0x020205);
+        targetFogColor.setHex(0x04060a);
     }
 
     // Tunnel darkness logic (Z < -700 is inside, but transition starts from -550)
