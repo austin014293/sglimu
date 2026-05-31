@@ -694,6 +694,558 @@ p.sub-text {
     align-self: center;
 }
 
+/* -------------------------------------------------------------
+   PRESENTATION COMPONENTS
+   ------------------------------------------------------------- */
+
+/* Index List styling */
+.index-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.index-list li {
+    display: flex;
+    align-items: center;
+    font-size: 1.15rem !important;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.index-num {
+    color: #00d2ff;
+    font-weight: 900;
+    font-size: 1.25rem;
+    margin-right: 20px;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+}
+
+/* Team Grid Component */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.team-member-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.team-member-card:hover {
+    background: rgba(0, 210, 255, 0.05);
+    border-color: rgba(0, 210, 255, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.1);
+}
+
+.member-role {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #a0a0a0;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.member-role.lead-role {
+    color: #0b1020;
+    background: #ffaa00;
+    font-weight: 900;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+}
+
+.member-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.member-details {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: left;
+    line-height: 1.6;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 8px;
+}
+
+/* Problem-Solution Comparison Layout */
+.problem-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.problem-box, .solution-box {
+    padding: 2rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.problem-box {
+    border-left: 4px solid #ff4d4d;
+}
+
+.problem-box:hover {
+    background: rgba(255, 77, 77, 0.02);
+    border-color: rgba(255, 77, 77, 0.2);
+    border-left-color: #ff4d4d;
+}
+
+.solution-box {
+    border-left: 4px solid #00ff88;
+}
+
+.solution-box:hover {
+    background: rgba(0, 255, 136, 0.02);
+    border-color: rgba(0, 255, 136, 0.2);
+    border-left-color: #00ff88;
+}
+
+.box-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.problem-box h3 {
+    color: #ff4d4d;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
+}
+
+.solution-box h3 {
+    color: #00ff88;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+/* Hologram Blueprint Component */
+.hologram-blueprint {
+    background: radial-gradient(circle at center, rgba(0, 210, 255, 0.08) 0%, transparent 70%);
+    border: 2px dashed rgba(0, 210, 255, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.05);
+    overflow: hidden;
+}
+
+.hologram-blueprint::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 210, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 210, 255, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
+.blueprint-grid-icon {
+    font-size: 3rem;
+    color: #00d2ff;
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Map Schematic layout inside blueprint */
+.map-schematic {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.map-point {
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.map-point.trigger {
+    border-color: #ffaa00;
+    color: #ffaa00;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+}
+
+.map-point.target {
+    border-color: #ff3333;
+    color: #ff3333;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 51, 51, 0.3);
+}
+
+.map-point.tunnel {
+    border-color: #00ff88;
+    color: #00ff88;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+.map-line {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.map-line-active {
+    color: #ffaa00;
+    font-weight: 700;
+}
+
+.map-line-full {
+    color: #ff3333;
+    font-weight: 700;
+}
+
+/* System Flow diagrams */
+.system-flow {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.flow-block {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 160px;
+}
+
+.flow-block.highlighted {
+    border-color: #00d2ff;
+    background: rgba(0, 210, 255, 0.05);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+}
+
+.flow-block .title {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.flow-block.highlighted .title {
+    color: #00d2ff;
+}
+
+.flow-block .details {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.4;
+}
+
+.flow-arrow-h {
+    color: #00d2ff;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+/* Vertical flow diagrams */
+.flow-arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.flow-box-v {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.25rem;
+    flex: 1;
+    text-align: center;
+}
+
+.flow-box-v .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    display: block;
+}
+
+.flow-box-v .desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+.arrow-v {
+    font-size: 2rem;
+    color: #00d2ff;
+    font-weight: 900;
+}
+
+/* Premium Presentation Tables */
+.comparison-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 1rem 1.2rem;
+    text-align: left;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table th {
+    background: rgba(0, 210, 255, 0.1);
+    color: #00d2ff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table td.bold-cell {
+    font-weight: 700;
+    color: #00ff88;
+}
+
+.comparison-table tr {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.comparison-table tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Stats Dashboard Grids */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.stat-box-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.stat-box-card:hover {
+    border-color: rgba(0, 210, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.stat-box-card .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-box-card .number {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin: 10px 0 5px 0;
+    line-height: 1;
+}
+
+.stat-box-card .desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Neon Glow styling */
+.neon-cyan {
+    color: #00d2ff;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+}
+
+.neon-green {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.red-glow {
+    color: #ff3333;
+    text-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+}
+
+.green-glow {
+    color: #00ff88;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+}
+
+.big-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 10px 0;
+    line-height: 1;
+}
+
+/* Patent list styling */
+.patent-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.patent-item-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.patent-item-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.patent-title {
+    font-size: 0.95rem;
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.patent-item-card .desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+    margin-top: 15px;
+}
+
+/* In-slide Progress indicators */
+.progress-bar-hud, .status-progress-hud {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.progress-info, .status-progress-hud .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.progress-info .label, .status-progress-hud .info .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+.progress-info .value, .status-progress-hud .info .value {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #00d2ff;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
+}
+
+.progress-track-hud, .status-progress-hud .track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill-hud, .status-progress-hud .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00d2ff, #00ff88);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+/* Q&A grid layout */
+.qa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.qa-item {
+    background: rgba(0, 210, 255, 0.05);
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #00d2ff;
+    box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.qa-item:hover {
+    border-color: #00ff88;
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.05);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+}
+
 /* Responsive Customizations */
 @media (max-width: 992px) {
     .hud-control-panel {

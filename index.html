@@ -134,13 +134,16 @@
 
     <!-- Presentation Content Overlay -->
     <main class="presentation">
+        <!-- 슬라이드 1: 표지 -->
         <section class="slide" id="slide-0">
             <div class="content center-focus glass-card">
-                <div class="team-name">TEAM. Five Guys</div>
-                <h1 class="main-title">터널 사고 방지를 위한<br><span class="highlight-glow">미등제어 시스템</span></h1>
-                <div class="team-members">
-                    2122888 박성준 &nbsp;|&nbsp; 2322263 이승주 &nbsp;|&nbsp; 2122773 김수영<br>
-                    2122656 이채욱 &nbsp;|&nbsp; 2322621 김인현
+                <div class="team-name" style="color: #ffaa00;">PROJECT PRESENTATION</div>
+                <h1 class="main-title">GPS 기반 스마트 터널<br><span class="highlight-glow">미등 자동제어 시스템</span></h1>
+                <p class="section-desc" style="color: #a0a0a0; font-size: 1.3rem; margin-bottom: 25px;">블랙홀 현상 해결 프로젝트</p>
+                <div class="team-members" style="font-size: 1.05rem; line-height: 1.8; color: #dddddd; margin-bottom: 30px;">
+                    <strong>팀명:</strong> FiveGuys &nbsp;|&nbsp; <strong>소속:</strong> 전자공학과<br>
+                    박성준 (팀장) &nbsp;|&nbsp; 김수영 &nbsp;|&nbsp; 김인현 &nbsp;|&nbsp; 이승주 &nbsp;|&nbsp; 이채욱<br>
+                    <span style="color: #888888; font-size: 0.9rem;">발표일: 2024년 6월 4일</span>
                 </div>
                 <div class="scroll-indicator">
                     <span>스크롤하여 시작</span>
@@ -149,42 +152,436 @@
             </div>
         </section>
 
-        <!-- New Intermediate Slide -->
-        <section class="slide" id="slide-intro">
-            <div class="content center-focus glass-card">
-                <h2 class="section-title">프로젝트 주제:<br><span class="highlight-glow">선제적 미등 제어를 통한 터널 사고 예방</span></h2>
-                <p class="section-desc">터널 진입 시의 시각적 공백을 임베디드 기술로 채웁니다.</p>
-            </div>
-        </section>
-
+        <!-- 슬라이드 2: 역할 분담 -->
         <section class="slide" id="slide-1">
-            <div class="content glass-card">
-                <h2 class="section-title">안전한 터널 진입을 위한<br><span class="highlight-glow">차량 미등 제어 시스템</span></h2>
-                <p class="section-desc">3D 시뮬레이션을 통해 시스템의 필요성과 효과를 경험해보세요.</p>
+            <div class="content glass-card" style="max-width: 960px;">
+                <h2 class="section-title">팀원 역할 분담</h2>
+                <div class="team-grid">
+                    <div class="team-member-card">
+                        <div class="member-role lead-role">팀장</div>
+                        <h3 class="member-name">박성준</h3>
+                        <div class="member-details">
+                            • 프로젝트 총괄<br>
+                            • 시스템 설계<br>
+                            • 개발 일정 관리
+                        </div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-role">FIRMWARE</div>
+                        <h3 class="member-name">김수영</h3>
+                        <div class="member-details">
+                            • 펌웨어 개발<br>
+                            • 센서 제어 로직<br>
+                            • 코드 최적화
+                        </div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-role">HARDWARE</div>
+                        <h3 class="member-name">김인현</h3>
+                        <div class="member-details">
+                            • CAN 통신 분석<br>
+                            • LED 구동 드라이버<br>
+                            • 하드웨어 통합
+                        </div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-role">ALGORITHM</div>
+                        <h3 class="member-name">이승주</h3>
+                        <div class="member-details">
+                            • GPS 좌표 수집<br>
+                            • 가속도 데이터 매칭<br>
+                            • 오차 보정 필터
+                        </div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-role">TESTING</div>
+                        <h3 class="member-name">이채욱</h3>
+                        <div class="member-details">
+                            • 실차 테스트 실행<br>
+                            • 모듈 배선 설계<br>
+                            • 실차 통합 테스트
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- 슬라이드 3: 목차 -->
         <section class="slide" id="slide-2">
-            <div class="content align-left glass-card">
-                <h2 class="section-title">터널 진입 시의 <span class="highlight-danger">위험성</span></h2>
-                <p class="section-desc">터널 진입 시 발생하는 <strong>'블랙홀 현상'</strong>으로 인해<br>운전자의 시야가 일시적으로 완전히 차단됩니다.</p>
-                <p class="sub-text">이로 인한 전방 차량의 인지 지연은 대형 후미 추돌 사고로 이어질 수 있습니다.</p>
+            <div class="content glass-card align-left" style="max-width: 700px;">
+                <h2 class="section-title">목차</h2>
+                <ul class="index-list">
+                    <li><span class="index-num">01</span> 프로젝트 개요 및 배경</li>
+                    <li><span class="index-num">02</span> 시스템 아키텍처</li>
+                    <li><span class="index-num">03</span> 하드웨어 부품 구성</li>
+                    <li><span class="index-num">04</span> GPS 오차 분석 및 개선</li>
+                    <li><span class="index-num">05</span> IMU 센서 보정</li>
+                    <li><span class="index-num">06</span> LED 제어 방식 변경</li>
+                    <li><span class="index-num">07</span> 구현 위치 및 실험 설정</li>
+                    <li><span class="index-num">08</span> 최종 성과 및 지표</li>
+                    <li><span class="index-num">09</span> 특허 및 공모전</li>
+                    <li><span class="index-num">10</span> 결론 및 향후 계획</li>
+                </ul>
             </div>
         </section>
 
+        <!-- 슬라이드 4: 프로젝트 개요 -->
         <section class="slide" id="slide-3">
-            <div class="content align-right glass-card">
-                <h2 class="section-title">솔루션: <span class="highlight-glow">사전 미등 점등</span></h2>
-                <p class="section-desc">터널 진입 <strong>50m 전</strong>,<br>시스템이 조도 변화를 감지하여 선제적으로 미등을 점등합니다.</p>
-                <p class="sub-text">어두운 터널 내 진입 시, 후행 차량에게 내 차의 위치를 명확히 알립니다.</p>
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">프로젝트 개요 및 배경</h2>
+                <div class="problem-section">
+                    <div class="problem-box">
+                        <div class="box-icon danger-icon">⚠️</div>
+                        <h3>문제 상황</h3>
+                        <p class="section-desc" style="font-size: 1.05rem;">터널 진입 시 급격한 밝기 변화 발생</p>
+                        <ul style="font-size: 0.95rem; line-height: 1.6; margin-top: 10px; color: #d0d0d0;">
+                            <li>운전자의 일시적 시야 마비 (블랙홀 현상)</li>
+                            <li>후미 차량의 인지 지연으로 추돌 발생</li>
+                            <li>기존 오토라이트는 조도 센서 반응 지연 존재</li>
+                        </ul>
+                    </div>
+                    <div class="solution-box">
+                        <div class="box-icon success-icon">🎯</div>
+                        <h3>프로젝트 목표</h3>
+                        <p class="section-desc" style="font-size: 1.05rem;">선제적 미등 제어를 통한 터널 사고 예방</p>
+                        <ul style="font-size: 0.95rem; line-height: 1.6; margin-top: 10px; color: #d0d0d0;">
+                            <li>GPS/IMU 기반 진입 차선 및 거리 감지</li>
+                            <li>터널 진입 전(300m~50m) 선제적 점등</li>
+                            <li>운전자 시각 적응 안전 공간 확보</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- 슬라이드 5: 시스템 아키텍처 -->
         <section class="slide" id="slide-4">
-            <div class="content center-focus glass-card">
-                <h2 class="section-title">안전 확보 및 사고 예방</h2>
-                <p class="section-desc">선제적 미등 제어는 후행 차량의 안전거리를 유도하여<br>터널 내 <strong>사고 발생률을 획기적으로 낮춥니다.</strong></p>
-                <div class="conclusion">안전은 미리 준비할 때 완성됩니다.</div>
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">시스템 아키텍처</h2>
+                <div class="hologram-blueprint" style="margin-bottom: 20px;">
+                    <div class="system-flow">
+                        <div class="flow-block">
+                            <span class="title">SENSORS</span>
+                            <span class="details">GPS (Neo-6M)<br>IMU (MPU6050)<br>Lux (BH1750)</span>
+                        </div>
+                        <div class="flow-arrow-h">➔</div>
+                        <div class="flow-block highlighted">
+                            <span class="title">CONTROLLER</span>
+                            <span class="details">ESP32 MCU<br>센서 융합 분석<br>PWM 제어 신호</span>
+                        </div>
+                        <div class="flow-arrow-h">➔</div>
+                        <div class="flow-block">
+                            <span class="title">OUTPUT</span>
+                            <span class="details">MOSFET Driver<br>PWM LED 미등<br>3단계 디밍 구동</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="section-desc" style="font-size: 1.1rem; text-align: center; color: #00d2ff;">
+                    ESP32 모듈을 중심으로 다중 센서 융합을 통한 실시간 고속 병렬 처리 아키텍처
+                </p>
+            </div>
+        </section>
+
+        <!-- 슬라이드 6: 하드웨어 부품 구성 -->
+        <section class="slide" id="slide-5">
+            <div class="content glass-card" style="max-width: 850px;">
+                <h2 class="section-title">하드웨어 부품 구성</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>부품명</th>
+                            <th>선정 모델</th>
+                            <th>핵심 기술 및 사양</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bold-cell">메인 MCU</td>
+                            <td>ESP32 DevKitC</td>
+                            <td>240MHz Dual-Core, ADC/PWM 채널 풍부, 가성비 우수</td>
+                        </tr>
+                        <tr>
+                            <td class="bold-cell">GPS 모듈</td>
+                            <td>U-Blox Neo-6M</td>
+                            <td>50개 채널 위성 탐색, 높은 기동 수신 감도, UART 통신</td>
+                        </tr>
+                        <tr>
+                            <td class="bold-cell">IMU 센서</td>
+                            <td>MPU6050</td>
+                            <td>3축 자이로스코프 + 3축 가속도계, I2C 인터페이스</td>
+                        </tr>
+                        <tr>
+                            <td class="bold-cell">조도 센서</td>
+                            <td>BH1750</td>
+                            <td>0~65535 Lux 광범위 조도 측정, 안정적인 광학 데이터 수집</td>
+                        </tr>
+                        <tr>
+                            <td class="bold-cell">스위칭 드라이버</td>
+                            <td>N-Ch MOSFET</td>
+                            <td>High-Speed PWM 스위칭 게이트 구동, 저발열 전원 차단 제어</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 슬라이드 7: GPS 오차 분석 및 개선 -->
+        <section class="slide" id="slide-6">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">GPS 오차 분석 및 개선</h2>
+                <div class="problem-section">
+                    <div class="problem-box">
+                        <h3>❌ 초기 성능 한계</h3>
+                        <p style="font-size: 1.1rem; margin-top: 15px;"><span class="highlight-danger">정지 상태:</span> ±5m 수준의 불규칙 튐</p>
+                        <p style="font-size: 1.1rem;"><span class="highlight-danger">고속 주행:</span> 최대 ±15m 오차 발생</p>
+                        <ul style="font-size: 0.9rem; margin-top: 15px; color: #b0b0b0;">
+                            <li>멀티패스 페이딩에 의한 수신 좌표 드리프트</li>
+                            <li>터널 전방 차선 구별의 정확도 부족</li>
+                        </ul>
+                    </div>
+                    <div class="solution-box">
+                        <h3>✅ 해결 및 최적화 기법</h3>
+                        <p style="font-size: 1.1rem; margin-top: 15px;"><span class="highlight-glow">차량용 외부 안테나 추가:</span> 위성 개수 6개 → 12개 확보</p>
+                        <p style="font-size: 1.1rem;"><span class="highlight-glow">이동평균 필터 알고리즘:</span> 튀는 노이즈 좌표 자동 마스킹</p>
+                        <ul style="font-size: 0.9rem; margin-top: 15px; color: #b0b0b0;">
+                            <li>위성 신호 강도 감시(C/No값 기반 필터링)</li>
+                            <li>오차 반경 1m 내외로 축소 성공</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 8: GPS 개선 결과 -->
+        <section class="slide" id="slide-7">
+            <div class="content glass-card" style="max-width: 850px;">
+                <h2 class="section-title">GPS 오차 개선 결과</h2>
+                <div class="progress-bar-hud">
+                    <div class="progress-info">
+                        <span class="label">GPS 위치 측정 오차 감소율</span>
+                        <span class="value">90% 개선</span>
+                    </div>
+                    <div class="progress-track-hud">
+                        <div class="progress-fill-hud" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="flow-arrow-container">
+                    <div class="flow-box-v">
+                        <span class="label">개선 전 (기본 Neo-6M)</span>
+                        <span class="big-number red-glow">± 15 m</span>
+                        <span class="desc">차선 감지 불가, 불안정한 좌표 튐</span>
+                    </div>
+                    <div class="arrow-v">➔</div>
+                    <div class="flow-box-v">
+                        <span class="label">개선 후 (안테나 + 소프트웨어 필터)</span>
+                        <span class="big-number green-glow">± 1.2 m</span>
+                        <span class="desc">터널 차선 진입 정밀 타게팅 가능</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 9: IMU 센서 보정 -->
+        <section class="slide" id="slide-8">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">IMU 센서 (MPU6050) 보정</h2>
+                <div class="problem-section">
+                    <div class="problem-box">
+                        <h3>❌ 자이로 / 가속도 드리프트</h3>
+                        <p style="font-size: 1.05rem; margin-top: 10px;">• 차량의 주행 진동에 의한 누적 오차 발생</p>
+                        <p style="font-size: 1.05rem;">• 정지 상태에서도 중력가속도 분포 드리프트</p>
+                        <p style="font-size: 0.95rem; color: #a0a0a0; margin-top: 10px;">
+                            (가속도 적분 시 누적 오차로 차선 위치 추적 오차가 발생)
+                        </p>
+                    </div>
+                    <div class="solution-box">
+                        <h3>✅ 영점 오프셋 및 소프트웨어 필터링</h3>
+                        <p style="font-size: 1.05rem; margin-top: 10px;">• 부팅 시 500개 샘플 기반 캘리브레이션</p>
+                        <p style="font-size: 1.05rem;">• 상보필터(Complementary Filter) 구현</p>
+                        <p style="font-size: 0.95rem; color: #a0a0a0; margin-top: 10px;">
+                            가속도계의 고주파 노이즈 차단 + 자이로계의 저주파 드리프트 보정을 결합해 정확한 피치/롤 각도 획득
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 10: LED 제어 방식 -->
+        <section class="slide" id="slide-9">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">LED 제어 방식 변경</h2>
+                <div class="problem-section">
+                    <div class="problem-box">
+                        <h3>❌ 기존 계획 (CAN 제어 시도)</h3>
+                        <p style="font-size: 1.05rem; margin-top: 15px;"><span class="highlight-danger">OBD2 포트 제어 통신 장벽</span></p>
+                        <ul style="font-size: 0.9rem; margin-top: 15px; color: #b0b0b0; line-height: 1.6;">
+                            <li>차량 제조사 게이트웨이 보안 필터 탑재</li>
+                            <li>외부 모듈의 CAN 트랜시버 쓰기(Write) 명령 차단</li>
+                            <li>실제 운행 차량 미등 CAN 조작의 잠재적 위험성</li>
+                        </ul>
+                    </div>
+                    <div class="solution-box">
+                        <h3>✅ 변경 계획 (MOSFET PWM 직접 제어)</h3>
+                        <p style="font-size: 1.05rem; margin-top: 15px;"><span class="highlight-glow">독립 구동 외부 LED 미등 모듈 구성</span></p>
+                        <ul style="font-size: 0.9rem; margin-top: 15px; color: #b0b0b0; line-height: 1.6;">
+                            <li>ESP32 하드웨어 PWM 제어 라인 독립 설계</li>
+                            <li>MOSFET 스위칭 소자로 대용량 전류 안정적 스위칭</li>
+                            <li>진입 거리에 대응하는 3단계 전압(디밍) 제어 가능</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 11: 구현 위치 및 실험 설정 -->
+        <section class="slide" id="slide-10">
+            <div class="content glass-card" style="max-width: 850px;">
+                <h2 class="section-title">구현 위치 및 실험 설정</h2>
+                <div class="hologram-blueprint" style="min-height: 200px; margin-bottom: 20px;">
+                    <div class="map-schematic">
+                        <div class="map-point">START [경로 시작]</div>
+                        <div class="map-line">--------------------- 300m 구간 ---------------------</div>
+                        <div class="map-point trigger">TRIGGER (300m 전)</div>
+                        <div class="map-line-active">======== 점진적 미등 켜짐 구간 (250m) ========</div>
+                        <div class="map-point target">FULL BRIGHT (50m 전)</div>
+                        <div class="map-line-full">================= 100% 켜짐 =================</div>
+                        <div class="map-point tunnel">TUNNEL [학교 앞 가상 진입로]</div>
+                    </div>
+                </div>
+                <p class="section-desc" style="font-size: 1.1rem; color: #dddddd;">
+                    <strong>실험 부지:</strong> 학교 앞 직선 도로 테스트 베드 구축<br>
+                    <strong>실험 방법:</strong> 지정 GPS 바운더리 구역에 진입 시 속도 및 남은 거리를 동적으로 역계산하여 모듈 작동 검증
+                </p>
+            </div>
+        </section>
+
+        <!-- 슬라이드 12: 최종 구현 상태 -->
+        <section class="slide" id="slide-11">
+            <div class="content glass-card" style="max-width: 850px;">
+                <h2 class="section-title">최종 구현 상태</h2>
+                <div class="hologram-blueprint" style="min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-style: solid; border-color: rgba(0, 210, 255, 0.25);">
+                    <div class="blueprint-grid-icon">🎛️</div>
+                    <h3 style="color: #00d2ff; font-weight: 700; margin-top: 15px;">ESP32 기반 스마트 미등 제어 모듈 하드웨어</h3>
+                    <p style="color: #a0a0a0; font-size: 0.95rem; max-width: 500px; text-align: center; margin-top: 10px; line-height: 1.6;">
+                        외부 안테나 포트가 결합된 Neo-6M GPS 모듈, 캘리브레이션 스위치, MPU6050 가속도 자이로 기판 및 12V 릴레이 드라이버 모듈이 결합된 원보드 프로토타입
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 13: 성능 지표 -->
+        <section class="slide" id="slide-12">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">최종 성능 지표</h2>
+                <div class="stats-grid">
+                    <div class="stat-box-card">
+                        <span class="label">GPS 위치 정확도 개선</span>
+                        <span class="number neon-cyan">90%</span>
+                        <span class="desc">±15m 오차 → ±1.2m</span>
+                    </div>
+                    <div class="stat-box-card">
+                        <span class="label">IMU 영점 보정</span>
+                        <span class="number neon-green">완료</span>
+                        <span class="desc">정적 누적 드리프트 99% 차단</span>
+                    </div>
+                    <div class="stat-box-card">
+                        <span class="label">LED PWM 디밍 제어</span>
+                        <span class="number neon-green">완료</span>
+                        <span class="desc">MOSFET 기반 3단계 조절</span>
+                    </div>
+                    <div class="stat-box-card">
+                        <span class="label">실차 테스트 성공률</span>
+                        <span class="number neon-cyan">100%</span>
+                        <span class="desc">실제 터널 좌표계 진입 작동</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 14: 특허 & 공모전 -->
+        <section class="slide" id="slide-13">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">특허 출원 & 공모전 참가</h2>
+                <div class="patent-box">
+                    <div class="patent-item-card">
+                        <h3>🔐 특허 출원</h3>
+                        <p class="patent-title">GPS 기반 터널 미등 자동제어 시스템</p>
+                        <div class="status-progress-hud">
+                            <div class="info">
+                                <span class="label">출원 및 공보 접수 절차</span>
+                                <span class="value">75% 진행</span>
+                            </div>
+                            <div class="track">
+                                <div class="fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <p class="desc">선제적 안전 대책 및 조도 융합 특허 출원서 공문 심사 단계 진행 중</p>
+                    </div>
+                    <div class="patent-item-card">
+                        <h3>🏆 공모전 참가</h3>
+                        <p class="patent-title">제2회 혁신적 안전기술 공모전</p>
+                        <div class="status-progress-hud">
+                            <div class="info">
+                                <span class="label">작품 평가 및 심사</span>
+                                <span class="value">60% 진행</span>
+                            </div>
+                            <div class="track">
+                                <div class="fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        <p class="desc">임베디드 시뮬레이션 결과물 및 현장 검증 자료 제출, 2차 평가 단계 진행 중</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 15: 결론 -->
+        <section class="slide" id="slide-14">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">결론 및 향후 계획</h2>
+                <div class="problem-section" style="margin-top: 15px;">
+                    <div class="problem-box" style="border-color: rgba(0, 210, 255, 0.2); border-left-color: #00d2ff;">
+                        <h3 style="color: #00d2ff;">📌 프로젝트 성과 요약</h3>
+                        <ul style="font-size: 0.95rem; line-height: 1.7; margin-top: 10px; color: #d0d0d0;">
+                            <li>차량용 안테나 도입으로 GPS 정밀 수집 신뢰도 개선</li>
+                            <li>가속도 센서 캘리브레이션과 필터를 적용한 드리프트 제로화</li>
+                            <li>외부 MOSFET 전원 스위칭으로 차량 안전 디밍 솔루션 완성</li>
+                            <li>학교 앞 직선 실험 구역에서 3단계 제어 기능 완벽 동작 확인</li>
+                        </ul>
+                    </div>
+                    <div class="solution-box" style="border-color: rgba(0, 255, 136, 0.2); border-left-color: #00ff88;">
+                        <h3 style="color: #00ff88;">🔮 향후 개선 방향</h3>
+                        <ul style="font-size: 0.95rem; line-height: 1.7; margin-top: 10px; color: #d0d0d0;">
+                            <li>실제 차량 모듈 규격에 맞춘 커스텀 CAN ECU 설계</li>
+                            <li>국토교통부 공공데이터 포털 기반 터널 데이터베이스 맵 연동</li>
+                            <li>V2X 통신 도입을 통한 주변 차량 연동 안전거리 정보 공유</li>
+                            <li>통합 컨트롤 패키징 보드 상용화 추진</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 16: 감사의 말 -->
+        <section class="slide" id="slide-15">
+            <div class="content center-focus glass-card" style="max-width: 750px; padding: 5rem 3rem;">
+                <h1 class="main-title" style="font-size: 4rem !important; color: #00ff88; text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);">감사합니다</h1>
+                <p class="section-desc" style="font-size: 1.6rem; color: #a0a0a0; margin-bottom: 50px;">경청해 주셔서 대단히 감사합니다.</p>
+                <div class="conclusion" style="margin-top: 0; font-size: 1.3rem;">FiveGuys 팀 일동</div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 17: Q&A -->
+        <section class="slide" id="slide-16">
+            <div class="content center-focus glass-card" style="max-width: 800px; padding: 4rem 3rem;">
+                <h1 class="main-title" style="font-size: 4.2rem !important; margin-bottom: 30px;">Q & A</h1>
+                <p class="section-desc" style="font-size: 1.4rem; color: #a0a0a0; margin-bottom: 40px;">질의응답을 받습니다.</p>
+                <div class="qa-grid">
+                    <div class="qa-item">GPS 수집 오차 검증</div>
+                    <div class="qa-item">자이로 센서 영점 필터</div>
+                    <div class="qa-item">MOSFET 회로 안전설계</div>
+                    <div class="qa-item">CAN 통신 대안 및 향후계획</div>
+                </div>
             </div>
         </section>
     </main>

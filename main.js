@@ -284,11 +284,10 @@ loader.load('ferrari.glb', function(gltf) {
     
     createMCU();
     runIntro();
-    initSlideAnimations();
-    init3DAnimations(); 
 }, undefined, (error) => {
     console.error('Error loading car model:', error);
     initSlideAnimations();
+    init3DAnimations();
 });
 
 // --- Create Procedural ESP32 MCU ---
@@ -774,7 +773,27 @@ function updateHUDDisplays() {
 
 // --- Setup GSAP Intro Animation ---
 function runIntro() {
-    const introTl = gsap.timeline();
+    if (window.scrollY > 10) {
+        // If already scrolled down, skip intro animation
+        carGroup.position.z = -100;
+        camera.position.set(4, 1.2, -94);
+        gsap.set(".slide#slide-0 .content", { opacity: 1, y: 0 });
+        initSlideAnimations();
+        init3DAnimations();
+        return;
+    }
+
+    // Disable scrolling during intro to make it look clean
+    const originalOverflow = document.body.style.overflowY;
+    document.body.style.overflowY = 'hidden';
+
+    const introTl = gsap.timeline({
+        onComplete: () => {
+            document.body.style.overflowY = originalOverflow || '';
+            initSlideAnimations();
+            init3DAnimations();
+        }
+    });
     
     // Camera starts tight behind the car
     camera.position.set(0, 1.2, 10);
@@ -843,33 +862,46 @@ function init3DAnimations() {
         }
     });
 
-    // --- Timeline Setup ---
+    // --- Timeline Setup (Partitioned for 17 Slides: total duration 1.0) ---
 
-    // Slide 1 to 2: Accelerate + Exploded MCU Disassembly Reveal
+    // 1. Initial State for Slide 0, 1, 2 (0.0 to 0.1875)
+    // The car and camera are positioned at their initial intro end-states.
+    // We add a dummy tween to make sure the timeline spans from 0.0
+    tl.to(carGroup.position, { z: -100, duration: 0.1875 }, 0);
+
+    // 2. Slide 2 -> 3 (0.1875 to 0.25): Disassembly and MCU zoom
+    // Drive car forward to z = -200
     tl.to(carGroup.position, {
-        z: -400, 
-        duration: 0.4,
-        ease: "none"
-    }, 0);
+        z: -200, 
+        duration: 0.0625,
+        ease: "power2.inOut"
+    }, 0.1875);
     
-    // Camera zoom closely in on the MCU inside the chassis
+    // Zoom camera close to the MCU position inside the chassis
     tl.to(camera.position, {
         x: 1.5, 
-        z: -396, 
+        z: -196, 
         y: 1.2, 
-        duration: 0.4,
-        ease: "none" 
-    }, 0);
+        duration: 0.0625,
+        ease: "power2.inOut" 
+    }, 0.1875);
+
+    // Increase FOV to simulate speed effect during separation
+    tl.to(camera, {
+        fov: 85,
+        duration: 0.0625,
+        onUpdate: () => camera.updateProjectionMatrix()
+    }, 0.1875);
 
     // MCU Exploded View Disassembly Matrix
-    // 1. Lift Shell (Car Top Body)
-    tl.to(carShell.position, { y: 6.0, duration: 0.2, ease: "back.out(1.8)" }, 0.1);
-    tl.to(carShell.rotation, { z: 0.15, x: 0.05, duration: 0.2 }, 0.1);
+    // A. Lift Shell (Car Top Body)
+    tl.to(carShell.position, { y: 6.0, duration: 0.0625, ease: "back.out(1.8)" }, 0.1875);
+    tl.to(carShell.rotation, { z: 0.15, x: 0.05, duration: 0.0625 }, 0.1875);
 
-    // 2. Lower Frame (Chassis bottom)
-    tl.to(carFrame.position, { y: -1.2, duration: 0.2, ease: "power2.out" }, 0.1);
+    // B. Lower Frame (Chassis bottom)
+    tl.to(carFrame.position, { y: -1.2, duration: 0.0625, ease: "power2.out" }, 0.1875);
     
-    // 3. Spread out wheels outwards
+    // C. Spread out wheels outwards
     if (wheels.length > 0) {
         wheels.forEach((wheel, i) => {
             const directionX = wheel.position.x > 0 ? 1 : -1;
@@ -878,61 +910,151 @@ function init3DAnimations() {
                 x: wheel.position.x + (5.5 * directionX), 
                 y: 1.5,
                 z: wheel.position.z + (3.0 * directionZ),
-                duration: 0.2, 
+                duration: 0.0625, 
                 ease: "power2.out" 
-            }, 0.1);
-            tl.to(wheel.rotation, { x: Math.PI, z: Math.PI, duration: 0.2 }, 0.1);
-
-            // Reassemble wheels back
-            tl.to(wheel.position, { x: wheel.initialX || 0, y: 0, z: 0, duration: 0.2, ease: "power2.in" }, 0.3);
-            tl.to(wheel.rotation, { x: 0, z: 0, duration: 0.2 }, 0.3);
+            }, 0.1875);
+            tl.to(wheel.rotation, { x: Math.PI, z: Math.PI, duration: 0.0625 }, 0.1875);
         });
     }
 
-    // 4. Zoom and Spin up the procedural ESP32 MCU
+    // D. Scale and Spin up the procedural ESP32 MCU
     if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 2.5, y: 2.5, z: 2.5, duration: 0.25, ease: "elastic.out(1, 0.4)" }, 0.12);
-        tl.to(mcuGroup.rotation, { y: Math.PI * 6, duration: 0.4, ease: "none" }, 0.12);
-        
-        // Hide MCU back into chassis
-        tl.to(mcuGroup.scale, { x: 0, y: 0, z: 0, duration: 0.15, ease: "power2.in" }, 0.32);
+        tl.to(mcuGroup.scale, { x: 2.5, y: 2.5, z: 2.5, duration: 0.05, ease: "elastic.out(1, 0.4)" }, 0.19);
+        tl.to(mcuGroup.rotation, { y: Math.PI * 6, duration: 0.06, ease: "none" }, 0.19);
     }
 
-    // Reassemble Shell and Frame back together
-    tl.to(carShell.position, { y: 0, duration: 0.2, ease: "bounce.out" }, 0.32);
-    tl.to(carShell.rotation, { z: 0, x: 0, duration: 0.2 }, 0.32);
-    tl.to(carFrame.position, { y: 0, duration: 0.2, ease: "power2.in" }, 0.32);
-
-    // Increase FOV to simulate speed effect during separation
-    tl.to(camera, {
-        fov: 85,
-        duration: 0.4,
-        onUpdate: () => camera.updateProjectionMatrix()
-    }, 0);
-
-    // Slide 2 to 3: Drive towards tunnel mouth
-    tl.to(carGroup.position, {
-        z: -680, 
-        duration: 0.3,
-        ease: "none"
-    }, 0.4);
+    // 3. Slide 3 -> 4 -> 5 (0.25 to 0.375): Architecture & Component details
+    // Zoom camera even closer to PCB for inspecting components
     tl.to(camera.position, {
-        x: 0, 
-        z: -674, 
-        y: 1.8, 
-        duration: 0.3,
-        ease: "none"
-    }, 0.4);
-    tl.to(camera, {
-        fov: 75, 
-        duration: 0.3,
-        onUpdate: () => camera.updateProjectionMatrix()
-    }, 0.4);
+        x: 0.8,
+        y: 1.0,
+        z: -196.8,
+        duration: 0.0625,
+        ease: "power2.out"
+    }, 0.25);
 
-    // Slide 3 to 4: Cruise completely deep inside the concrete tunnel tube
-    tl.to(carGroup.position, { z: -1150, duration: 0.3, ease: "none" }, 0.7);
-    tl.to(camera.position, { z: -1144, duration: 0.3, ease: "none" }, 0.7);
+    // Keep MCU spinning slowly
+    if (mcuGroup) {
+        tl.to(mcuGroup.rotation, { y: Math.PI * 8, duration: 0.125, ease: "none" }, 0.25);
+    }
+
+    // 4. Slide 5 -> 6 -> 7 (0.375 to 0.50): GPS Error Analysis & Improvements
+    // Rotate the MCU board to emphasize the GPS module
+    if (mcuGroup) {
+        tl.to(mcuGroup.rotation, {
+            x: -Math.PI / 4,
+            y: Math.PI * 9.5,
+            z: 0.1,
+            duration: 0.0625,
+            ease: "power2.out"
+        }, 0.375);
+    }
+    // Adjust camera angle slightly
+    tl.to(camera.position, {
+        x: 1.2,
+        y: 0.8,
+        z: -196.5,
+        duration: 0.0625,
+        ease: "power2.out"
+    }, 0.375);
+
+    // 5. Slide 7 -> 8 (0.50 to 0.5625): IMU Gyro Calibration Board Tilt
+    // Tilting board left, right, up, down to simulate MPU6050 accelerometer/gyro offset calibration
+    if (mcuGroup) {
+        // Roll left (Z tilt)
+        tl.to(mcuGroup.rotation, { z: 0.4, duration: 0.015, ease: "power1.inOut" }, 0.50);
+        // Roll right (Z tilt)
+        tl.to(mcuGroup.rotation, { z: -0.4, duration: 0.015, ease: "power1.inOut" }, 0.515);
+        // Pitch up (X tilt)
+        tl.to(mcuGroup.rotation, { x: -Math.PI / 4 + 0.4, z: 0.1, duration: 0.015, ease: "power1.inOut" }, 0.53);
+        // Pitch down (X tilt)
+        tl.to(mcuGroup.rotation, { x: -Math.PI / 4 - 0.4, duration: 0.015, ease: "power1.inOut" }, 0.545);
+        // Return to neutral layout position
+        tl.to(mcuGroup.rotation, { x: 0, y: Math.PI * 10, z: 0, duration: 0.0175, ease: "power2.out" }, 0.56);
+    }
+
+    // 6. Slide 8 -> 9 -> 10 -> 11 (0.5625 to 0.75): LED Control, Map Setup & Final Board Prototype
+    // Scale down MCU back inside the car chassis
+    if (mcuGroup) {
+        tl.to(mcuGroup.scale, { x: 0, y: 0, z: 0, duration: 0.05, ease: "power2.in" }, 0.5625);
+    }
     
+    // Reassemble wheels back
+    if (wheels.length > 0) {
+        wheels.forEach((wheel) => {
+            tl.to(wheel.position, { x: wheel.initialX || 0, y: 0, z: 0, duration: 0.045, ease: "power2.in" }, 0.58);
+            tl.to(wheel.rotation, { x: 0, z: 0, duration: 0.045 }, 0.58);
+        });
+    }
+
+    // Reassemble Shell and Frame
+    tl.to(carShell.position, { y: 0, duration: 0.045, ease: "bounce.out" }, 0.58);
+    tl.to(carShell.rotation, { z: 0, x: 0, duration: 0.045 }, 0.58);
+    tl.to(carFrame.position, { y: 0, duration: 0.045, ease: "power2.in" }, 0.58);
+    
+    // Restore FOV to driving perspective
+    tl.to(camera, {
+        fov: 75,
+        duration: 0.0625,
+        onUpdate: () => camera.updateProjectionMatrix()
+    }, 0.5625);
+
+    // Drive car to 300m trigger line (z = -400)
+    tl.to(carGroup.position, {
+        z: -400,
+        duration: 0.0875,
+        ease: "power2.inOut"
+    }, 0.5625);
+
+    // Restore camera to default highway chasing view
+    tl.to(camera.position, {
+        x: 4,
+        y: 1.2,
+        z: -394,
+        duration: 0.0875,
+        ease: "power2.inOut"
+    }, 0.5625);
+
+    // 7. Slide 11 -> 12 -> 13 -> 14 (0.75 to 0.875): Performance, Patents & Conclusion
+    // Car moves from 300m before tunnel to 50m before tunnel (z goes from -400 to -650)
+    tl.to(carGroup.position, {
+        z: -650,
+        duration: 0.125,
+        ease: "none"
+    }, 0.75);
+
+    // Move camera to chase closely directly behind the car to highlight rear taillight illumination
+    tl.to(camera.position, {
+        x: 0,
+        y: 1.5,
+        z: -644,
+        duration: 0.125,
+        ease: "none"
+    }, 0.75);
+
+    // 8. Slide 14 -> 15 -> 16 (0.875 to 1.0): Entering Tunnel & Q&A
+    // Car speeds up and drives deep into the dark concrete tunnel (z goes from -650 to -1150)
+    tl.to(carGroup.position, {
+        z: -1150,
+        duration: 0.125,
+        ease: "power2.in"
+    }, 0.875);
+
+    // Camera follows car deep inside the tunnel
+    tl.to(camera.position, {
+        z: -1144,
+        duration: 0.125,
+        ease: "power2.in"
+    }, 0.875);
+
+    // Pan camera to a beautiful side profile at the end (Q&A/Thanks slides)
+    tl.to(camera.position, {
+        x: 3.5,
+        y: 1.0,
+        duration: 0.0625,
+        ease: "power2.out"
+    }, 0.9375);
+
     ScrollTrigger.refresh();
 }
 
