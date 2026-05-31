@@ -1221,4 +1221,26 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTODUI(btnTodNight);
         });
     }
+
+    // 6. Auto play/pause demo video on scroll
+    const demoVideo = document.querySelector('#slide-11 video');
+    if (demoVideo) {
+        ScrollTrigger.create({
+            trigger: "#slide-11",
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => {
+                demoVideo.play().catch(err => console.log("Video auto-play blocked:", err));
+            },
+            onEnterBack: () => {
+                demoVideo.play().catch(err => console.log("Video auto-play blocked:", err));
+            },
+            onLeave: () => {
+                demoVideo.pause();
+            },
+            onLeaveBack: () => {
+                demoVideo.pause();
+            }
+        });
+    }
 });

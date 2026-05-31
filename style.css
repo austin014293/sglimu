@@ -1246,6 +1246,79 @@ p.sub-text {
     box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
 }
 
+/* Media Container (Image and Video side-by-side) */
+.media-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.media-box {
+    background: rgba(10, 16, 32, 0.5);
+    border: 1px solid rgba(0, 210, 255, 0.25);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-height: 250px;
+    overflow: hidden;
+    box-shadow: inset 0 0 15px rgba(0, 210, 255, 0.05);
+}
+
+.media-box:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+}
+
+.media-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #00d2ff;
+    margin-bottom: 8px;
+    align-self: flex-start;
+    padding-left: 5px;
+}
+
+.media-box img, .media-box video {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #000;
+}
+
+.media-placeholder {
+    position: absolute;
+    top: 35px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.media-placeholder .icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    opacity: 0.7;
+}
+
+.media-placeholder .text {
+    font-size: 0.75rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
 /* Responsive Customizations */
 @media (max-width: 992px) {
     .hud-control-panel {

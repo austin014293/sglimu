@@ -457,15 +457,29 @@
 
         <!-- 슬라이드 12: 최종 구현 상태 -->
         <section class="slide" id="slide-11">
-            <div class="content glass-card" style="max-width: 850px;">
+            <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">최종 구현 상태</h2>
-                <div class="hologram-blueprint" style="min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-style: solid; border-color: rgba(0, 210, 255, 0.25);">
-                    <div class="blueprint-grid-icon">🎛️</div>
-                    <h3 style="color: #00d2ff; font-weight: 700; margin-top: 15px;">ESP32 기반 스마트 미등 제어 모듈 하드웨어</h3>
-                    <p style="color: #a0a0a0; font-size: 0.95rem; max-width: 500px; text-align: center; margin-top: 10px; line-height: 1.6;">
-                        외부 안테나 포트가 결합된 Neo-6M GPS 모듈, 캘리브레이션 스위치, MPU6050 가속도 자이로 기판 및 12V 릴레이 드라이버 모듈이 결합된 원보드 프로토타입
-                    </p>
+                <div class="media-container">
+                    <div class="media-box image-box">
+                        <div class="media-label">📸 하드웨어 실물 사진</div>
+                        <img src="hardware.jpg" alt="하드웨어 실물 사진" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="media-placeholder">
+                            <div class="icon">📷</div>
+                            <div class="text">sglimu 폴더에 hardware.jpg<br>파일을 넣어주세요</div>
+                        </div>
+                    </div>
+                    <div class="media-box video-box">
+                        <div class="media-label">🎥 실차 주행 시연 동영상</div>
+                        <video src="demo.mp4" controls muted loop playsinline preload="metadata" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
+                        <div class="media-placeholder">
+                            <div class="icon">📹</div>
+                            <div class="text">sglimu 폴더에 demo.mp4<br>파일을 넣어주세요</div>
+                        </div>
+                    </div>
                 </div>
+                <p style="color: #a0a0a0; font-size: 0.95rem; text-align: center; margin-top: 15px; line-height: 1.6;">
+                    외부 안테나 포트가 결합된 Neo-6M GPS 모듈, 캘리브레이션 스위치, MPU6050 및 12V 릴레이 드라이버 모듈이 결합된 하드웨어 실물 및 작동 영상
+                </p>
             </div>
         </section>
 
