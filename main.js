@@ -822,9 +822,9 @@ function initSlideAnimations() {
                 gsap.to(children, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
-                    stagger: 0.1,
-                    ease: "power2.out",
+                    duration: 1.2,
+                    stagger: 0.2,
+                    ease: "power3.out",
                     overwrite: "auto"
                 });
             },
@@ -832,9 +832,9 @@ function initSlideAnimations() {
                 gsap.to(children, {
                     opacity: 0,
                     y: 30,
-                    duration: 0.4,
-                    stagger: 0.04,
-                    ease: "power2.in",
+                    duration: 0.6,
+                    stagger: 0.06,
+                    ease: "power3.in",
                     overwrite: "auto"
                 });
             },
@@ -842,9 +842,9 @@ function initSlideAnimations() {
                 gsap.to(children, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
-                    stagger: 0.08,
-                    ease: "power2.out",
+                    duration: 1.0,
+                    stagger: 0.15,
+                    ease: "power3.out",
                     overwrite: "auto"
                 });
             },
@@ -852,9 +852,9 @@ function initSlideAnimations() {
                 gsap.to(children, {
                     opacity: 0,
                     y: -30,
-                    duration: 0.4,
-                    stagger: 0.04,
-                    ease: "power2.in",
+                    duration: 0.6,
+                    stagger: 0.06,
+                    ease: "power3.in",
                     overwrite: "auto"
                 });
             }
