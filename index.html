@@ -13,13 +13,132 @@
     <!-- 3D Canvas Background -->
     <canvas id="webgl-canvas"></canvas>
 
+    <!-- Header HUD -->
+    <header class="hud-header">
+        <div class="logo">SGLIMU <span class="sub">TUNNEL SAFETY</span></div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="presentation-progress"></div>
+        </div>
+        <div class="system-status-indicator">
+            <span class="status-dot green" id="status-dot"></span>
+            <span class="status-text" id="status-text">SYSTEM ONLINE</span>
+        </div>
+    </header>
+
+    <!-- Telemetry HUD -->
+    <div class="hud-telemetry" id="hud-telemetry">
+        <div class="hud-panel left-panel">
+            <div class="telemetry-item speed-gauge">
+                <div class="gauge-ring">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" class="bg"></circle>
+                        <circle cx="50" cy="50" r="45" class="fg" id="speed-ring" stroke-dasharray="283" stroke-dashoffset="283"></circle>
+                    </svg>
+                    <div class="gauge-value"><span id="speed-value">80</span><span class="unit">km/h</span></div>
+                </div>
+                <div class="label">VEHICLE SPEED</div>
+            </div>
+            <div class="telemetry-item lux-meter">
+                <div class="lux-header">
+                    <span class="label">AMBIENT LIGHT</span>
+                    <span class="value" id="lux-value">1500 Lux</span>
+                </div>
+                <div class="lux-bar-container">
+                    <div class="lux-bar" id="lux-bar" style="width: 75%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hud-panel right-panel">
+            <div class="telemetry-item distance-counter">
+                <div class="value"><span id="distance-value">300</span><span class="unit">m</span></div>
+                <div class="label">DISTANCE TO TUNNEL</div>
+            </div>
+            <div class="telemetry-item light-status">
+                <div class="status-box" id="light-status-box">
+                    <div class="indicator-dot" id="light-indicator"></div>
+                    <div class="status-label" id="light-status-text">REAR LIGHTS OFF</div>
+                </div>
+                <div class="label">SYSTEM OUTPUT</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="hud-control-panel" id="control-panel">
+        <div class="panel-header">SIMULATION CONTROLLER</div>
+        <div class="panel-body">
+            <div class="control-row">
+                <label>Auto-Drive Mode</label>
+                <button class="control-btn" id="btn-autodrive">START AUTO-DRIVE</button>
+            </div>
+            <div class="control-row">
+                <label>Sidelight Control</label>
+                <div class="toggle-group">
+                    <button class="toggle-btn active" id="btn-mode-auto">AUTO</button>
+                    <button class="toggle-btn" id="btn-mode-manual">MANUAL</button>
+                </div>
+            </div>
+            <div class="control-row" id="manual-light-row" style="opacity: 0.4; pointer-events: none;">
+                <label>Manual Light Switch</label>
+                <button class="control-btn" id="btn-light-switch">TURN ON LIGHTS</button>
+            </div>
+            <div class="control-row">
+                <label>Ambient Lux Override</label>
+                <div class="slider-container">
+                    <input type="range" id="slider-lux" min="0" max="2000" value="1500" class="hud-slider">
+                    <span id="slider-lux-val">1500 Lux</span>
+                </div>
+            </div>
+            <div class="control-row">
+                <label>Time of Day</label>
+                <div class="toggle-group three-way">
+                    <button class="toggle-btn active" id="btn-tod-day">DAY</button>
+                    <button class="toggle-btn" id="btn-tod-sunset">SUNSET</button>
+                    <button class="toggle-btn" id="btn-tod-night">NIGHT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Holographic 3D Labels for MCU -->
+    <div id="mcu-labels-container" class="mcu-labels-container">
+        <div class="mcu-label-tag" id="mcu-tag-pcb">
+            <div class="tag-line"></div>
+            <div class="tag-content">
+                <div class="tag-title">4-Layer Matte Black PCB</div>
+                <div class="tag-desc">컴팩트하고 견고한 차량용 보드 회로</div>
+            </div>
+        </div>
+        <div class="mcu-label-tag" id="mcu-tag-esp32">
+            <div class="tag-line"></div>
+            <div class="tag-content">
+                <div class="tag-title">ESP32 Main MCU</div>
+                <div class="tag-desc">Wi-Fi/Bluetooth 기반 고속 센서 연산 처리</div>
+            </div>
+        </div>
+        <div class="mcu-label-tag" id="mcu-tag-sensor">
+            <div class="tag-line"></div>
+            <div class="tag-content">
+                <div class="tag-title">조도 센서 인터페이스</div>
+                <div class="tag-desc">실시간 주변 조도 아날로그 값(ADC) 수집</div>
+            </div>
+        </div>
+        <div class="mcu-label-tag" id="mcu-tag-relay">
+            <div class="tag-line"></div>
+            <div class="tag-content">
+                <div class="tag-title">미등 제어 출력 포트</div>
+                <div class="tag-desc">50m 전 릴레이 및 미등 켜짐 GPIO 신호 송출</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Presentation Content Overlay -->
     <main class="presentation">
         <section class="slide" id="slide-0">
-            <div class="content center-focus">
-                <div class="team-name" style="font-size: 1.5rem; color: #ffaa00; font-weight: 700; margin-bottom: 15px; letter-spacing: 2px;">TEAM. Five Guys</div>
-                <h1 style="font-size: 4rem; line-height: 1.3; margin-bottom: 30px;">터널 사고 방지를 위한<br><span class="highlight">미등제어 시스템</span></h1>
-                <div class="team-members" style="font-size: 1.1rem; color: #dddddd; line-height: 1.8; margin-bottom: 50px;">
+            <div class="content center-focus glass-card">
+                <div class="team-name">TEAM. Five Guys</div>
+                <h1 class="main-title">터널 사고 방지를 위한<br><span class="highlight-glow">미등제어 시스템</span></h1>
+                <div class="team-members">
                     2122888 박성준 &nbsp;|&nbsp; 2322263 이승주 &nbsp;|&nbsp; 2122773 김수영<br>
                     2122656 이채욱 &nbsp;|&nbsp; 2322621 김인현
                 </div>
@@ -32,39 +151,39 @@
 
         <!-- New Intermediate Slide -->
         <section class="slide" id="slide-intro">
-            <div class="content center-focus">
-                <h2 style="font-size: 3.5rem;">프로젝트 주제:<br><span class="highlight">선제적 미등 제어를 통한 터널 사고 예방</span></h2>
-                <p>터널 진입 시의 시각적 공백을 기술로 채웁니다.</p>
+            <div class="content center-focus glass-card">
+                <h2 class="section-title">프로젝트 주제:<br><span class="highlight-glow">선제적 미등 제어를 통한 터널 사고 예방</span></h2>
+                <p class="section-desc">터널 진입 시의 시각적 공백을 임베디드 기술로 채웁니다.</p>
             </div>
         </section>
 
         <section class="slide" id="slide-1">
-            <div class="content">
-                <h2>안전한 터널 진입을 위한<br><span class="highlight">차량 미등 제어 시스템</span></h2>
-                <p>3D 스크롤을 통해 시스템의 필요성과 효과를 경험해보세요.</p>
+            <div class="content glass-card">
+                <h2 class="section-title">안전한 터널 진입을 위한<br><span class="highlight-glow">차량 미등 제어 시스템</span></h2>
+                <p class="section-desc">3D 시뮬레이션을 통해 시스템의 필요성과 효과를 경험해보세요.</p>
             </div>
         </section>
 
         <section class="slide" id="slide-2">
-            <div class="content align-left">
-                <h2>터널 진입 시의 <span class="highlight-danger">위험성</span></h2>
-                <p>터널 진입 시 발생하는 <strong>'블랙홀 현상'</strong>으로 인해<br>운전자의 시야가 일시적으로 차단됩니다.</p>
-                <p class="sub-text">이로 인한 인지 지연은 대형 후미 추돌 사고로 이어질 수 있습니다.</p>
+            <div class="content align-left glass-card">
+                <h2 class="section-title">터널 진입 시의 <span class="highlight-danger">위험성</span></h2>
+                <p class="section-desc">터널 진입 시 발생하는 <strong>'블랙홀 현상'</strong>으로 인해<br>운전자의 시야가 일시적으로 완전히 차단됩니다.</p>
+                <p class="sub-text">이로 인한 전방 차량의 인지 지연은 대형 후미 추돌 사고로 이어질 수 있습니다.</p>
             </div>
         </section>
 
         <section class="slide" id="slide-3">
-            <div class="content align-right">
-                <h2>솔루션: <span class="highlight">사전 미등 점등</span></h2>
-                <p>터널 진입 <strong>50m 전</strong>,<br>시스템이 조도를 감지하여 선제적으로 미등을 켭니다.</p>
-                <p class="sub-text">후행 차량에게 내 차의 위치를 명확히 알립니다.</p>
+            <div class="content align-right glass-card">
+                <h2 class="section-title">솔루션: <span class="highlight-glow">사전 미등 점등</span></h2>
+                <p class="section-desc">터널 진입 <strong>50m 전</strong>,<br>시스템이 조도 변화를 감지하여 선제적으로 미등을 점등합니다.</p>
+                <p class="sub-text">어두운 터널 내 진입 시, 후행 차량에게 내 차의 위치를 명확히 알립니다.</p>
             </div>
         </section>
 
         <section class="slide" id="slide-4">
-            <div class="content center-focus">
-                <h2>안전 확보 및 사고 예방</h2>
-                <p>선제적 미등 제어는 후행 차량의 안전거리를 유도하여<br>터널 내 <strong>사고 발생률을 획기적으로 낮춥니다.</strong></p>
+            <div class="content center-focus glass-card">
+                <h2 class="section-title">안전 확보 및 사고 예방</h2>
+                <p class="section-desc">선제적 미등 제어는 후행 차량의 안전거리를 유도하여<br>터널 내 <strong>사고 발생률을 획기적으로 낮춥니다.</strong></p>
                 <div class="conclusion">안전은 미리 준비할 때 완성됩니다.</div>
             </div>
         </section>

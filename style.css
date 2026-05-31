@@ -36,6 +36,7 @@ body {
 .presentation {
     position: relative;
     z-index: 1;
+    pointer-events: none; /* Let pointer events pass through to canvas when needed, but contents will override */
 }
 
 /* Each slide takes full viewport height to allow smooth scrolling between them */
@@ -47,13 +48,14 @@ body {
     justify-content: center;
     padding: 0 10%;
     position: relative;
+    pointer-events: none; /* Clicks fall through unless on the card */
 }
 
 .content {
     max-width: 800px;
     opacity: 0; /* Will be animated by GSAP */
     transform: translateY(50px); /* Will be animated by GSAP */
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    pointer-events: auto; /* Enable hover/clicks on card contents */
 }
 
 .content.align-left {
@@ -70,18 +72,63 @@ body {
     text-align: center;
 }
 
-h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1px;
+/* Glassmorphism Presentation Cards */
+.glass-card {
+    background: rgba(10, 16, 32, 0.45);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 3rem 4rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-h2 {
-    font-size: 3rem;
+.glass-card:hover {
+    background: rgba(10, 16, 32, 0.55);
+    border-color: rgba(0, 210, 255, 0.25);
+    box-shadow: 0 30px 60px -10px rgba(0, 210, 255, 0.15),
+                0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.team-name {
+    font-size: 1.3rem;
+    color: #ffaa00;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.main-title {
+    font-size: 3.5rem !important;
+    line-height: 1.3;
+    margin-bottom: 25px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.team-members {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.section-title {
+    font-size: 2.4rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
+    line-height: 1.3;
+    color: #ffffff;
+}
+
+.section-desc {
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 p {
@@ -92,58 +139,44 @@ p {
 }
 
 p.sub-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #a0a0a0;
     margin-top: 1rem;
 }
 
-.highlight {
-    color: #4da8da; /* Cool blue for positive/tech aspects */
-}
-
-.highlight-underline {
-    position: relative;
-    color: #4da8da;
-    display: inline-block;
-}
-
-.highlight-underline::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 0%;
-    height: 4px;
-    background: #ff0000;
-    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-    border-radius: 2px;
-    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.highlight-underline.active::after {
-    width: 100%;
+.highlight-glow {
+    color: #00d2ff;
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.6), 0 0 30px rgba(0, 210, 255, 0.3);
 }
 
 .highlight-danger {
     color: #ff4d4d; /* Red for danger */
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
 }
 
 .conclusion {
     margin-top: 3rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: #fff;
-    padding: 1rem 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
     display: inline-block;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.conclusion:hover {
+    background: rgba(0, 210, 255, 0.1);
+    border-color: #00d2ff;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
 }
 
 /* Scroll Indicator */
 .scroll-indicator {
-    margin-top: 4rem;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -152,16 +185,16 @@ p.sub-text {
 }
 
 .scroll-indicator span {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 .mouse {
-    width: 30px;
-    height: 50px;
+    width: 26px;
+    height: 44px;
     border: 2px solid #fff;
-    border-radius: 15px;
+    border-radius: 13px;
     position: relative;
 }
 
@@ -171,7 +204,7 @@ p.sub-text {
     height: 8px;
     background: #fff;
     position: absolute;
-    top: 10px;
+    top: 8px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 2px;
@@ -179,14 +212,522 @@ p.sub-text {
 }
 
 @keyframes scroll {
-    0% { top: 10px; opacity: 1; }
-    100% { top: 25px; opacity: 0; }
+    0% { top: 8px; opacity: 1; }
+    100% { top: 22px; opacity: 0; }
 }
 
-/* Responsive */
+/* -------------------------------------------------------------
+   HUD DASHBOARD STYLING
+   ------------------------------------------------------------- */
+
+/* HUD Header */
+.hud-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    pointer-events: auto;
+    background: linear-gradient(to bottom, rgba(10, 15, 30, 0.8), rgba(10, 15, 30, 0));
+}
+
+.hud-header .logo {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.hud-header .logo .sub {
+    font-size: 0.7rem;
+    color: #00d2ff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-left: 8px;
+}
+
+.progress-bar-container {
+    flex-grow: 1;
+    max-width: 400px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin: 0 2rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00d2ff, #0066ff);
+    box-shadow: 0 0 8px #00d2ff;
+    transition: width 0.1s ease;
+}
+
+.system-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.status-dot.green { color: #00ff66; background-color: #00ff66; }
+.status-dot.orange { color: #ffaa00; background-color: #ffaa00; }
+.status-dot.red { color: #ff3333; background-color: #ff3333; }
+
+.status-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.8);
+}
+
+/* Telemetry HUD (Bottom) */
+.hud-telemetry {
+    position: fixed;
+    bottom: 2rem;
+    left: 3rem;
+    right: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.hud-panel {
+    display: flex;
+    gap: 1.5rem;
+    pointer-events: auto;
+}
+
+.telemetry-item {
+    background: rgba(10, 16, 32, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 150px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Speedometer circular progress gauge */
+.speed-gauge {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2rem;
+    min-width: 200px;
+}
+
+.gauge-ring {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.gauge-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.gauge-ring circle {
+    fill: none;
+    stroke-width: 8;
+}
+
+.gauge-ring circle.bg {
+    stroke: rgba(255, 255, 255, 0.05);
+}
+
+.gauge-ring circle.fg {
+    stroke: #00d2ff;
+    stroke-linecap: round;
+    box-shadow: 0 0 10px #00d2ff;
+    transition: stroke-dashoffset 0.1s ease;
+}
+
+.gauge-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.gauge-value .unit {
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+.telemetry-item .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+.speed-gauge .label {
+    margin-top: 0;
+}
+
+/* Lux Meter */
+.lux-meter {
+    min-width: 200px;
+    gap: 8px;
+}
+
+.lux-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.lux-header .value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffaa00;
+}
+
+.lux-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.lux-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff9900, #ffcc00);
+    border-radius: 3px;
+    box-shadow: 0 0 8px #ffaa00;
+    transition: width 0.15s ease, background 0.3s ease;
+}
+
+/* Distance Counter */
+.distance-counter {
+    align-items: center;
+    min-width: 160px;
+}
+
+.distance-counter .value {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.distance-counter .value .unit {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 2px;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Sidelight Control Output */
+.light-status {
+    align-items: center;
+    min-width: 180px;
+}
+
+.status-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.status-box.active {
+    background: rgba(0, 210, 255, 0.15);
+    border-color: rgba(0, 210, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+.status-box.active .indicator-dot {
+    background-color: #00ff66;
+    box-shadow: 0 0 10px #00ff66;
+}
+
+.indicator-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ff3333;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff3333;
+    transition: all 0.3s ease;
+}
+
+.status-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Interactive Control Panel (Top-Right) */
+.hud-control-panel {
+    position: fixed;
+    top: 6rem;
+    right: 3rem;
+    width: 280px;
+    background: rgba(10, 16, 32, 0.65);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    z-index: 100;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.panel-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #00d2ff;
+}
+
+.panel-body {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.control-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.control-row label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: rgba(0, 210, 255, 0.15);
+    border-color: #00d2ff;
+    color: #ffffff;
+}
+
+.control-btn:active {
+    transform: scale(0.97);
+}
+
+.control-btn.active-run {
+    background: #0066ff;
+    border-color: #00d2ff;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.toggle-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.toggle-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    padding: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+}
+
+.toggle-group.three-way .toggle-btn.active {
+    background: #00d2ff;
+    color: #0b1020;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hud-slider {
+    flex-grow: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.hud-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #00d2ff;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00d2ff;
+}
+
+.slider-container span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ffaa00;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* -------------------------------------------------------------
+   HOLOGRAPHIC 3D LABELS
+   ------------------------------------------------------------- */
+.mcu-labels-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.mcu-label-tag {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mcu-label-tag.visible {
+    opacity: 1;
+}
+
+.tag-content {
+    background: rgba(10, 16, 32, 0.85);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.15);
+    min-width: 240px;
+    text-align: left;
+}
+
+.tag-title {
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: #00d2ff;
+    margin-bottom: 2px;
+}
+
+.tag-desc {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.35;
+}
+
+.tag-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(0, 210, 255, 0.8), rgba(0, 210, 255, 0));
+    align-self: center;
+}
+
+/* Responsive Customizations */
+@media (max-width: 992px) {
+    .hud-control-panel {
+        top: auto;
+        bottom: 12rem;
+        right: 2rem;
+    }
+    .hud-telemetry {
+        bottom: 1.5rem;
+        left: 2rem;
+        right: 2rem;
+    }
+    .hud-panel {
+        gap: 0.8rem;
+    }
+    .telemetry-item {
+        min-width: 120px;
+        padding: 0.8rem;
+    }
+    .speed-gauge {
+        min-width: 160px;
+    }
+}
+
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    p { font-size: 1.1rem; }
-    .content { padding: 0 5%; }
+    h1 { font-size: 2.2rem; }
+    .main-title { font-size: 2.2rem !important; }
+    h2 { font-size: 1.8rem; }
+    .section-title { font-size: 1.8rem; }
+    p { font-size: 1rem; }
+    .section-desc { font-size: 1rem; }
+    .content { padding: 2rem; }
+    .glass-card { padding: 2rem; }
+    .hud-header { padding: 1rem; }
+    .hud-telemetry { display: none; } /* Hide telemetry on very small screens for cleanliness */
+    .hud-control-panel { display: none; }
 }
