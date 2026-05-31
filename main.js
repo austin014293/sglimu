@@ -869,18 +869,11 @@ function init3DAnimations() {
     // We add a dummy tween to make sure the timeline spans from 0.0
     tl.to(carGroup.position, { z: -100, duration: 0.1875 }, 0);
 
-    // 2. Slide 2 -> 3 (0.1875 to 0.25): Disassembly and MCU zoom
-    // Drive car forward to z = -200
-    tl.to(carGroup.position, {
-        z: -200, 
-        duration: 0.0625,
-        ease: "power2.inOut"
-    }, 0.1875);
-    
-    // Zoom camera close to the MCU position inside the chassis
+    // 2. Slide 2 -> 3 (0.1875 to 0.25): Disassembly and MCU zoom in-place (z = -100)
+    // Zoom camera close to the MCU position inside the chassis (at z = -100)
     tl.to(camera.position, {
         x: 1.5, 
-        z: -196, 
+        z: -96, 
         y: 1.2, 
         duration: 0.0625,
         ease: "power2.inOut" 
@@ -928,7 +921,7 @@ function init3DAnimations() {
     tl.to(camera.position, {
         x: 0.8,
         y: 1.0,
-        z: -196.8,
+        z: -96.8,
         duration: 0.0625,
         ease: "power2.out"
     }, 0.25);
@@ -953,7 +946,7 @@ function init3DAnimations() {
     tl.to(camera.position, {
         x: 1.2,
         y: 0.8,
-        z: -196.5,
+        z: -96.5,
         duration: 0.0625,
         ease: "power2.out"
     }, 0.375);
@@ -973,7 +966,7 @@ function init3DAnimations() {
         tl.to(mcuGroup.rotation, { x: 0, y: Math.PI * 10, z: 0, duration: 0.0175, ease: "power2.out" }, 0.56);
     }
 
-    // 6. Slide 8 -> 9 -> 10 -> 11 (0.5625 to 0.75): LED Control, Map Setup & Final Board Prototype
+    // 6. Slide 8 -> 9 -> 10 -> 11 (0.5625 to 0.625): LED Control & Chassis Reassembly
     // Scale down MCU back inside the car chassis
     if (mcuGroup) {
         tl.to(mcuGroup.scale, { x: 0, y: 0, z: 0, duration: 0.05, ease: "power2.in" }, 0.5625);
@@ -999,61 +992,51 @@ function init3DAnimations() {
         onUpdate: () => camera.updateProjectionMatrix()
     }, 0.5625);
 
-    // Drive car to 300m trigger line (z = -400)
-    tl.to(carGroup.position, {
-        z: -400,
-        duration: 0.0875,
-        ease: "power2.inOut"
-    }, 0.5625);
-
-    // Restore camera to default highway chasing view
+    // Restore camera to default highway chasing view at z = -94
     tl.to(camera.position, {
         x: 4,
         y: 1.2,
-        z: -394,
-        duration: 0.0875,
+        z: -94,
+        duration: 0.0625,
         ease: "power2.inOut"
     }, 0.5625);
 
-    // 7. Slide 11 -> 12 -> 13 -> 14 (0.75 to 0.875): Performance, Patents & Conclusion
-    // Car moves from 300m before tunnel to 50m before tunnel (z goes from -400 to -650)
-    tl.to(carGroup.position, {
-        z: -650,
-        duration: 0.125,
-        ease: "none"
-    }, 0.75);
+    // 7. Slide 11 -> 14 (0.625 to 0.875): Slides 10, 11, 12, 13, 14
+    // Car remains static at z = -100.
+    // We add a dummy tween to span the progress.
+    tl.to(carGroup.position, { z: -100, duration: 0.25 }, 0.625);
 
-    // Move camera to chase closely directly behind the car to highlight rear taillight illumination
-    tl.to(camera.position, {
-        x: 0,
-        y: 1.5,
-        z: -644,
-        duration: 0.125,
-        ease: "none"
-    }, 0.75);
-
-    // 8. Slide 14 -> 15 -> 16 (0.875 to 1.0): Entering Tunnel & Q&A
-    // Car speeds up and drives deep into the dark concrete tunnel (z goes from -650 to -1150)
+    // 8. Slide 14 -> 15 -> 16 (0.875 to 1.0): The Climax Drive (Thanks & Q&A)
+    // Car drives from z = -100 to z = -1150 (deep inside the concrete tunnel)
     tl.to(carGroup.position, {
         z: -1150,
         duration: 0.125,
-        ease: "power2.in"
+        ease: "power2.inOut"
     }, 0.875);
 
-    // Camera follows car deep inside the tunnel
+    // Camera chases the car, transitioning from side chasing to directly behind, then following into the tunnel
+    // Camera x goes to 0 (directly behind) and y goes to 1.5
+    tl.to(camera.position, {
+        x: 0,
+        y: 1.5,
+        duration: 0.03, // Quickly line up behind the car
+        ease: "power2.out"
+    }, 0.875);
+
+    // Camera z follows the car z (always trailing behind by 6 units)
     tl.to(camera.position, {
         z: -1144,
         duration: 0.125,
-        ease: "power2.in"
+        ease: "power2.inOut"
     }, 0.875);
 
-    // Pan camera to a beautiful side profile at the end (Q&A/Thanks slides)
+    // Pan camera to a beautiful side profile at the end (Q&A slide)
     tl.to(camera.position, {
         x: 3.5,
         y: 1.0,
-        duration: 0.0625,
+        duration: 0.0325,
         ease: "power2.out"
-    }, 0.9375);
+    }, 0.9675);
 
     ScrollTrigger.refresh();
 }
