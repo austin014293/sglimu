@@ -828,18 +828,69 @@ window.addEventListener('resize', () => {
 gsap.registerPlugin(ScrollTrigger);
 
 function initSlideAnimations() {
-    const slides = document.querySelectorAll('.slide .content');
-    slides.forEach((slide) => {
-        if (slide.parentElement.id === "slide-0") return;
-        gsap.to(slide, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            scrollTrigger: {
-                trigger: slide.parentElement,
-                start: "top 80%",
-                end: "bottom 20%",
-                toggleActions: "play reverse play reverse"
+    const slideSections = document.querySelectorAll('.slide');
+    slideSections.forEach((section) => {
+        if (section.id === "slide-0") return; // Skip title slide (handled by intro)
+
+        const content = section.querySelector('.content');
+        if (!content) return;
+
+        // Select all display elements inside card to animate sequentially
+        const children = content.querySelectorAll(
+            'h2, h3, p, .index-list li, .team-member-card, .problem-box, .solution-box, ' +
+            '.comparison-table th, .comparison-table tr, .stat-box-card, .patent-item-card, ' +
+            '.qa-item, .media-box, .flow-box-v, .flow-block, .flow-arrow-h, .map-point, .map-line, ' +
+            '.map-line-active, .map-line-full, .blueprint-grid-icon'
+        );
+
+        // Hide individual children and prepare slide offset
+        gsap.set(children, { opacity: 0, y: 30 });
+        gsap.set(content, { opacity: 1, y: 0 }); // Show card container immediately
+
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 75%",
+            end: "bottom 25%",
+            toggleActions: "play reverse play reverse",
+            onEnter: () => {
+                gsap.to(children, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
+            },
+            onLeaveBack: () => {
+                gsap.to(children, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.4,
+                    stagger: 0.04,
+                    ease: "power2.in",
+                    overwrite: "auto"
+                });
+            },
+            onEnterBack: () => {
+                gsap.to(children, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.08,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
+            },
+            onLeave: () => {
+                gsap.to(children, {
+                    opacity: 0,
+                    y: -30,
+                    duration: 0.4,
+                    stagger: 0.04,
+                    ease: "power2.in",
+                    overwrite: "auto"
+                });
             }
         });
     });
