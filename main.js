@@ -304,14 +304,16 @@ function createMCU() {
         const planeMat = new THREE.MeshBasicMaterial({ 
             map: texture, 
             transparent: true, 
-            side: THREE.DoubleSide 
+            side: THREE.DoubleSide,
+            fog: false, // Prevents fog from graying out or brightening the diagram
+            color: 0x8c8c8c // Controls maximum brightness to prevent UnrealBloomPass glow washout
         });
         const plane = new THREE.Mesh(planeGeo, planeMat);
         plane.position.set(0, 0, 0);
         mcuGroup.add(plane);
     });
 
-    mcuGroup.position.y = 0.5; 
+    mcuGroup.position.y = 0.9; // Centered to match camera lookAt target for a flat, parallel view
 }
 
 // --- Dynamic Headlights and Taillights ---
@@ -862,11 +864,11 @@ function init3DAnimations() {
     tl.to(carGroup.position, { z: -100, duration: 0.1875 }, 0);
 
     // 2. Slide 2 -> 3 (0.1875 to 0.25): Disassembly and MCU zoom in-place (z = -100)
-    // Zoom camera close to the MCU position inside the chassis (at z = -100)
+    // Zoom camera in front of the MCU position, offset to the right (x: 1.5) to clear the slide content cards, at eye level (y: 0.9)
     tl.to(camera.position, {
         x: 1.5, 
         z: -96, 
-        y: 1.2, 
+        y: 0.9, 
         duration: 0.0625,
         ease: "power2.inOut" 
     }, 0.1875);
@@ -902,61 +904,43 @@ function init3DAnimations() {
         });
     }
 
-    // D. Scale and Spin up the procedural ESP32 MCU
+    // D. Scale up the circuit schematic MCU group smoothly (without rotation)
     if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 2.5, y: 2.5, z: 2.5, duration: 0.05, ease: "elastic.out(1, 0.4)" }, 0.19);
-        tl.to(mcuGroup.rotation, { y: Math.PI * 6, duration: 0.06, ease: "none" }, 0.19);
+        tl.to(mcuGroup.scale, { x: 2.5, y: 2.5, z: 2.5, duration: 0.05, ease: "power2.out" }, 0.19);
+        // Tilt the board at y: 0.358 rad (approx 20.5 degrees) to face the camera directly (eliminating perspective skewing)
+        tl.to(mcuGroup.rotation, { x: 0, y: 0.358, z: 0, duration: 0.01 }, 0.19);
     }
 
     // 3. Slide 3 -> 4 -> 5 (0.25 to 0.375): Architecture & Component details
-    // Zoom camera even closer to PCB for inspecting components
+    // Zoom camera slightly closer to the diagram (still keeping it perfectly parallel and flat)
     tl.to(camera.position, {
-        x: 0.8,
-        y: 1.0,
+        x: 1.5,
+        y: 0.9,
         z: -96.8,
         duration: 0.0625,
         ease: "power2.out"
     }, 0.25);
 
-    // Keep MCU spinning slowly
-    if (mcuGroup) {
-        tl.to(mcuGroup.rotation, { y: Math.PI * 8, duration: 0.125, ease: "none" }, 0.25);
-    }
-
     // 4. Slide 5 -> 6 -> 7 (0.375 to 0.50): GPS Error Analysis & Improvements
-    // Rotate the MCU board to emphasize the GPS module
-    if (mcuGroup) {
-        tl.to(mcuGroup.rotation, {
-            x: -Math.PI / 4,
-            y: Math.PI * 9.5,
-            z: 0.1,
-            duration: 0.0625,
-            ease: "power2.out"
-        }, 0.375);
-    }
-    // Adjust camera angle slightly
+    // Keep camera stable, parallel, and centered on the schematic
     tl.to(camera.position, {
-        x: 1.2,
-        y: 0.8,
+        x: 1.5,
+        y: 0.9,
         z: -96.5,
         duration: 0.0625,
         ease: "power2.out"
     }, 0.375);
 
-    // 5. Slide 7 -> 8 (0.50 to 0.5625): IMU Gyro Calibration Board Tilt
-    // Tilting board left, right, up, down to simulate MPU6050 accelerometer/gyro offset calibration
-    if (mcuGroup) {
-        // Roll left (Z tilt)
-        tl.to(mcuGroup.rotation, { z: 0.4, duration: 0.015, ease: "power1.inOut" }, 0.50);
-        // Roll right (Z tilt)
-        tl.to(mcuGroup.rotation, { z: -0.4, duration: 0.015, ease: "power1.inOut" }, 0.515);
-        // Pitch up (X tilt)
-        tl.to(mcuGroup.rotation, { x: -Math.PI / 4 + 0.4, z: 0.1, duration: 0.015, ease: "power1.inOut" }, 0.53);
-        // Pitch down (X tilt)
-        tl.to(mcuGroup.rotation, { x: -Math.PI / 4 - 0.4, duration: 0.015, ease: "power1.inOut" }, 0.545);
-        // Return to neutral layout position
-        tl.to(mcuGroup.rotation, { x: 0, y: Math.PI * 10, z: 0, duration: 0.0175, ease: "power2.out" }, 0.56);
-    }
+    // 5. Slide 7 -> 8 (0.50 to 0.5625): IMU Gyro Calibration (Board remains stable as requested)
+    // Board rotation and tilt tweens removed to keep the schematic fully readable.
+    // We maintain a stable parallel view without skewing.
+    tl.to(camera.position, {
+        x: 1.5,
+        y: 0.9,
+        z: -96.6,
+        duration: 0.0625,
+        ease: "power1.inOut"
+    }, 0.50);
 
     // 6. Slide 8 -> 9 -> 10 -> 11 (0.5625 to 0.625): LED Control & Chassis Reassembly
     // Scale down MCU back inside the car chassis
