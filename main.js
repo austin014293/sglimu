@@ -408,8 +408,8 @@ function createMCU() {
 const taillightGeo = new THREE.CircleGeometry(0.12, 32);
 const taillightMat = new THREE.MeshStandardMaterial({ 
     color: 0x220000, 
-    emissive: 0xff0000,
-    emissiveIntensity: 0.0 // Start off
+    emissive: 0x000000, // Start completely black (OFF)
+    emissiveIntensity: 0.0
 });
 
 const leftOuter = new THREE.Mesh(taillightGeo, taillightMat);
@@ -441,7 +441,7 @@ carGroup.add(tailPointLightRight);
 const headlightGeo = new THREE.CircleGeometry(0.12, 32);
 const headlightMat = new THREE.MeshStandardMaterial({
     color: 0x333333,
-    emissive: 0xfff0dd, // Slightly warm white
+    emissive: 0x000000, // Start completely black (OFF)
     emissiveIntensity: 0.0
 });
 
@@ -604,13 +604,21 @@ function animate() {
     }
     SIM_STATE.lightsIntensity = lightsIntensity; // Cache for HUD display
 
-    // Taillights
-    taillightMat.emissiveIntensity = THREE.MathUtils.lerp(taillightMat.emissiveIntensity, lightsIntensity * 10, 0.1);
+    // Taillights emissive color and intensity transition
+    // Interpolate emissive color from black (0x000000) to red (0xff0000)
+    const targetTaillightColor = new THREE.Color(SIM_STATE.lightActive ? 0xff0000 : 0x000000);
+    taillightMat.emissive.lerp(targetTaillightColor, 0.15);
+    taillightMat.emissiveIntensity = THREE.MathUtils.lerp(taillightMat.emissiveIntensity, lightsIntensity * 10, 0.15);
+    
     tailPointLightLeft.intensity = THREE.MathUtils.lerp(tailPointLightLeft.intensity, lightsIntensity * 40, 0.1);
     tailPointLightRight.intensity = THREE.MathUtils.lerp(tailPointLightRight.intensity, lightsIntensity * 40, 0.1);
     
-    // Headlights
-    headlightMat.emissiveIntensity = THREE.MathUtils.lerp(headlightMat.emissiveIntensity, lightsIntensity * 5, 0.1);
+    // Headlights emissive color and intensity transition
+    // Interpolate emissive color from black (0x000000) to warm white (0xfff0dd)
+    const targetHeadlightColor = new THREE.Color(SIM_STATE.lightActive ? 0xfff0dd : 0x000000);
+    headlightMat.emissive.lerp(targetHeadlightColor, 0.15);
+    headlightMat.emissiveIntensity = THREE.MathUtils.lerp(headlightMat.emissiveIntensity, lightsIntensity * 5, 0.15);
+    
     spotlightLeft.intensity = THREE.MathUtils.lerp(spotlightLeft.intensity, lightsIntensity * 25, 0.1);
     spotlightRight.intensity = THREE.MathUtils.lerp(spotlightRight.intensity, lightsIntensity * 25, 0.1);
 
