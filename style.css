@@ -1295,12 +1295,13 @@ p.sub-text {
     bottom: 10px;
     border: 2px dashed rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    display: flex;
+    display: none; /* Hide by default to allow video mouse interactions */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: rgba(255, 255, 255, 0.4);
     background: rgba(0, 0, 0, 0.2);
+    pointer-events: none; /* Prevent blocking clicks */
 }
 
 .media-placeholder .icon {
@@ -1680,10 +1681,36 @@ p.sub-text {
 }
 
 .rotated-img:hover {
-    transform: scale(2.2) rotate(180deg) !important;
-    z-index: 9999 !important;
-    box-shadow: 0 -15px 45px rgba(0, 210, 255, 0.6), 0 0 30px rgba(0, 210, 255, 0.3) !important; /* flipped shadow as well */
+    transform: scale(3.5) rotate(180deg) !important; /* Increased scale for better readability */
+    z-index: 99999 !important;
+    box-shadow: 0 -25px 60px rgba(0, 210, 255, 0.75), 0 0 40px rgba(0, 210, 255, 0.4) !important;
 }
+
+/* Dedicated massive zooming class for text-heavy screenshots */
+.large-zoom-img {
+    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: zoom-in;
+    position: relative;
+    z-index: 10;
+}
+
+.large-zoom-img:hover {
+    transform: scale(4.8) !important;
+    z-index: 99999 !important;
+    border-color: #00d2ff !important;
+    box-shadow: 0 25px 60px rgba(0, 210, 255, 0.8), 0 0 45px rgba(0, 210, 255, 0.45) !important;
+}
+
+/* Prevent overflow clipping at the bottom of pages */
+#slide-13 .large-zoom-img:hover {
+    transform-origin: center right;
+}
+
+#slide-14 .large-zoom-img:hover,
+#slide-15 .large-zoom-img:hover {
+    transform-origin: bottom center;
+}
+
 
 
 
