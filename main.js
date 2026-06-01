@@ -1185,6 +1185,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 tab.classList.add('active');
                 const activePane = document.getElementById(`code-pane-${tabId}`);
                 if (activePane) activePane.classList.add('active');
+
+                // Switch screenshot gallery active state
+                const galleryGroups = document.querySelectorAll('.gallery-group');
+                galleryGroups.forEach(group => {
+                    group.classList.remove('active');
+                });
+                const activeGroup = document.querySelector(`.group-${tabId}`);
+                if (activeGroup) activeGroup.classList.add('active');
             });
         });
     }
