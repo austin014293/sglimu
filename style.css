@@ -1352,3 +1352,184 @@ p.sub-text {
     .hud-telemetry { display: none; } /* Hide telemetry on very small screens for cleanliness */
     .hud-control-panel { display: none; }
 }
+
+/* -------------------------------------------------------------
+   ADDITIONAL PRESENTATION DESIGN SYSTEMS (DASHBOARD & CODE TAB)
+   ------------------------------------------------------------- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    border-color: rgba(0, 210, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.dashboard-card .card-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #00d2ff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.comparison-split {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.comp-side {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.comp-side.before {
+    border-left: 3px solid #ff4d4d;
+}
+
+.comp-side.after {
+    border-left: 3px solid #00ff88;
+}
+
+.comp-side .label {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.comp-side .val {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-top: 4px;
+}
+
+.comp-side.before .val {
+    color: #ff4d4d;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
+}
+
+.comp-side.after .val {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+/* Tabbed Code Viewer for Arduino Sections */
+.code-viewer-container {
+    background: rgba(5, 10, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    width: 100%;
+}
+
+.code-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.code-tab:hover {
+    background: rgba(0, 210, 255, 0.05);
+    color: #00d2ff;
+}
+
+.code-tab.active {
+    background: rgba(0, 210, 255, 0.1);
+    color: #00d2ff;
+    border-bottom: 2px solid #00d2ff;
+}
+
+.code-content-wrapper {
+    padding: 15px;
+    height: 250px;
+    overflow-y: auto;
+    background: #050911;
+}
+
+.code-content-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.code-content-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 210, 255, 0.2);
+    border-radius: 3px;
+}
+
+.code-content-wrapper pre {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: #a2b1cd;
+    white-space: pre;
+    text-align: left;
+}
+
+.code-pane {
+    display: none;
+}
+
+.code-pane.active {
+    display: block;
+}
+
+/* Bullet list detail typography adjustments */
+.bullet-list {
+    list-style: none;
+    margin-top: 8px;
+    text-align: left;
+}
+
+.bullet-list li {
+    font-size: 0.85rem !important;
+    line-height: 1.5;
+    color: #b0b8c6;
+    margin: 6px 0;
+    padding-left: 14px;
+    position: relative;
+}
+
+.bullet-list li::before {
+    content: '•';
+    color: #00d2ff;
+    position: absolute;
+    left: 0;
+    font-weight: 900;
+}
+

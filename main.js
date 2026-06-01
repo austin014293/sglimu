@@ -795,14 +795,14 @@ function initSlideAnimations() {
         });
     });
 
-    // Performance metrics count-up animation on scroll (Slide 12)
+    // Performance metrics count-up animation on scroll (Slide 9)
     ScrollTrigger.create({
-        trigger: "#slide-12",
+        trigger: "#slide-9",
         start: "top 60%",
         onEnter: () => {
             const gpsObj = { value: 0 };
             gsap.to(gpsObj, {
-                value: 90,
+                value: 92,
                 duration: 1.6,
                 ease: "power2.out",
                 onUpdate: () => {
@@ -831,9 +831,9 @@ function initSlideAnimations() {
         }
     });
 
-    // Patent & Competition progress count-up animation on scroll
+    // Patent & Competition progress count-up animation on scroll (Slide 15)
     ScrollTrigger.create({
-        trigger: "#slide-13",
+        trigger: "#slide-15",
         start: "top 60%",
         onEnter: () => {
             // Animate progress bar widths
@@ -894,38 +894,32 @@ function init3DAnimations() {
 
     // --- Timeline Setup (Partitioned for 17 Slides: total duration 1.0) ---
 
-    // 1. Initial State for Slide 0, 1, 2 (0.0 to 0.1875)
-    // The car and camera are positioned at their initial intro end-states.
-    // We add a dummy tween to make sure the timeline spans from 0.0
-    tl.to(carGroup.position, { z: -100, duration: 0.1875 }, 0);
+    // 1. Slide 0 to Slide 4 (0.0 to 0.25): Car remains assembled at Z = -100
+    tl.to(carGroup.position, { z: -100, duration: 0.25 }, 0);
 
-    // 2. Slide 2 -> 3 (0.1875 to 0.25): Disassembly and MCU zoom in-place (z = -100)
-    // Zoom camera in front of the MCU position, offset to the right (x: 1.5) to clear the slide content cards, at eye level (y: 0.9)
-    // Pulled back further (z: -93.5 instead of -96) to prevent vertical layout clipping
+    // 2. Slide 4 -> Slide 5 (0.25 to 0.3125): Car disassembles & MCU zoomed-in
     tl.to(camera.position, {
         x: 1.5, 
         z: -93.5, 
         y: 0.9, 
         duration: 0.0625,
         ease: "power2.inOut" 
-    }, 0.1875);
+    }, 0.25);
 
-    // Increase FOV to simulate speed effect during separation
     tl.to(camera, {
         fov: 85,
         duration: 0.0625,
         onUpdate: () => camera.updateProjectionMatrix()
-    }, 0.1875);
+    }, 0.25);
 
-    // MCU Exploded View Disassembly Matrix
-    // A. Lift Shell (Car Top Body)
-    tl.to(carShell.position, { y: 6.0, duration: 0.0625, ease: "back.out(1.8)" }, 0.1875);
-    tl.to(carShell.rotation, { z: 0.15, x: 0.05, duration: 0.0625 }, 0.1875);
+    // A. Lift Shell
+    tl.to(carShell.position, { y: 6.0, duration: 0.0625, ease: "back.out(1.8)" }, 0.25);
+    tl.to(carShell.rotation, { z: 0.15, x: 0.05, duration: 0.0625 }, 0.25);
 
-    // B. Lower Frame (Chassis bottom)
-    tl.to(carFrame.position, { y: -1.2, duration: 0.0625, ease: "power2.out" }, 0.1875);
+    // B. Lower Frame
+    tl.to(carFrame.position, { y: -1.2, duration: 0.0625, ease: "power2.out" }, 0.25);
     
-    // C. Spread out wheels outwards
+    // C. Wheels outwards
     if (wheels.length > 0) {
         wheels.forEach((wheel, i) => {
             const directionX = wheel.position.x > 0 ? 1 : -1;
@@ -936,121 +930,58 @@ function init3DAnimations() {
                 z: wheel.position.z + (3.0 * directionZ),
                 duration: 0.0625, 
                 ease: "power2.out" 
-            }, 0.1875);
-            tl.to(wheel.rotation, { x: Math.PI, z: Math.PI, duration: 0.0625 }, 0.1875);
+            }, 0.25);
+            tl.to(wheel.rotation, { x: Math.PI, z: Math.PI, duration: 0.0625 }, 0.25);
         });
     }
 
-    // D. Scale up the circuit schematic MCU group smoothly (without rotation)
-    // Optimized scale from 2.5 to 2.0 to ensure zero border cropping
+    // D. Scale up MCU
     if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 2.0, y: 2.0, z: 2.0, duration: 0.05, ease: "power2.out" }, 0.19);
-        // Tilt the board at y: 0.358 rad (approx 20.5 degrees) to face the camera directly (eliminating perspective skewing)
-        tl.to(mcuGroup.rotation, { x: 0, y: 0.358, z: 0, duration: 0.01 }, 0.19);
+        tl.to(mcuGroup.scale, { x: 2.0, y: 2.0, z: 2.0, duration: 0.05, ease: "power2.out" }, 0.2525);
+        tl.to(mcuGroup.rotation, { x: 0, y: 0.358, z: 0, duration: 0.01 }, 0.2525);
     }
 
-    // 3. Slide 3 -> 4 -> 5 (0.25 to 0.375): Architecture & Component details
-    // Zoom camera slightly closer to the diagram (still keeping it perfectly parallel, flat, and safely visible at z: -94.2)
+    // Keep camera stable, parallel on slide 5
     tl.to(camera.position, {
         x: 1.5,
         y: 0.9,
-        z: -94.2,
-        duration: 0.0625,
-        ease: "power2.out"
-    }, 0.25);
+        z: -93.5,
+        duration: 0.0625
+    }, 0.3125);
 
-    // 4. Slide 5 -> 6 -> 7 (0.375 to 0.50): GPS Error Analysis & Improvements
-    // Keep camera stable, parallel, and centered on the schematic (z: -93.8)
-    tl.to(camera.position, {
-        x: 1.5,
-        y: 0.9,
-        z: -93.8,
-        duration: 0.0625,
-        ease: "power2.out"
-    }, 0.375);
-
-    // 5. Slide 7 -> 8 (0.50 to 0.5625): IMU Gyro Calibration (Board remains stable as requested)
-    // Board rotation and tilt tweens removed to keep the schematic fully readable.
-    // We maintain a stable parallel view without skewing (z: -94.0).
-    tl.to(camera.position, {
-        x: 1.5,
-        y: 0.9,
-        z: -94.0,
-        duration: 0.0625,
-        ease: "power1.inOut"
-    }, 0.50);
-
-    // 6. Slide 8 -> 9 -> 10 -> 11 (0.5625 to 0.625): LED Control & Chassis Reassembly
-    // Scale down MCU back inside the car chassis
+    // 3. Slide 5 -> Slide 6 (0.3125 to 0.375): Reassemble car & return camera
     if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 0, y: 0, z: 0, duration: 0.05, ease: "power2.in" }, 0.5625);
+        tl.to(mcuGroup.scale, { x: 0, y: 0, z: 0, duration: 0.05, ease: "power2.in" }, 0.3125);
     }
     
-    // Reassemble wheels back
     if (wheels.length > 0) {
         wheels.forEach((wheel) => {
-            tl.to(wheel.position, { x: wheel.initialX || 0, y: 0, z: 0, duration: 0.045, ease: "power2.in" }, 0.58);
-            tl.to(wheel.rotation, { x: 0, z: 0, duration: 0.045 }, 0.58);
+            tl.to(wheel.position, { x: wheel.initialX || 0, y: 0, z: 0, duration: 0.045, ease: "power2.in" }, 0.33);
+            tl.to(wheel.rotation, { x: 0, z: 0, duration: 0.045 }, 0.33);
         });
     }
 
-    // Reassemble Shell and Frame
-    tl.to(carShell.position, { y: 0, duration: 0.045, ease: "bounce.out" }, 0.58);
-    tl.to(carShell.rotation, { z: 0, x: 0, duration: 0.045 }, 0.58);
-    tl.to(carFrame.position, { y: 0, duration: 0.045, ease: "power2.in" }, 0.58);
+    tl.to(carShell.position, { y: 0, duration: 0.045, ease: "bounce.out" }, 0.33);
+    tl.to(carShell.rotation, { z: 0, x: 0, duration: 0.045 }, 0.33);
+    tl.to(carFrame.position, { y: 0, duration: 0.045, ease: "power2.in" }, 0.33);
     
-    // Restore FOV to driving perspective
     tl.to(camera, {
         fov: 75,
         duration: 0.0625,
         onUpdate: () => camera.updateProjectionMatrix()
-    }, 0.5625);
+    }, 0.3125);
 
-    // Restore camera to default highway chasing view at z = -94
     tl.to(camera.position, {
         x: 4,
         y: 1.2,
         z: -94,
         duration: 0.0625,
         ease: "power2.inOut"
-    }, 0.5625);
+    }, 0.3125);
 
-    // 7. Slide 11 -> 14 (0.625 to 0.875): Slides 10, 11, 12, 13, 14
-    // Car remains static at z = -100.
-    // We add a dummy tween to span the progress.
-    tl.to(carGroup.position, { z: -100, duration: 0.25 }, 0.625);
-
-    // 8. Slide 14 -> 15 -> 16 (0.875 to 1.0): The Climax Drive (Thanks & Q&A)
-    // Car drives from z = -100 to z = -1150 (deep inside the concrete tunnel)
-    tl.to(carGroup.position, {
-        z: -1150,
-        duration: 0.125,
-        ease: "power2.inOut"
-    }, 0.875);
-
-    // Camera chases the car, transitioning from side chasing to directly behind, then following into the tunnel
-    // Camera x goes to 0 (directly behind) and y goes to 1.5
-    tl.to(camera.position, {
-        x: 0,
-        y: 1.5,
-        duration: 0.03, // Quickly line up behind the car
-        ease: "power2.out"
-    }, 0.875);
-
-    // Camera z follows the car z (always trailing behind by 6 units)
-    tl.to(camera.position, {
-        z: -1144,
-        duration: 0.125,
-        ease: "power2.inOut"
-    }, 0.875);
-
-    // Pan camera to a beautiful side profile at the end (Q&A slide)
-    tl.to(camera.position, {
-        x: 3.5,
-        y: 1.0,
-        duration: 0.0325,
-        ease: "power2.out"
-    }, 0.9675);
+    // 4. Slide 6 to Slide 16 (0.375 to 1.0): Car remains assembled and static at Z = -100
+    // Disabled climax driving animation to focus purely on content.
+    tl.to(carGroup.position, { z: -100, duration: 0.625 }, 0.375);
 
     ScrollTrigger.refresh();
 }
@@ -1238,6 +1169,23 @@ document.addEventListener('DOMContentLoaded', () => {
             onLeaveBack: () => {
                 demoVideo.pause();
             }
+        });
+    }
+
+    // 7. Embedded Code Viewer Tab Switching Bindings
+    const codeTabs = document.querySelectorAll('.code-tab');
+    const codePanes = document.querySelectorAll('.code-pane');
+    if (codeTabs.length > 0) {
+        codeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                codeTabs.forEach(t => t.classList.remove('active'));
+                codePanes.forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const activePane = document.getElementById(`code-pane-${tabId}`);
+                if (activePane) activePane.classList.add('active');
+            });
         });
     }
 });
