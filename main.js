@@ -1196,4 +1196,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // 8. Slide 11 Demo View Tabs Switching Bindings
+    const demoTabs = document.querySelectorAll('.demo-tab');
+    const demoPanes = document.querySelectorAll('.demo-pane');
+    if (demoTabs.length > 0) {
+        demoTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const demoId = tab.getAttribute('data-demo');
+                demoTabs.forEach(t => {
+                    t.classList.remove('active');
+                });
+                demoPanes.forEach(p => {
+                    p.classList.remove('active');
+                });
+                
+                tab.classList.add('active');
+                const activePane = document.getElementById(`demo-pane-${demoId}`);
+                if (activePane) activePane.classList.add('active');
+            });
+        });
+    }
 });
