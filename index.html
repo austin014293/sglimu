@@ -297,23 +297,52 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- 소자 실제 사진 그리드 삽입 -->
+                <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 15px;">
+                    <div style="text-align: center; flex: 1;">
+                        <img src="extracted_p5_img5.jpeg" style="height: 48px; object-fit: contain; border-radius: 4px;">
+                        <div style="font-size: 0.65rem; color: #a0a8b6; margin-top: 2px;">ESP32 devkit</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <img src="extracted_p5_img6.jpeg" style="height: 48px; object-fit: contain; border-radius: 4px;">
+                        <div style="font-size: 0.65rem; color: #a0a8b6; margin-top: 2px;">NEO-M8N GPS</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <img src="extracted_p5_img3.jpeg" style="height: 48px; object-fit: contain; border-radius: 4px;">
+                        <div style="font-size: 0.65rem; color: #a0a8b6; margin-top: 2px;">MPU6050 자이로</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <img src="extracted_p5_img1.jpeg" style="height: 48px; object-fit: contain; border-radius: 4px;">
+                        <div style="font-size: 0.65rem; color: #a0a8b6; margin-top: 2px;">BH1750 조도</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <img src="extracted_p5_img2.png" style="height: 48px; object-fit: contain; border-radius: 4px;">
+                        <div style="font-size: 0.65rem; color: #a0a8b6; margin-top: 2px;">Buck Converter</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <img src="extracted_p5_img4.jpeg" style="height: 48px; object-fit: contain; border-radius: 4px;">
+                        <div style="font-size: 0.65rem; color: #a0a8b6; margin-top: 2px;">TC4427 Gate Driver</div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- 슬라이드 6: 시스템 회로도 -->
         <section class="slide" id="slide-5">
-            <div class="content glass-card" style="max-width: 850px;">
+            <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">시스템 하드웨어 회로도</h2>
-                <div class="hologram-blueprint" style="padding: 1.5rem; min-height: 250px;">
-                    <div style="font-size: 1.1rem; color: #00d2ff; font-weight: 700; margin-bottom: 12px;">3D Holographic MCU Board Schematic View Active</div>
-                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 600px; margin: 0 auto; text-align: left;">
-                        우측 3D 캔버스 상에 입체적으로 회로의 각 파트(Matte Black 4-Layer PCB 회로 배선)와 소자가 투영되어 있습니다.
-                        <ul class="bullet-list" style="margin-top: 10px;">
-                            <li><strong>LED 스트립 구동부</strong>: 12V 차량 전원을 직접 스위칭 제어하도록 설계</li>
-                            <li><strong>Buck Converter</strong>: 전압 강하(12V ➔ 5V)를 통해 안전한 MCU 전원 공급</li>
+                <div class="problem-section" style="grid-template-columns: 1fr 1.1fr;">
+                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.6; text-align: left;">
+                        <ul class="bullet-list" style="margin-top: 0;">
+                            <li><strong>LED 스트립 구동부</strong>: 12V 차량 전원 배선을 직접 스위칭 제어하도록 설계</li>
+                            <li><strong>Buck Converter</strong>: 차량용 12V 전압을 5V로 감압하여 안전한 MCU 전원 공급</li>
                             <li><strong>게이트 드라이버(TC4427)</strong>: 고주파 5kHz PWM 신호 변환 및 MOSFET 전압 스위칭 보호</li>
                             <li><strong>센서 입력단 (I2C/UART)</strong>: BH1750(조도), MPU6050(가속도), GPS가 통합된 복합 데이터 구조</li>
                         </ul>
+                    </div>
+                    <div class="media-box" style="min-height: auto; height: 100%; padding: 5px;">
+                        <div class="media-label">📸 시스템 결선 회로도 (Matte Black 4-Layer PCB 설계)</div>
+                        <img src="extracted_p6_img1.jpeg" alt="시스템 하드웨어 회로도" style="height: calc(100% - 30px); object-fit: contain; background: #0c1020; border-radius: 6px;">
                     </div>
                 </div>
             </div>
@@ -323,24 +352,27 @@
         <section class="slide" id="slide-6">
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">발전 과정: 1. GPS 단독 적용의 한계</h2>
-                <div class="problem-section">
-                    <div class="problem-box">
-                        <h3>❌ 정지 시 위치 드리프트 발생</h3>
-                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0; margin-top: 10px;">
-                            위성 수 6개 기준 수신 환경에서 <strong>정지 상태일 때도 좌표가 계속 미세하게 변형</strong>되어 움직이는 것으로 오인하는 드리프트 현상 발생.
-                        </p>
+                <div class="problem-section" style="grid-template-columns: 1fr 1fr;">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="problem-box" style="margin-bottom: 15px;">
+                            <h3>❌ 정지 시 위치 드리프트 발생</h3>
+                            <p style="font-size: 0.85rem; line-height: 1.5; color: #d0d0d0; margin-top: 8px;">
+                                위성 수 6개 기준 수신 환경에서 <strong>정지 상태일 때도 좌표가 계속 미세하게 변형</strong>되어 움직이는 것으로 오인하는 드리프트 현상 발생.
+                            </p>
+                        </div>
+                        <div class="solution-box" style="border-left-color: #ffaa00;">
+                            <h3>📊 측정 오차 분포</h3>
+                            <ul class="bullet-list" style="margin-top: 5px;">
+                                <li>그린필드 기준 정지 상태: <strong>5m 내외</strong>의 원형 오차</li>
+                                <li>주행 이동 상태: 수신 불안정 시 <strong>최대 20m 이상</strong>의 궤적 튐</li>
+                                <li>실내 테스트 시 위성수 부족으로 GPS 수신 차단</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="solution-box" style="border-left-color: #ffaa00;">
-                        <h3>📊 측정 오차 분포</h3>
-                        <ul class="bullet-list" style="margin-top: 10px;">
-                            <li>그린필드 기준 정지 상태: <strong>5m 내외</strong>의 원형 오차</li>
-                            <li>주행 이동 상태: 수신 불안정 시 <strong>최대 20m 이상</strong>의 궤적 튐</li>
-                            <li>실내(학교 복도 등) 테스트 시 수신 수 6개 이하로 차단되어 GPS 사용 불가 판정</li>
-                        </ul>
+                    <div class="media-box" style="min-height: auto; height: 100%; justify-content: flex-start; padding: 8px;">
+                        <div class="media-label">📸 정지 시 GPS 데이터 드리프트 (위성 수 6개)</div>
+                        <img src="extracted_p7_img1.jpeg" alt="GPS 수신 드리프트 로그" style="height: 200px; width: 100%; object-fit: contain; background: #0c1020; border-radius: 6px;">
                     </div>
-                </div>
-                <div style="margin-top: 15px; font-size: 0.85rem; color: #a0a0a0; text-align: center;">
-                    💡 해결책 모색: 가속도 센서를 결합해 차량의 실제 이동 여부를 정밀 판별(센서 퓨전)하기로 결정
                 </div>
             </div>
         </section>
@@ -349,27 +381,39 @@
         <section class="slide" id="slide-7">
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">발전 과정: 2. GPS + 자이로/가속도 센서 퓨전</h2>
-                <div class="problem-section">
-                    <div class="problem-box" style="border-left-color: #00d2ff;">
-                        <h3>1) 가속도 정적 오프셋(보정치) 적용</h3>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: #d0d0d0; margin-top: 8px;">
-                            자이로/가속도 센서 자체의 제조 오차(정적 오차)가 상시 주행 신호로 잡혀 오독함.
-                        </p>
-                        <ul class="bullet-list">
-                            <li>정지 상태에서 데이터 평균 수집 ➔ <strong>Calibration 오프셋 상수 도출</strong></li>
-                            <li>코드 변수에 BIAS_X(2.47), BIAS_Y(-1.53), BIAS_Z(1.19)를 적용하여 정지 시 영점 보정</li>
-                        </ul>
+                <div class="problem-section" style="grid-template-columns: 1fr 1fr;">
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.2rem;">
+                            <h3>1) 가속도 정적 오프셋(보정치) 적용</h3>
+                            <p style="font-size: 0.8rem; line-height: 1.4; color: #d0d0d0; margin-top: 5px;">
+                                자이로/가속도 센서 자체의 정적 제조 오차가 상시 주행 신호로 잡혀 오독함.
+                            </p>
+                            <ul class="bullet-list" style="margin-top: 4px;">
+                                <li>정지 상태에서 데이터 평균 수집 ➔ <strong>Calibration 오프셋 상수 도출</strong></li>
+                                <li>BIAS_X(2.47), BIAS_Y(-1.53), BIAS_Z(1.19)를 적용하여 정지 시 영점 보정</li>
+                            </ul>
+                        </div>
+                        <div class="solution-box" style="padding: 1.2rem;">
+                            <h3>2) 주행 상태 필터링 (Motion Filter)</h3>
+                            <p style="font-size: 0.8rem; line-height: 1.4; color: #d0d0d0; margin-top: 5px;">
+                                중력가속도를 제외한 차량의 순수 움직임 크기(motionMag)를 기하학적으로 연산.
+                            </p>
+                            <ul class="bullet-list" style="margin-top: 4px;">
+                                <li>합성 수식: $\sqrt{X^2 + Y^2 + Z^2}$ 결과에서 중력(9.8) 상쇄</li>
+                                <li>임계값(0.6) 이상 진동 시에만 '주행 중(isMoving=true)'으로 판정</li>
+                                <li>정지 시 GPS 신호 무시 및 10차 이동평균 필터 갱신 차단</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="solution-box">
-                        <h3>2) 주행 상태 필터링 (Motion Filter)</h3>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: #d0d0d0; margin-top: 8px;">
-                            중력가속도를 제외한 차량의 순수 움직임 크기(motionMag)를 기하학적으로 연산.
-                        </p>
-                        <ul class="bullet-list">
-                            <li>합성 수식: $\sqrt{X^2 + Y^2 + Z^2}$ 결과에서 중력(9.8) 상쇄</li>
-                            <li>임계값(0.6) 이상 진동 시에만 '주행 중(isMoving=true)'으로 판정</li>
-                            <li><strong>정지 시 GPS 신호 무시 및 10차 이동평균 필터 갱신 차단</strong>으로 드리프트 완벽 봉쇄</li>
-                        </ul>
+                    <div class="media-container" style="grid-template-columns: 1fr; gap: 10px; margin-top: 0;">
+                        <div class="media-box" style="min-height: auto; height: 160px; padding: 8px;">
+                            <div class="media-label">📸 보정 전 가속도센서 데이터 (진동 노이즈)</div>
+                            <img src="extracted_p8_img1.jpeg" alt="보정 전 가속도센서 데이터" style="height: 120px; object-fit: contain; border-radius: 4px;">
+                        </div>
+                        <div class="media-box" style="min-height: auto; height: 160px; padding: 8px;">
+                            <div class="media-label">📸 보정 후 가속도/자이로 데이터 (안정화)</div>
+                            <img src="extracted_p8_img2.jpeg" alt="보정 후 데이터" style="height: 120px; object-fit: contain; border-radius: 4px;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -581,24 +625,24 @@ ledcWrite(ledPin, brightness); // PWM 5kHz 주파수로 MOSFET 트리거링</pre
         <section class="slide" id="slide-11">
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">가상 실험 환경 및 최종 구현 상태</h2>
-                <div style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px;">
-                    📍 **실험 및 시연 타겟 구역**: 부산 대티터널 가상 시작점 좌표 (위도 <span class="highlight-glow">35.116528</span>, 경도 <span class="highlight-glow">128.968412</span>)로 설정하여 차선 주행 시연 진행.
+                <div style="font-size: 0.85rem; line-height: 1.5; margin-bottom: 12px;">
+                    📍 **실험 및 시연 타겟 구역**: 부산 대티터널 가상 시작점 좌표 (위도 <span class="highlight-glow">35.116528</span>, 경도 <span class="highlight-glow">128.968412</span>)로 설정하여 실험 주행 진행.
                 </div>
-                <div class="media-container">
-                    <div class="media-box image-box">
-                        <div class="media-label">📸 하드웨어 실물 사진</div>
-                        <img src="banana_pi_nano.png" alt="하드웨어 실물 사진" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="media-placeholder">
-                            <div class="icon">📷</div>
-                            <div class="text">sglimu 폴더에 banana_pi_nano.png<br>하드웨어 사진 로드 실패</div>
-                        </div>
+                <div class="media-container" style="grid-template-columns: 1.15fr 0.85fr 1fr; gap: 15px;">
+                    <div class="media-box" style="min-height: auto; height: 260px; padding: 8px;">
+                        <div class="media-label">🗺️ Kakao Map 가상 경로</div>
+                        <img src="extracted_p15_img1.jpeg" alt="Kakao Map 가상 경로" style="height: 200px; width: 100%; object-fit: cover; border-radius: 6px;">
                     </div>
-                    <div class="media-box video-box">
-                        <div class="media-label">🎥 실차 시뮬레이션 주행 영상</div>
+                    <div class="media-box" style="min-height: auto; height: 260px; padding: 8px;">
+                        <div class="media-label">📍 실측 터널 진입 궤적</div>
+                        <img src="extracted_p10_img2.jpeg" alt="대티터널 GPS 궤적" style="height: 200px; width: 100%; object-fit: cover; border-radius: 6px;">
+                    </div>
+                    <div class="media-box video-box" style="min-height: auto; height: 260px; padding: 8px;">
+                        <div class="media-label">🎥 실차 시뮬레이션 시연</div>
                         <video src="demo.mp4" controls muted loop playsinline preload="metadata" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
-                        <div class="media-placeholder">
+                        <div class="media-placeholder" style="top: 35px;">
                             <div class="icon">📹</div>
-                            <div class="text">sglimu 폴더에 demo.mp4<br>파일이 없습니다.</div>
+                            <div class="text">demo.mp4 로드 실패</div>
                         </div>
                     </div>
                 </div>
@@ -609,29 +653,38 @@ ledcWrite(ledPin, brightness); // PWM 5kHz 주파수로 MOSFET 트리거링</pre
         <section class="slide" id="slide-12">
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">CAN 통신 제어 시도 및 분석</h2>
-                <div class="problem-section">
-                    <div class="problem-box" style="border-left-color: #00d2ff;">
-                        <h3>1) B-CAN (Body CAN) 제어 원리</h3>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: #d0d0d0; margin-top: 8px;">
-                            바디 전장 시스템(미등/헤드라이트, 도어록, 와이퍼 등)을 제어하기 위한 차량 내 통신 규격.
-                        </p>
-                        <ul class="bullet-list">
-                            <li>꼬임선(Twisted Pair: CAN_High, CAN_Low) 구조</li>
-                            <li>노이즈 방지를 위해 차동 전압(Differential Voltage) 사용</li>
-                            <li><strong>대기 상태(Recessive, 1)</strong>: 2.5V / 2.5V (전압차 0V)</li>
-                            <li><strong>구동 상태(Dominant, 0)</strong>: 3.5V / 1.5V (전압차 2V)</li>
-                        </ul>
+                <div class="problem-section" style="grid-template-columns: 1fr 1.1fr;">
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.2rem;">
+                            <h3>1) B-CAN (Body CAN) 제어 원리</h3>
+                            <p style="font-size: 0.8rem; line-height: 1.4; color: #d0d0d0; margin-top: 5px;">
+                                바디 전장 시스템(미등/헤드라이트, 도어록, 와이퍼 등)을 제어하기 위한 차량 내 통신 규격.
+                            </p>
+                            <ul class="bullet-list" style="margin-top: 4px;">
+                                <li>꼬임선(Twisted Pair: CAN_High, CAN_Low) 구조</li>
+                                <li>노이즈 방지를 위해 차동 전압(Differential Voltage) 사용</li>
+                            </ul>
+                        </div>
+                        <div class="solution-box" style="border-left-color: #ff4d4d; padding: 1.2rem;">
+                            <h3>2) SGW (보안 게이트웨이) 방화벽의 한계</h3>
+                            <p style="font-size: 0.8rem; line-height: 1.4; color: #d0d0d0; margin-top: 5px;">
+                                테스트 차량인 <strong>아반떼 CN7 22년식</strong> 기준, OBD2 포트를 통한 패킷 주입 실패.
+                            </p>
+                            <ul class="bullet-list" style="margin-top: 4px;">
+                                <li>차량 보안(해킹 방지)을 위해 <strong>보안 게이트웨이(SGW)</strong> 방화벽 탑재</li>
+                                <li>진단 도구 접속 시 신호 필터링 차단</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="solution-box" style="border-left-color: #ff4d4d;">
-                        <h3>2) SGW (보안 게이트웨이) 방화벽의 한계</h3>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: #d0d0d0; margin-top: 8px;">
-                            테스트 차량인 <strong>아반떼 CN7 22년식</strong> 기준, OBD2 포트를 통한 패킷 주입 실패.
-                        </p>
-                        <ul class="bullet-list">
-                            <li>차량 보안(해킹 방지)을 위해 <strong>보안 게이트웨이(SGW)</strong> 방화벽 탑재</li>
-                            <li>허가되지 않은 DIY 진단 도구나 임베디드 모듈 접속 시 신호 필터링 차단</li>
-                            <li>정해진 보안 인증 프로토콜 미준수 시 외부로 B-CAN 데이터 유출 차단</li>
-                        </ul>
+                    <div class="media-container" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 0;">
+                        <div class="media-box" style="min-height: auto; height: 100%; padding: 8px;">
+                            <div class="media-label">📸 B-CAN 대기 전압 (2.56V)</div>
+                            <img src="extracted_p16_img1.jpeg" alt="B-CAN 대기 상태 전압" style="height: calc(100% - 30px); width: 100%; object-fit: cover; border-radius: 6px;">
+                        </div>
+                        <div class="media-box" style="min-height: auto; height: 100%; padding: 8px;">
+                            <div class="media-label">📸 B-CAN 구동 전압 (2.49V)</div>
+                            <img src="extracted_p16_img2.jpeg" alt="B-CAN 구동 상태 전압" style="height: calc(100% - 30px); width: 100%; object-fit: cover; border-radius: 6px;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -641,28 +694,43 @@ ledcWrite(ledPin, brightness); // PWM 5kHz 주파수로 MOSFET 트리거링</pre
         <section class="slide" id="slide-13">
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">CAN 통신 제어 실험 성공 및 한계 극복</h2>
-                <div style="font-size: 0.85rem; color: #a0a0a0; margin-bottom: 12px; text-align: left;">
+                <div style="font-size: 0.8rem; color: #a0a0a0; margin-bottom: 10px; text-align: left;">
                     SGW 방화벽을 우회하기 위해 정션박스 후면의 <strong>B-CAN 직접 T-tap 배선 접촉을 시도하여 통신 수신에 성공</strong>하였습니다.
                 </div>
-                <div class="problem-section" style="grid-template-columns: 1fr 1fr;">
-                    <div class="problem-box" style="border-left-color: #00ff88; padding: 1.5rem;">
-                        <h3>T-tap 수신 및 데이터 필터링</h3>
-                        <ul class="bullet-list" style="margin-top: 5px;">
-                            <li>정션박스 다이렉트 탭을 통해 총 <strong>33개의 활성 CAN ID</strong> 수신</li>
-                            <li>라이트 레버 조작 시 변동 데이터 추적 ➔ <strong>ID 0x168</strong> 변동 감지</li>
-                            <li><strong>미등 OFF</strong>: 0x01 (이진수: 0000 0001)</li>
-                            <li><strong>미등 ON</strong>: 0x89 (이진수: 1000 1001)</li>
-                            <li>레버 돌리는 순간 데이터 비트의 첫 번째 자리가 0 ➔ 1로 스위칭됨을 확인</li>
-                        </ul>
+                <div class="problem-section" style="grid-template-columns: 1fr 1.25fr; gap: 20px;">
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="problem-box" style="border-left-color: #00ff88; padding: 1.1rem;">
+                            <h3>T-tap 수신 및 데이터 필터링</h3>
+                            <ul class="bullet-list" style="margin-top: 4px;">
+                                <li>정션박스 다이렉트 탭을 통해 총 <strong>33개의 활성 CAN ID</strong> 수신</li>
+                                <li>라이트 레버 조작 시 변동 데이터 추적 ➔ <strong>ID 0x168</strong> 변동 감지</li>
+                                <li><strong>미등 OFF</strong>: 0x01 (이진수: 0000 0001) / <strong>미등 ON</strong>: 0x89 (이진수: 1000 1001)</li>
+                            </ul>
+                        </div>
+                        <div class="solution-box" style="border-left-color: #ff3333; padding: 1.1rem;">
+                            <h3>명령 주입 충돌 및 ICU 에러 처리</h3>
+                            <ul class="bullet-list" style="margin-top: 4px;">
+                                <li>순정 BCM이 주간에 10~20ms 주기로 '미등 OFF' 패킷 전송 중</li>
+                                <li>ESP32 모듈이 5ms 간격으로 '미등 ON' 패킷을 주입</li>
+                                <li>비트 충돌로 전압 감쇄 발생 ➔ ICU가 <strong>Bit Error(통신 에러)</strong>로 판정하여 보호 모드 전환</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="solution-box" style="border-left-color: #ff3333; padding: 1.5rem;">
-                        <h3>명령 주입 충돌 및 ICU 에러 처리</h3>
-                        <ul class="bullet-list" style="margin-top: 5px;">
-                            <li>차량의 순정 바디제어모듈(BCM)이 주간에 10~20ms 주기로 '미등 OFF' 패킷 전송 중</li>
-                            <li>개발한 ESP32 모듈이 5ms 간격으로 억지로 '미등 ON' 패킷을 주입</li>
-                            <li><strong>비트 충돌 발생</strong>: Dominant(0)와 Recessive(1)가 충돌하여 전압 이상 감쇄</li>
-                            <li>상위 ICU 컴퓨터가 <strong>통신 에러(Bit Error)</strong>로 판정하여 보호 모드로 전환 ➔ ESP32 강제 무시 및 순정 OFF 상태 복귀</li>
-                        </ul>
+                    <div class="media-container" style="grid-template-columns: 1fr; gap: 10px; margin-top: 0;">
+                        <div class="media-box" style="min-height: auto; height: 150px; flex-direction: row; gap: 10px; padding: 8px;">
+                            <div style="flex: 1.2; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                                <div class="media-label" style="padding-left: 0;">📸 정션박스 T-tap 결선</div>
+                                <div style="font-size: 0.65rem; color: #a0a8b6; line-height: 1.4;">정션박스 후면 B-CAN 배선에 직접 T-tap 클립 커넥터를 체결하여 SGW 방화벽 우회 수신</div>
+                            </div>
+                            <img src="extracted_p18_img1.jpeg" alt="T-tap direct 결선" style="width: 100px; height: 130px; object-fit: cover; border-radius: 6px;">
+                        </div>
+                        <div class="media-box" style="min-height: auto; height: 150px; flex-direction: row; gap: 10px; padding: 8px;">
+                            <div style="flex: 1.2; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                                <div class="media-label" style="padding-left: 0;">📸 B-CAN 데이터 스트림</div>
+                                <div style="font-size: 0.65rem; color: #a0a8b6; line-height: 1.4;">0x168 ID를 포함한 총 33개의 수신 패킷 모니터링 로그 화면</div>
+                            </div>
+                            <img src="extracted_p18_img2.png" alt="B-CAN 수신 로그" style="width: 100px; height: 130px; object-fit: cover; border-radius: 6px; background: #000;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -703,10 +771,10 @@ ledcWrite(ledPin, brightness); // PWM 5kHz 주파수로 MOSFET 트리거링</pre
         <section class="slide" id="slide-15">
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">특허 출원 & 공모전 추진 현황</h2>
-                <div class="patent-box">
-                    <div class="patent-item-card">
+                <div class="patent-box" style="gap: 20px;">
+                    <div class="patent-item-card" style="padding: 1.2rem;">
                         <h3>🔐 지식재산권 특허 가출원</h3>
-                        <p class="patent-title" style="color: #00d2ff; font-weight: 700;">명칭: 터널사고 방지를 위한 미등제어 시스템</p>
+                        <p class="patent-title" style="color: #00d2ff; font-weight: 700; margin-bottom: 8px;">명칭: 터널사고 방지를 위한 미등제어 시스템</p>
                         <div class="status-progress-hud">
                             <div class="info">
                                 <span class="label">청구범위 제출유예 및 통지서 접수</span>
