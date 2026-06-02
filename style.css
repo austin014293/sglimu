@@ -1706,7 +1706,14 @@ p.sub-text {
     transform-origin: center right;
 }
 
-#slide-15 .medium-zoom-img:hover,
+#slide-15 .media-box:first-child .medium-zoom-img:hover {
+    transform-origin: bottom left;
+}
+
+#slide-15 .media-box:last-child .medium-zoom-img:hover {
+    transform-origin: bottom right;
+}
+
 #slide-16 .large-zoom-img:hover {
     transform-origin: bottom center;
 }

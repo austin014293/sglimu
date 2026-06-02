@@ -27,6 +27,7 @@ let carShell = new THREE.Group();
 let carFrame = new THREE.Group(); 
 let wheels = [];
 let mcuGroup = null;
+let timeline3D = null;
 
 // Anchors for 3D label tags
 let anchorPCB, anchorESP32, anchorSensor, anchorRelay;
@@ -501,6 +502,11 @@ function animate() {
         SIM_STATE.lightActive = SIM_STATE.manualLightOn;
     }
 
+    // Force LEDs off once we enter Slide 5 (major components page) or later
+    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 4.5 / 17) {
+        SIM_STATE.lightActive = false;
+    }
+
     // Determine target intensity factor (0.0 to 1.0)
     let lightsIntensity = 0.0;
     if (SIM_STATE.lightActive) {
@@ -879,7 +885,7 @@ function initSlideAnimations() {
 }
 
 function init3DAnimations() {
-    const tl = gsap.timeline({
+    timeline3D = gsap.timeline({
         scrollTrigger: {
             trigger: ".presentation",
             start: "top top",
@@ -898,28 +904,28 @@ function init3DAnimations() {
     // 18 Slides, 17 intervals. Each interval is 1/17 ~ 0.0588
     const interval = 1 / 17;
 
-    // Slide 0 to Slide 3 (0 to 3 * interval): Car stays at Z = -100, camera at Z = -94
-    tl.to(carGroup.position, { z: -100, duration: 3 * interval }, 0);
-    tl.to(camera.position, { x: 4, y: 1.2, z: -94, duration: 3 * interval }, 0);
+    // Slide 0 to Slide 4 (0 to 4 * interval): Car stays at Z = -100, camera at Z = -94
+    timeline3D.to(carGroup.position, { z: -100, duration: 4 * interval }, 0);
+    timeline3D.to(camera.position, { x: 4, y: 1.2, z: -94, duration: 4 * interval }, 0);
 
-    // Slide 3 -> Slide 4 (Simulation slide) (3 * interval to 4 * interval):
+    // Slide 4 -> Slide 6 (Simulation slide & transition) (4 * interval to 6 * interval):
     // Car drives into the tunnel (Z = -100 to Z = -900)
     // Camera follows the car (Z = -94 to Z = -894)
-    tl.to(carGroup.position, {
+    timeline3D.to(carGroup.position, {
         z: -900,
-        duration: interval,
+        duration: 2 * interval,
         ease: "power1.inOut"
-    }, 3 * interval);
+    }, 4 * interval);
     
-    tl.to(camera.position, {
+    timeline3D.to(camera.position, {
         z: -894,
-        duration: interval,
+        duration: 2 * interval,
         ease: "power1.inOut"
-    }, 3 * interval);
+    }, 4 * interval);
 
-    // Slide 4 -> Slide 17 (4 * interval to 1.0): Car and camera stay inside the tunnel
-    tl.to(carGroup.position, { z: -900, duration: 13 * interval }, 4 * interval);
-    tl.to(camera.position, { z: -894, duration: 13 * interval }, 4 * interval);
+    // Slide 6 -> Slide 17 (6 * interval to 1.0): Car and camera stay inside the tunnel
+    timeline3D.to(carGroup.position, { z: -900, duration: 11 * interval }, 6 * interval);
+    timeline3D.to(camera.position, { z: -894, duration: 11 * interval }, 6 * interval);
 
     ScrollTrigger.refresh();
 }
