@@ -582,15 +582,18 @@ function animate() {
     // Render HTML Telemetry HUD Displays
     updateHUDDisplays();
 
-    // Render 3D Floating Labels for MCU PCB Components
-    if (mcuGroup && mcuGroup.scale.x > 0.2) {
-        document.getElementById('mcu-labels-container').style.opacity = 1;
-        updateTagPosition('mcu-tag-pcb', anchorPCB);
-        updateTagPosition('mcu-tag-esp32', anchorESP32);
-        updateTagPosition('mcu-tag-sensor', anchorSensor);
-        updateTagPosition('mcu-tag-relay', anchorRelay);
-    } else {
-        document.getElementById('mcu-labels-container').style.opacity = 0;
+    // Render 3D Floating Labels for MCU PCB Components (holographic tags removed)
+    const mcuLabelsContainer = document.getElementById('mcu-labels-container');
+    if (mcuLabelsContainer) {
+        if (mcuGroup && mcuGroup.scale.x > 0.2) {
+            mcuLabelsContainer.style.opacity = 1;
+            updateTagPosition('mcu-tag-pcb', anchorPCB);
+            updateTagPosition('mcu-tag-esp32', anchorESP32);
+            updateTagPosition('mcu-tag-sensor', anchorSensor);
+            updateTagPosition('mcu-tag-relay', anchorRelay);
+        } else {
+            mcuLabelsContainer.style.opacity = 0;
+        }
     }
 
     composer.render();
@@ -730,7 +733,7 @@ gsap.registerPlugin(ScrollTrigger);
 function initSlideAnimations() {
     const slideSections = document.querySelectorAll('.slide');
     slideSections.forEach((section) => {
-        if (section.id === "slide-0") return; // Skip title slide (handled by intro)
+        if (section.id === "slide-0" || section.id === "slide-sim") return; // Skip title and sim slide (handled by intro)
 
         const content = section.querySelector('.content');
         if (!content) return;
@@ -795,9 +798,9 @@ function initSlideAnimations() {
         });
     });
 
-    // Performance metrics count-up animation on scroll (Slide 9)
+    // Performance metrics count-up animation on scroll (Slide 11 / old 9)
     ScrollTrigger.create({
-        trigger: "#slide-9",
+        trigger: "#slide-10",
         start: "top 60%",
         onEnter: () => {
             const gpsObj = { value: 0 };
@@ -831,9 +834,9 @@ function initSlideAnimations() {
         }
     });
 
-    // Patent & Competition progress count-up animation on scroll (Slide 15)
+    // Patent & Competition progress count-up animation on scroll (Slide 17 / old 15)
     ScrollTrigger.create({
-        trigger: "#slide-15",
+        trigger: "#slide-16",
         start: "top 60%",
         onEnter: () => {
             // Animate progress bar widths
@@ -892,96 +895,31 @@ function init3DAnimations() {
         }
     });
 
-    // --- Timeline Setup (Partitioned for 17 Slides: total duration 1.0) ---
+    // 18 Slides, 17 intervals. Each interval is 1/17 ~ 0.0588
+    const interval = 1 / 17;
 
-    // 1. Slide 0 to Slide 4 (0.0 to 0.25): Car remains assembled at Z = -100
-    tl.to(carGroup.position, { z: -100, duration: 0.25 }, 0);
+    // Slide 0 to Slide 3 (0 to 3 * interval): Car stays at Z = -100, camera at Z = -94
+    tl.to(carGroup.position, { z: -100, duration: 3 * interval }, 0);
+    tl.to(camera.position, { x: 4, y: 1.2, z: -94, duration: 3 * interval }, 0);
 
-    // 2. Slide 4 -> Slide 5 (0.25 to 0.3125): Car disassembles & MCU zoomed-in
-    tl.to(camera.position, {
-        x: 1.5, 
-        z: -93.5, 
-        y: 0.9, 
-        duration: 0.0625,
-        ease: "power2.inOut" 
-    }, 0.25);
-
-    tl.to(camera, {
-        fov: 85,
-        duration: 0.0625,
-        onUpdate: () => camera.updateProjectionMatrix()
-    }, 0.25);
-
-    // A. Lift Shell
-    tl.to(carShell.position, { y: 6.0, duration: 0.0625, ease: "back.out(1.8)" }, 0.25);
-    tl.to(carShell.rotation, { z: 0.15, x: 0.05, duration: 0.0625 }, 0.25);
-
-    // B. Lower Frame
-    tl.to(carFrame.position, { y: -1.2, duration: 0.0625, ease: "power2.out" }, 0.25);
+    // Slide 3 -> Slide 4 (Simulation slide) (3 * interval to 4 * interval):
+    // Car drives into the tunnel (Z = -100 to Z = -900)
+    // Camera follows the car (Z = -94 to Z = -894)
+    tl.to(carGroup.position, {
+        z: -900,
+        duration: interval,
+        ease: "power1.inOut"
+    }, 3 * interval);
     
-    // C. Wheels outwards
-    if (wheels.length > 0) {
-        wheels.forEach((wheel, i) => {
-            const directionX = wheel.position.x > 0 ? 1 : -1;
-            const directionZ = i < 2 ? -1 : 1; 
-            tl.to(wheel.position, { 
-                x: wheel.position.x + (5.5 * directionX), 
-                y: 1.5,
-                z: wheel.position.z + (3.0 * directionZ),
-                duration: 0.0625, 
-                ease: "power2.out" 
-            }, 0.25);
-            tl.to(wheel.rotation, { x: Math.PI, z: Math.PI, duration: 0.0625 }, 0.25);
-        });
-    }
-
-    // D. Scale up MCU
-    if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 2.0, y: 2.0, z: 2.0, duration: 0.05, ease: "power2.out" }, 0.2525);
-        tl.to(mcuGroup.rotation, { x: 0, y: 0.358, z: 0, duration: 0.01 }, 0.2525);
-    }
-
-    // Keep camera stable, parallel on slide 5
     tl.to(camera.position, {
-        x: 1.5,
-        y: 0.9,
-        z: -93.5,
-        duration: 0.0625
-    }, 0.3125);
+        z: -894,
+        duration: interval,
+        ease: "power1.inOut"
+    }, 3 * interval);
 
-    // 3. Slide 5 -> Slide 6 (0.3125 to 0.375): Reassemble car & return camera
-    if (mcuGroup) {
-        tl.to(mcuGroup.scale, { x: 0, y: 0, z: 0, duration: 0.05, ease: "power2.in" }, 0.3125);
-    }
-    
-    if (wheels.length > 0) {
-        wheels.forEach((wheel) => {
-            tl.to(wheel.position, { x: wheel.initialX || 0, y: 0, z: 0, duration: 0.045, ease: "power2.in" }, 0.33);
-            tl.to(wheel.rotation, { x: 0, z: 0, duration: 0.045 }, 0.33);
-        });
-    }
-
-    tl.to(carShell.position, { y: 0, duration: 0.045, ease: "bounce.out" }, 0.33);
-    tl.to(carShell.rotation, { z: 0, x: 0, duration: 0.045 }, 0.33);
-    tl.to(carFrame.position, { y: 0, duration: 0.045, ease: "power2.in" }, 0.33);
-    
-    tl.to(camera, {
-        fov: 75,
-        duration: 0.0625,
-        onUpdate: () => camera.updateProjectionMatrix()
-    }, 0.3125);
-
-    tl.to(camera.position, {
-        x: 4,
-        y: 1.2,
-        z: -94,
-        duration: 0.0625,
-        ease: "power2.inOut"
-    }, 0.3125);
-
-    // 4. Slide 6 to Slide 16 (0.375 to 1.0): Car remains assembled and static at Z = -100
-    // Disabled climax driving animation to focus purely on content.
-    tl.to(carGroup.position, { z: -100, duration: 0.625 }, 0.375);
+    // Slide 4 -> Slide 17 (4 * interval to 1.0): Car and camera stay inside the tunnel
+    tl.to(carGroup.position, { z: -900, duration: 13 * interval }, 4 * interval);
+    tl.to(camera.position, { z: -894, duration: 13 * interval }, 4 * interval);
 
     ScrollTrigger.refresh();
 }
@@ -1151,10 +1089,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 6. Auto play/pause demo video on scroll
-    const demoVideo = document.querySelector('#slide-11 video');
+    const demoVideo = document.querySelector('#slide-12 video');
     if (demoVideo) {
         ScrollTrigger.create({
-            trigger: "#slide-11",
+            trigger: "#slide-12",
             start: "top center",
             end: "bottom center",
             onEnter: () => {

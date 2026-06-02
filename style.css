@@ -1702,13 +1702,28 @@ p.sub-text {
 }
 
 /* Prevent overflow clipping at the bottom of pages */
-#slide-13 .large-zoom-img:hover {
+#slide-14 .large-zoom-img:hover {
     transform-origin: center right;
 }
 
-#slide-14 .large-zoom-img:hover,
-#slide-15 .large-zoom-img:hover {
+#slide-15 .medium-zoom-img:hover,
+#slide-16 .large-zoom-img:hover {
     transform-origin: bottom center;
+}
+
+/* Medium zoom for Slide 15 images to prevent blocking details */
+.medium-zoom-img {
+    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: zoom-in;
+    position: relative;
+    z-index: 10;
+}
+
+.medium-zoom-img:hover {
+    transform: scale(3.2) !important;
+    z-index: 99999 !important;
+    border-color: #00d2ff !important;
+    box-shadow: 0 20px 50px rgba(0, 210, 255, 0.7), 0 0 35px rgba(0, 210, 255, 0.35) !important;
 }
 
 
