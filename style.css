@@ -1733,6 +1733,26 @@ p.sub-text {
     box-shadow: 0 20px 50px rgba(0, 210, 255, 0.7), 0 0 35px rgba(0, 210, 255, 0.35) !important;
 }
 
+/* Elevate stacking context of all parent containers when an image inside is hovered to prevent clipping */
+.presentation:has(img:hover),
+.slide:has(img:hover),
+.glass-card:has(img:hover),
+.media-container:has(img:hover),
+.media-box:has(img:hover),
+.patent-box:has(img:hover),
+.patent-item-card:has(img:hover),
+.team-member-card:has(img:hover),
+.dashboard-grid:has(img:hover),
+.dashboard-card:has(img:hover),
+.problem-box:has(img:hover),
+.solution-box:has(img:hover),
+.code-screenshot-gallery:has(img:hover),
+.gallery-images:has(img:hover),
+.gallery-group:has(img:hover) {
+    z-index: 999999 !important;
+}
+
+
 
 
 
