@@ -503,7 +503,7 @@ function animate() {
     }
 
     // Force LEDs off once we enter Slide 5 (major components page) or later
-    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 4.5 / 17) {
+    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 4.95 / 17) {
         SIM_STATE.lightActive = false;
     }
 
@@ -908,24 +908,24 @@ function init3DAnimations() {
     timeline3D.to(carGroup.position, { z: -100, duration: 4 * interval }, 0);
     timeline3D.to(camera.position, { x: 4, y: 1.2, z: -94, duration: 4 * interval }, 0);
 
-    // Slide 4 -> Slide 6 (Simulation slide & transition) (4 * interval to 6 * interval):
+    // Slide 4 -> Slide 5 (Simulation slide & transition) (4 * interval to 5 * interval):
     // Car drives into the tunnel (Z = -100 to Z = -900)
     // Camera follows the car (Z = -94 to Z = -894)
     timeline3D.to(carGroup.position, {
         z: -900,
-        duration: 2 * interval,
+        duration: 1 * interval,
         ease: "power1.inOut"
     }, 4 * interval);
     
     timeline3D.to(camera.position, {
         z: -894,
-        duration: 2 * interval,
+        duration: 1 * interval,
         ease: "power1.inOut"
     }, 4 * interval);
 
-    // Slide 6 -> Slide 17 (6 * interval to 1.0): Car and camera stay inside the tunnel
-    timeline3D.to(carGroup.position, { z: -900, duration: 11 * interval }, 6 * interval);
-    timeline3D.to(camera.position, { z: -894, duration: 11 * interval }, 6 * interval);
+    // Slide 5 -> Slide 17 (5 * interval to 1.0): Car and camera stay inside the tunnel
+    timeline3D.to(carGroup.position, { z: -900, duration: 12 * interval }, 5 * interval);
+    timeline3D.to(camera.position, { z: -894, duration: 12 * interval }, 5 * interval);
 
     ScrollTrigger.refresh();
 }
