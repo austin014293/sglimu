@@ -739,7 +739,7 @@ gsap.registerPlugin(ScrollTrigger);
 function initSlideAnimations() {
     const slideSections = document.querySelectorAll('.slide');
     slideSections.forEach((section) => {
-        if (section.id === "slide-0" || section.id === "slide-sim") return; // Skip title and sim slide (handled by intro)
+        if (section.id === "slide-0" || section.id.startsWith("slide-sim")) return; // Skip title and all simulation slides
 
         const content = section.querySelector('.content');
         if (!content) return;
