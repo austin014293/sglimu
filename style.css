@@ -1718,6 +1718,12 @@ p.sub-text {
     transform-origin: bottom center;
 }
 
+/* Prevent schematic image in slide-6 from clipping off-screen */
+#slide-6 .media-box img:hover {
+    transform: scale(2.6) !important;
+    transform-origin: center right;
+}
+
 /* Medium zoom for Slide 15 images to prevent blocking details */
 .medium-zoom-img {
     transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, border-color 0.3s ease;
