@@ -1062,6 +1062,10 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
                         <span class="num">6</span>
                         <span class="title">MOSFET 발열 제어</span>
                     </button>
+                    <button class="qa-nav-btn" data-target="slide-25">
+                        <span class="num">7</span>
+                        <span class="title">현대차 공식 회신</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -1198,6 +1202,33 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
                         <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.7;">
                             <li><strong>MCU 다이렉트 구동의 한계 극복 (TC4427 필수 적용)</strong>: ESP32 등 일반 MCU의 입출력 핀 전류 공급 한계(약 20mA)로는 N-Channel MOSFET의 게이트 입력 용량(Gate Capacitance)을 충분히 신속하게 충전시킬 수 없어 스위칭 과도 구간(Linear Region)이 길어지고 극심한 열손실이 발생합니다. 순간 1.5A를 뿜어내는 **게이트 드라이버 TC4427**을 내장하여 충·방전 딜레이를 최소화함으로써 열 누적을 완벽히 방지했습니다.</li>
                             <li><strong>서지 스파이크 및 유도성 부하(Inductive Load) 대책</strong>: 차량용 순정 벌브 및 배선은 코일 성분(유도성 부하)을 지니고 있어 PWM 스위칭 차단 시 높은 역기전력 전압 스파이크가 발생해 MOSFET을 파괴할 수 있습니다. D-S 단에 보호용 플라이백 다이오드를 결선하여 전압 역류를 안전하게 그라운드로 흡수시켰습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 26: Q&A 상세 7 (현대자동차 공식 질의 회신) -->
+        <section class="slide" id="slide-25">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 7. 현대자동차 전장부서 공식 질의 회신</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.5rem;">
+                        <h3 style="color: #00d2ff; margin-bottom: 12px;">📄 현대자동차·기아 전장 개발팀 공식 서면 회신 내용</h3>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0; margin-bottom: 15px;">
+                            본 과제의 기술적 타당성과 법규 부합성에 대하여 현대자동차·기아 전장 부서에 직접 공식 질의하고 회신받은 원본 자료입니다.
+                        </p>
+                        <div style="display: flex; gap: 15px; height: 260px; width: 100%; justify-content: center; margin-bottom: 15px;">
+                            <img src="hyundai_qa_reply_1.jpg" alt="현대차 공식 회신 1" class="medium-zoom-img" style="height: 100%; width: 48%; object-fit: contain; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: #ffffff;">
+                            <img src="hyundai_qa_reply_2.jpg" alt="현대차 공식 회신 2" class="medium-zoom-img" style="height: 100%; width: 48%; object-fit: contain; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: #ffffff;">
+                        </div>
+                        <ul class="bullet-list" style="font-size: 0.85rem; line-height: 1.6; margin-top: 10px;">
+                            <li><strong>법규 적합성 유권 해석 완료</strong>: 미등 밝기 조절은 '법규 허용 범위 내 자동 제어'이므로 **명백한 합법**이며, 시스템 자동 제어에 의한 단계적 감광은 현행 양산 차량에 이미 탑재되고 설계 규정에 부합하는 방식임을 확인받았습니다.</li>
+                            <li><strong>BCM 및 B-CAN 제어 원리 검증</strong>: B-CAN 통신을 이용한 미등 밝기 제어 명령 전달 및 BCM의 IPS를 통한 PWM 구동 제어 구조가 양산형 조명 제어 표준 기술임을 확인받았습니다.</li>
+                            <li><strong>하드웨어 한계 및 펌웨어 업데이트 유효성 확인</strong>: IPS 소자가 장착된 최신 차량이라도 BCM 하드웨어·배선·전원 사양이 막혀 있으면 펌웨어(소프트웨어) 업데이트만으로는 제어가 불가능하여 **외장형 하드웨어 추가 회로 장착(본 설계 결과물)이 필수적**이라는 기술적 답변을 확보했습니다.</li>
                         </ul>
                     </div>
                 </div>
