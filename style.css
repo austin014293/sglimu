@@ -1809,11 +1809,11 @@ p.sub-text {
 }
 
 #slide-15 .media-box:first-child .medium-zoom-img:hover {
-    transform-origin: bottom left;
+    transform-origin: bottom center;
 }
 
 #slide-15 .media-box:last-child .medium-zoom-img:hover {
-    transform-origin: bottom right;
+    transform-origin: bottom center;
 }
 
 #slide-16 .large-zoom-img:hover {
