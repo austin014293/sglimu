@@ -1546,6 +1546,10 @@ p.sub-text {
     cursor: zoom-in;
     position: relative;
     z-index: 10;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
 
 .zoomable-img:hover,
@@ -1692,6 +1696,10 @@ p.sub-text {
     cursor: zoom-in;
     position: relative;
     z-index: 10;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
 
 .large-zoom-img:hover {
@@ -1730,6 +1738,10 @@ p.sub-text {
     cursor: zoom-in;
     position: relative;
     z-index: 10;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
 
 .medium-zoom-img:hover {
