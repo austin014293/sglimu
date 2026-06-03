@@ -2012,10 +2012,12 @@ p.sub-text {
 
 /* Prevent Slide 26 side-by-side images from clipping off-screen on hover */
 #slide-25 img:first-of-type:hover {
+    transform: scale(2.0) !important;
     transform-origin: bottom left !important;
 }
 
 #slide-25 img:last-of-type:hover {
+    transform: scale(2.0) !important;
     transform-origin: bottom right !important;
 }
 
