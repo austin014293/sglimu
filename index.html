@@ -343,18 +343,14 @@
             </div>
         </section>
 
-        <!-- 슬라이드 7: 시스템 회로도 -->
+        <!-- 슬라이드 7: 시스템 회로도 및 제어 흐름도 -->
         <section class="slide" id="slide-6">
             <div class="content glass-card" style="max-width: 900px;">
-                <h2 class="section-title">시스템 하드웨어 회로도</h2>
+                <h2 class="section-title">시스템 하드웨어 회로도 및 제어 흐름도</h2>
                 <div class="problem-section" style="grid-template-columns: 1fr 1.1fr;">
-                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.6; text-align: left;">
-                        <ul class="bullet-list" style="margin-top: 0;">
-                            <li><strong>LED 스트립 구동부</strong>: 12V 차량 전원 배선을 직접 스위칭 제어하도록 설계</li>
-                            <li><strong>Buck Converter</strong>: 차량용 12V 전압을 5V로 강압하여 안전한 MCU 전원 공급</li>
-                            <li><strong>게이트 드라이버(TC4427)</strong>: 고주파 5kHz PWM 신호 변환 및 MOSFET 전압 스위칭 보호</li>
-                            <li><strong>센서 입력단 (I2C/UART)</strong>: BH1750(조도), MPU6050(가속도), GPS가 통합된 복합 데이터 구조</li>
-                        </ul>
+                    <div class="media-box" style="min-height: auto; height: 100%; padding: 5px;">
+                        <div class="media-label">📸 시스템 제어 로직 흐름도 (Flowchart)</div>
+                        <img src="control_logic_flowchart.jpg" alt="시스템 제어 로직 흐름도" style="height: calc(100% - 30px); object-fit: contain; background: #ffffff; border-radius: 6px;">
                     </div>
                     <div class="media-box" style="min-height: auto; height: 100%; padding: 5px;">
                         <div class="media-label">📸 시스템 결선 회로도 (Matte Black 4-Layer PCB 설계)</div>

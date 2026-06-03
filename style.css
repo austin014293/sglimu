@@ -1823,7 +1823,16 @@ p.sub-text {
 /* Prevent schematic image in slide-6 from clipping off-screen */
 #slide-6 .media-box img:hover {
     transform: scale(2.3) !important;
-    transform-origin: center right;
+}
+
+#slide-6 .media-box:first-child img:hover,
+#slide-6 img:first-of-type:hover {
+    transform-origin: center left !important;
+}
+
+#slide-6 .media-box:last-child img:hover,
+#slide-6 img:last-of-type:hover {
+    transform-origin: center right !important;
 }
 
 /* Medium zoom for Slide 15 images to prevent blocking details */
