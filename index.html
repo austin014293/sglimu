@@ -1056,7 +1056,11 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
                     </button>
                     <button class="qa-nav-btn" data-target="slide-23">
                         <span class="num">5</span>
-                        <span class="title">CAN 통신 패킷</span>
+                        <span class="title">오토라이트 대비 강점</span>
+                    </button>
+                    <button class="qa-nav-btn" data-target="slide-24">
+                        <span class="num">6</span>
+                        <span class="title">MOSFET 발열 제어</span>
                     </button>
                 </div>
             </div>
@@ -1155,22 +1159,45 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
             </div>
         </section>
 
-        <!-- 슬라이드 24: Q&A 상세 5 (CAN 통신 패킷) -->
+        <!-- 슬라이드 24: Q&A 상세 5 (기존 오토라이트 대비 GPS 제어의 필요성) -->
         <section class="slide" id="slide-23">
             <div class="content glass-card" style="max-width: 900px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 5. CAN 통신 패킷 충돌 및 우회</h2>
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 5. 기존 오토라이트(조도 센서) 대비 GPS 제어의 필요성</h2>
                     <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
                 </div>
                 <div class="problem-section" style="grid-template-columns: 1fr;">
                     <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.5rem;">
-                        <h3 style="color: #00d2ff; margin-bottom: 12px;">🚗 B-CAN 통신 패킷 충돌 억제 및 배선 라우팅</h3>
+                        <h3 style="color: #00d2ff; margin-bottom: 12px;">🛰️ 반응형(Reactive) 제어 vs 예측형(Proactive) 제어</h3>
                         <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
-                            500kbps 속도로 통신하는 차량용 고속 B-CAN 버스에 디바이스가 연동될 때 발생하는 트래픽 간섭 및 게이트웨이(SGW) 우회를 위한 구현 방식입니다.
+                            기존 차량용 조도 센서 기반 오토라이트 기능이 있음에도, GPS 기반의 선제 제어 시스템이 유발하는 높은 사고 방지 효과와 차별성을 설명합니다.
                         </p>
-                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;">
-                            <li><strong>하드웨어 필터 적용</strong>: CAN 컨트롤러(예: MCP2515 등)의 마스크(Mask)와 필터(Filter) 레지스터를 설정하여 불필요한 패킷을 하드웨어 수준에서 차단, MCU의 메시지 큐 오버플로우와 패킷 유실을 방지합니다.</li>
-                            <li><strong>정밀 우회 배선 (T-tap 방식)</strong>: 보안 게이트웨이(SGW)가 OBD2 포트의 CAN 쓰기 동작을 차단하므로, 대시보드 내부 정션박스 혹은 BCM 전용 CAN 단자대에 물리적인 T-tap 배선을 결선하여 안전하고 영구적인 패킷 모니터링 환경을 확보했습니다.</li>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.7;">
+                            <li><strong>지연 반응 속도의 한계 (오토라이트의 약 3~5초 딜레이)</strong>: 오토라이트는 가로수 그늘이나 임시 조도 하락에 반응하여 라이트가 계속 켜지고 꺼지는 오작동을 차단하기 위해 3~5초의 하드웨어/소프트웨어 필터 딜레이를 가지고 있습니다. 시속 100km/h로 주행 시 이 딜레이는 차량이 약 <strong>83m</strong>를 미등 없이 달리게 만들어 터널 입구의 블랙홀 사고 구간을 유발합니다.</li>
+                            <li><strong>터널 진입 전 사전 점등 완료 (Pre-lighting)</strong>: 본 GPS 시스템은 터널 포털(진입구) 좌표를 사전에 파악하여 진입부 **50~100m 전방에서 이미 미등을 100% 밝기로 점등**합니다. 터널 안으로 진입하는 순간 미등이 이미 켜져 있으므로 뒤따라오는 후방 차량에 즉각 경고를 주어 급제동 및 추돌 사고를 원천 차단합니다.</li>
+                            <li><strong>안전 성능 요약</strong>: 조도 센서처럼 어두워진 '후'에 동작하는 수동적 제어가 아닌, 터널이라는 지리적 객체를 인식해 미리 대처하는 **선제적 능동 안전 제어로 후방 추돌 예방률을 획기적으로 상승**시킵니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 25: Q&A 상세 6 (MOSFET 발열 제어 및 회로 안정성) -->
+        <section class="slide" id="slide-24">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 6. MOSFET PWM 디밍 발열 제어 및 회로 안정성</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #ffaa00; padding: 1.5rem;">
+                        <h3 style="color: #ffaa00; margin-bottom: 12px;">⚡ TC4427 게이트 드라이버 도입을 통한 발열 및 노이즈 해결</h3>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
+                            고속 PWM 스위칭 환경에서 발생할 수 있는 MOSFET 소자의 물리적 손상 및 열 누적 문제를 전기/전자공학적으로 해결한 설계 기법입니다.
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.7;">
+                            <li><strong>MCU 다이렉트 구동의 한계 극복 (TC4427 필수 적용)</strong>: ESP32 등 일반 MCU의 입출력 핀 전류 공급 한계(약 20mA)로는 N-Channel MOSFET의 게이트 입력 용량(Gate Capacitance)을 충분히 신속하게 충전시킬 수 없어 스위칭 과도 구간(Linear Region)이 길어지고 극심한 열손실이 발생합니다. 순간 1.5A를 뿜어내는 **게이트 드라이버 TC4427**을 내장하여 충·방전 딜레이를 최소화함으로써 열 누적을 완벽히 방지했습니다.</li>
+                            <li><strong>서지 스파이크 및 유도성 부하(Inductive Load) 대책</strong>: 차량용 순정 벌브 및 배선은 코일 성분(유도성 부하)을 지니고 있어 PWM 스위칭 차단 시 높은 역기전력 전압 스파이크가 발생해 MOSFET을 파괴할 수 있습니다. D-S 단에 보호용 플라이백 다이오드를 결선하여 전압 역류를 안전하게 그라운드로 흡수시켰습니다.</li>
                         </ul>
                     </div>
                 </div>
