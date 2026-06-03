@@ -560,6 +560,19 @@
             <div class="content glass-card" style="max-width: 900px;">
                 <h2 class="section-title">ESP32 임베디드 핵심 소스코드</h2>
                 <div class="code-viewer-container">
+                    <!-- IDE Chrome Header -->
+                    <div class="code-header">
+                        <div class="window-controls">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="file-tab">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">esp32_firmware.ino</span>
+                        </div>
+                        <div class="copy-btn" onclick="const activeCode = document.querySelector('.code-pane.active pre').innerText; navigator.clipboard.writeText(activeCode); alert('코드가 클립보드에 복사되었습니다!');">COPY CODE</div>
+                    </div>
                     <div class="code-tabs">
                         <button class="code-tab active" data-tab="setup">1. 환경 설정 및 초기화</button>
                         <button class="code-tab" data-tab="filter">2. 가속도 필터 & GPS 융합</button>
@@ -568,105 +581,105 @@
                     <div class="code-content-wrapper">
                         <!-- Setup Tab -->
                         <div class="code-pane active" id="code-pane-setup">
-                            <pre>#include &lt;TinyGPS++.h&gt;
-#include &lt;Adafruit_MPU6050.h&gt;
-#include &lt;Adafruit_Sensor.h&gt;
-#include &lt;Wire.h&gt;
-#include &lt;BH1750.h&gt; 
+                            <pre><span class="preprocessor">#include</span> <span class="string">&lt;TinyGPS++.h&gt;</span>
+<span class="preprocessor">#include</span> <span class="string">&lt;Adafruit_MPU6050.h&gt;</span>
+<span class="preprocessor">#include</span> <span class="string">&lt;Adafruit_Sensor.h&gt;</span>
+<span class="preprocessor">#include</span> <span class="string">&lt;Wire.h&gt;</span>
+<span class="preprocessor">#include</span> <span class="string">&lt;BH1750.h&gt;</span> 
 
-TinyGPSPlus gps;
-Adafruit_MPU6050 mpu;
-HardwareSerial gpsSerial(2); 
-BH1750 lightMeter; 
+<span class="type">TinyGPSPlus</span> gps;
+<span class="type">Adafruit_MPU6050</span> mpu;
+<span class="type">HardwareSerial</span> <span class="function">gpsSerial</span>(<span class="number">2</span>); 
+<span class="type">BH1750</span> lightMeter; 
 
-// ==========================================
-// [Sector 1] 변수 선언 및 타겟 설정
-// ==========================================
-const double TARGET_LAT = 35.105925;
-const double TARGET_LNG = 129.007105;
-const float BIAS_X = 2.47;
-const float BIAS_Y = -1.53;
-const float BIAS_Z = 1.19;
-const int ledPin = 25;  
-const int ledChannel = 0;
-const int ledFreq = 5000;
-const int ledRes = 8; 
-const float NIGHT_LIMIT = 800.0; 
-bool mpuReady = false;
-const int AVG_SIZE = 10;
-double latBuffer[AVG_SIZE], lngBuffer[AVG_SIZE];
-int bufIdx = 0;
-double lastValidLat = 0, lastValidLng = 0;
-bool firstFix = false;
+<span class="comment">// ==========================================</span>
+<span class="comment">// [Sector 1] 변수 선언 및 타겟 설정</span>
+<span class="comment">// ==========================================</span>
+<span class="keyword">const</span> <span class="keyword">double</span> TARGET_LAT = <span class="number">35.105925</span>;
+<span class="keyword">const</span> <span class="keyword">double</span> TARGET_LNG = <span class="number">129.007105</span>;
+<span class="keyword">const</span> <span class="keyword">float</span> BIAS_X = <span class="number">2.47</span>;
+<span class="keyword">const</span> <span class="keyword">float</span> BIAS_Y = -<span class="number">1.53</span>;
+<span class="keyword">const</span> <span class="keyword">float</span> BIAS_Z = <span class="number">1.19</span>;
+<span class="keyword">const</span> <span class="keyword">int</span> ledPin = <span class="number">25</span>;  
+<span class="keyword">const</span> <span class="keyword">int</span> ledChannel = <span class="number">0</span>;
+<span class="keyword">const</span> <span class="keyword">int</span> ledFreq = <span class="number">5000</span>;
+<span class="keyword">const</span> <span class="keyword">int</span> ledRes = <span class="number">8</span>; 
+<span class="keyword">const</span> <span class="keyword">float</span> NIGHT_LIMIT = <span class="number">800.0</span>; 
+<span class="keyword">bool</span> mpuReady = <span class="keyword">false</span>;
+<span class="keyword">const</span> <span class="keyword">int</span> AVG_SIZE = <span class="number">10</span>;
+<span class="keyword">double</span> latBuffer[AVG_SIZE], lngBuffer[AVG_SIZE];
+<span class="keyword">int</span> bufIdx = <span class="number">0</span>;
+<span class="keyword">double</span> lastValidLat = <span class="number">0</span>, lastValidLng = <span class="number">0</span>;
+<span class="keyword">bool</span> firstFix = <span class="keyword">false</span>;
 
-// ==========================================
-// 하드웨어 초기화 및 세팅
-// ==========================================
-void setup() {
-    Serial.begin(115200); 
-    delay(1500);
-    #if ESP_ARDUINO_VERSION_MAJOR < 3
-    ledcSetup(ledChannel, ledFreq, ledRes);
-    ledcAttachPin(ledPin, ledChannel);
-    #else
-    ledcAttach(ledPin, ledFreq, ledRes);
-    #endif
-    gpsSerial.begin(9600, SERIAL_8N1, 16, 17); 
-    Wire.begin(21, 22);                        
-    lightMeter.begin();
-    if (mpu.begin()) {
-        mpuReady = true;
-        Serial.println("가속도센서(MPU6050) 필터링 준비 완료");
-    } else {
-        Serial.println("가속도센서연결실패! 필터링없이진행합니다.");
+<span class="comment">// ==========================================</span>
+<span class="comment">// 하드웨어 초기화 및 세팅</span>
+<span class="comment">// ==========================================</span>
+<span class="keyword">void</span> <span class="function">setup</span>() {
+    <span class="type">Serial</span>.<span class="function">begin</span>(<span class="number">115200</span>); 
+    <span class="function">delay</span>(<span class="number">1500</span>);
+    <span class="preprocessor">#if ESP_ARDUINO_VERSION_MAJOR &lt; 3</span>
+    <span class="function">ledcSetup</span>(ledChannel, ledFreq, ledRes);
+    <span class="function">ledcAttachPin</span>(ledPin, ledChannel);
+    <span class="preprocessor">#else</span>
+    <span class="function">ledcAttach</span>(ledPin, ledFreq, ledRes);
+    <span class="preprocessor">#endif</span>
+    gpsSerial.<span class="function">begin</span>(<span class="number">9600</span>, <span class="type">SERIAL_8N1</span>, <span class="number">16</span>, <span class="number">17</span>); 
+    <span class="type">Wire</span>.<span class="function">begin</span>(<span class="number">21</span>, <span class="number">22</span>);                        
+    lightMeter.<span class="function">begin</span>();
+    <span class="keyword">if</span> (mpu.<span class="function">begin</span>()) {
+        mpuReady = <span class="keyword">true</span>;
+        <span class="type">Serial</span>.<span class="function">println</span>(<span class="string">"가속도센서(MPU6050) 필터링 준비 완료"</span>);
+    } <span class="keyword">else</span> {
+        <span class="type">Serial</span>.<span class="function">println</span>(<span class="string">"가속도센서연결실패! 필터링없이진행합니다."</span>);
     }
 }
 
-void loop() {
-    unsigned long currentTime = millis(); 
-    while (gpsSerial.available() > 0) {
-        gps.encode(gpsSerial.read());
+<span class="keyword">void</span> <span class="function">loop</span>() {
+    <span class="keyword">unsigned</span> <span class="keyword">long</span> currentTime = <span class="function">millis</span>(); 
+    <span class="keyword">while</span> (gpsSerial.<span class="function">available</span>() &gt; <span class="number">0</span>) {
+        gps.<span class="function">encode</span>(gpsSerial.<span class="function">read</span>());
     }
 }</pre>
                         </div>
                         <!-- Filter Tab -->
                         <div class="code-pane" id="code-pane-filter">
-                            <pre>// ==========================================
-// [Sector 2] 1차 물리필터: 가속도기반 주행감지
-// ==========================================
-bool isMoving = true; 
-if (mpuReady) {
-    sensors_event_t a, g, temp;
-    mpu.getEvent(&a, &g, &temp);
-    float adjX = a.acceleration.x - BIAS_X;
-    float adjY = a.acceleration.y - BIAS_Y;
-    float adjZ = a.acceleration.z - BIAS_Z;
-    float motionMag = sqrt(adjX*adjX + adjY*adjY + (adjZ - 9.8)*(adjZ - 9.8));
-    isMoving = (motionMag > 0.6);
+                            <pre><span class="comment">// ==========================================</span>
+<span class="comment">// [Sector 2] 1차 물리필터: 가속도기반 주행감지</span>
+<span class="comment">// ==========================================</span>
+<span class="keyword">bool</span> isMoving = <span class="keyword">true</span>; 
+<span class="keyword">if</span> (mpuReady) {
+    <span class="type">sensors_event_t</span> a, g, temp;
+    mpu.<span class="function">getEvent</span>(&amp;a, &amp;g, &amp;temp);
+    <span class="keyword">float</span> adjX = a.<span class="type">acceleration</span>.<span class="type">x</span> - BIAS_X;
+    <span class="keyword">float</span> adjY = a.<span class="type">acceleration</span>.<span class="type">y</span> - BIAS_Y;
+    <span class="keyword">float</span> adjZ = a.<span class="type">acceleration</span>.<span class="type">z</span> - BIAS_Z;
+    <span class="keyword">float</span> motionMag = <span class="function">sqrt</span>(adjX*adjX + adjY*adjY + (adjZ - <span class="number">9.8</span>)*(adjZ - <span class="number">9.8</span>));
+    isMoving = (motionMag &gt; <span class="number">0.6</span>);
 }
 
-// ==========================================
-// [Sector 3] 2차 위치융합: GPS 이동평균 및 거리 연산
-// ==========================================
-double distanceToTarget = 9999.0; 
-if (gps.location.isValid() && gps.satellites.value() >= 4) {
-    double rawLat = gps.location.lat();
-    double rawLng = gps.location.lng();
-    if (!firstFix) {
-        for(int i=0; i&lt;AVG_SIZE; i++) { 
+<span class="comment">// ==========================================</span>
+<span class="comment">// [Sector 3] 2차 위치융합: GPS 이동평균 및 거리 연산</span>
+<span class="comment">// ==========================================</span>
+<span class="keyword">double</span> distanceToTarget = <span class="number">9999.0</span>; 
+<span class="keyword">if</span> (gps.<span class="type">location</span>.<span class="function">isValid</span>() &amp;&amp; gps.<span class="type">satellites</span>.<span class="function">value</span>() &gt;= <span class="number">4</span>) {
+    <span class="keyword">double</span> rawLat = gps.<span class="type">location</span>.<span class="function">lat</span>();
+    <span class="keyword">double</span> rawLng = gps.<span class="type">location</span>.<span class="function">lng</span>();
+    <span class="keyword">if</span> (!firstFix) {
+        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;AVG_SIZE; i++) { 
             latBuffer[i] = rawLat; 
             lngBuffer[i] = rawLng; 
         }
-        firstFix = true;
+        firstFix = <span class="keyword">true</span>;
         lastValidLat = rawLat; 
         lastValidLng = rawLng;
     } 
-    else if (isMoving) {
+    <span class="keyword">else</span> <span class="keyword">if</span> (isMoving) {
         latBuffer[bufIdx] = rawLat; 
         lngBuffer[bufIdx] = rawLng;
-        bufIdx = (bufIdx + 1) % AVG_SIZE;
-        double sumLat = 0, sumLng = 0;
-        for(int i=0; i&lt;AVG_SIZE; i++) { 
+        bufIdx = (bufIdx + <span class="number">1</span>) % AVG_SIZE;
+        <span class="keyword">double</span> sumLat = <span class="number">0</span>, sumLng = <span class="number">0</span>;
+        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;AVG_SIZE; i++) { 
             sumLat += latBuffer[i]; 
             sumLng += lngBuffer[i]; 
         }
@@ -674,61 +687,61 @@ if (gps.location.isValid() && gps.satellites.value() >= 4) {
         lastValidLng = sumLng / AVG_SIZE;
     }
 }
-if (firstFix) {
-    distanceToTarget = TinyGPSPlus::distanceBetween(lastValidLat, lastValidLng, TARGET_LAT, TARGET_LNG);
+<span class="keyword">if</span> (firstFix) {
+    distanceToTarget = <span class="type">TinyGPSPlus</span>::<span class="function">distanceBetween</span>(lastValidLat, lastValidLng, TARGET_LAT, TARGET_LNG);
 }</pre>
                         </div>
                         <!-- Control Tab -->
                         <div class="code-pane" id="code-pane-control">
-                            <pre>// ==========================================
-// [Sector 4] 조건분리형 스마트 미등제어(조도센서 측정 포함)
-// ==========================================
-float lux = lightMeter.readLightLevel();
-int brightness = 0;
-if (lux &lt;= NIGHT_LIMIT && lux &gt;= 0) {
-    brightness = 255; 
+                            <pre><span class="comment">// ==========================================</span>
+<span class="comment">// [Sector 4] 조건분리형 스마트 미등제어(조도센서 측정 포함)</span>
+<span class="comment">// ==========================================</span>
+<span class="keyword">float</span> lux = lightMeter.<span class="function">readLightLevel</span>();
+<span class="keyword">int</span> brightness = <span class="number">0</span>;
+<span class="keyword">if</span> (lux &lt;= NIGHT_LIMIT &amp;&amp; lux &gt;= <span class="number">0</span>) {
+    brightness = <span class="number">255</span>; 
 } 
-else {
-    if (!firstFix || distanceToTarget &gt;= 300.0) {
-        brightness = 0;    
+<span class="keyword">else</span> {
+    <span class="keyword">if</span> (!firstFix || distanceToTarget &gt;= <span class="number">300.0</span>) {
+        brightness = <span class="number">0</span>;    
     } 
-    else if (distanceToTarget &lt; 300.0 && distanceToTarget &gt; 45.0) {
-        brightness = (int)((300.0 - distanceToTarget) * (255.0 / (300.0 - 45.0)));
+    <span class="keyword">else</span> <span class="keyword">if</span> (distanceToTarget &lt; <span class="number">300.0</span> &amp;&amp; distanceToTarget &gt; <span class="number">45.0</span>) {
+        brightness = (<span class="keyword">int</span>)((<span class="number">300.0</span> - distanceToTarget) * (<span class="number">255.0</span> / (<span class="number">300.0</span> - <span class="number">45.0</span>)));
     } 
-    else if (distanceToTarget &lt;= 45.0) {
-        brightness = 255;  
+    <span class="keyword">else</span> <span class="keyword">if</span> (distanceToTarget &lt;= <span class="number">45.0</span>) {
+        brightness = <span class="number">255</span>;  
     }
 }
 
-// ==========================================
-// [Sector 5-B] 하드웨어 드라이빙 및 모니터링 출력
-// ==========================================
-brightness = constrain(brightness, 0, 255);
-#if ESP_ARDUINO_VERSION_MAJOR &lt; 3
-ledcWrite(ledChannel, brightness);
-#else
-ledcWrite(ledPin, brightness); 
-#endif
+<span class="comment">// ==========================================</span>
+<span class="comment">// [Sector 5-B] 하드웨어 드라이빙 및 모니터링 출력</span>
+<span class="comment">// ==========================================</span>
+brightness = <span class="function">constrain</span>(brightness, <span class="number">0</span>, <span class="number">255</span>);
+<span class="preprocessor">#if ESP_ARDUINO_VERSION_MAJOR &lt; 3</span>
+<span class="function">ledcWrite</span>(ledChannel, brightness);
+<span class="preprocessor">#else</span>
+<span class="function">ledcWrite</span>(ledPin, brightness); 
+<span class="preprocessor">#endif</span>
 
-static unsigned long lastPrint = 0;
-if (currentTime - lastPrint &gt; 1000) {
-    if (lux &lt;= NIGHT_LIMIT && lux &gt;= 0) {
-        Serial.print("[야간모드-상시점등]");
-    } else {
-        Serial.print("[주간모드-거리제어]");
+<span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> lastPrint = <span class="number">0</span>;
+<span class="keyword">if</span> (currentTime - lastPrint &gt; <span class="number">1000</span>) {
+    <span class="keyword">if</span> (lux &lt;= NIGHT_LIMIT &amp;&amp; lux &gt;= <span class="number">0</span>) {
+        <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">"[야간모드-상시점등]"</span>);
+    } <span class="keyword">else</span> {
+        <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">"[주간모드-거리제어]"</span>);
     }
-    Serial.print(" 조도: "); Serial.print(lux, 0);
-    if (firstFix) {
-        Serial.print("lx | 거리: "); 
-        Serial.print(distanceToTarget, 1); Serial.print("m");
-    } else {
-        Serial.print("lx | 거리: 위성 대기 중...");
+    <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">" 조도: "</span>); <span class="type">Serial</span>.<span class="function">print</span>(lux, <span class="number">0</span>);
+    <span class="keyword">if</span> (firstFix) {
+        <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">"lx | 거리: "</span>); 
+        <span class="type">Serial</span>.<span class="function">print</span>(distanceToTarget, <span class="number">1</span>); <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">"m"</span>);
+    } <span class="keyword">else</span> {
+        <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">"lx | 거리: 위성 대기 중..."</span>);
     }
-    Serial.print(" | 미등 밝기: "); 
-    Serial.print((int)((brightness / 255.0) * 100)); 
-    Serial.print("%");
-    Serial.print(" (PWM: "); Serial.print(brightness); 
-    Serial.println(")");
+    <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">" | 미등 밝기: "</span>); 
+    <span class="type">Serial</span>.<span class="function">print</span>((<span class="keyword">int</span>)((brightness / <span class="number">255.0</span>) * <span class="number">100</span>)); 
+    <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">"%"</span>);
+    <span class="type">Serial</span>.<span class="function">print</span>(<span class="string">" (PWM: "</span>); <span class="type">Serial</span>.<span class="function">print</span>(brightness); 
+    <span class="type">Serial</span>.<span class="function">println</span>(<span class="string">")"</span>);
     lastPrint = currentTime;
 }</pre>
                         </div>

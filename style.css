@@ -1436,8 +1436,8 @@ p.sub-text {
 
 /* Tabbed Code Viewer for Arduino Sections */
 .code-viewer-container {
-    background: rgba(5, 10, 20, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #1e1e1e !important; /* Dark VS Code style background */
+    border: 1px solid #333333;
     border-radius: 12px;
     overflow: hidden;
     margin-top: 15px;
@@ -1445,19 +1445,81 @@ p.sub-text {
     width: 100%;
 }
 
+.code-header {
+    background: #252526;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid #2d2d2d;
+    user-select: none;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-controls .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.window-controls .dot.red { background-color: #ff5f56; }
+.window-controls .dot.yellow { background-color: #ffbd2e; }
+.window-controls .dot.green { background-color: #27c93f; }
+
+.file-tab {
+    display: flex;
+    align-items: center;
+    background: #1e1e1e;
+    color: #cccccc;
+    height: 100%;
+    padding: 0 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-top: 2px solid #00d2ff;
+}
+
+.file-icon {
+    margin-right: 6px;
+    font-size: 0.85rem;
+}
+
+.copy-btn {
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: #00d2ff;
+    cursor: pointer;
+    background: rgba(0, 210, 255, 0.05);
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: rgba(0, 210, 255, 0.2);
+    border-color: #00d2ff;
+    color: #ffffff;
+}
+
 .code-tabs {
     display: flex;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: #2d2d2d;
+    border-bottom: 1px solid #252526;
 }
 
 .code-tab {
     flex: 1;
     background: transparent;
     border: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.5);
-    padding: 12px;
+    border-right: 1px solid #252526;
+    color: #858585;
+    padding: 10px;
     font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
@@ -1466,21 +1528,21 @@ p.sub-text {
 }
 
 .code-tab:hover {
-    background: rgba(0, 210, 255, 0.05);
-    color: #00d2ff;
+    background: rgba(255, 255, 255, 0.02);
+    color: #cccccc;
 }
 
 .code-tab.active {
-    background: rgba(0, 210, 255, 0.1);
+    background: #1e1e1e;
     color: #00d2ff;
-    border-bottom: 2px solid #00d2ff;
+    border-top: 2px solid #00d2ff;
 }
 
 .code-content-wrapper {
-    padding: 15px;
-    height: 250px;
+    padding: 15px 20px;
+    height: 270px;
     overflow-y: auto;
-    background: #050911;
+    background: #1e1e1e;
 }
 
 .code-content-wrapper::-webkit-scrollbar {
@@ -1488,18 +1550,50 @@ p.sub-text {
 }
 
 .code-content-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(0, 210, 255, 0.2);
+    background: #424242;
     border-radius: 3px;
 }
 
 .code-content-wrapper pre {
     margin: 0;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.75rem;
-    line-height: 1.45;
-    color: #a2b1cd;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #d4d4d4;
     white-space: pre;
     text-align: left;
+}
+
+/* C++ Syntax Highlighting Styles */
+.code-content-wrapper pre .preprocessor {
+    color: #c586c0;
+    font-weight: 500;
+}
+
+.code-content-wrapper pre .keyword {
+    color: #569cd6;
+    font-weight: 500;
+}
+
+.code-content-wrapper pre .type {
+    color: #4ec9b0;
+}
+
+.code-content-wrapper pre .function {
+    color: #dcdcaa;
+}
+
+.code-content-wrapper pre .string {
+    color: #ce9178;
+}
+
+.code-content-wrapper pre .number {
+    color: #b5cea8;
+}
+
+.code-content-wrapper pre .comment {
+    color: #6a9955;
+    font-style: italic;
 }
 
 .code-pane {
