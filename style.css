@@ -1809,11 +1809,11 @@ p.sub-text {
 }
 
 #slide-15 .media-box:first-child .medium-zoom-img:hover {
-    transform-origin: bottom center;
+    transform-origin: bottom left;
 }
 
 #slide-15 .media-box:last-child .medium-zoom-img:hover {
-    transform-origin: bottom center;
+    transform-origin: bottom right;
 }
 
 #slide-16 .large-zoom-img:hover {
@@ -1918,6 +1918,88 @@ p.sub-text {
 .sig-link:hover {
     color: #ffcc00;
     text-decoration: underline;
+}
+
+/* -------------------------------------------------------------
+   Q&A Navigation & Buttons
+   ------------------------------------------------------------- */
+.qa-grid-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.qa-nav-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 25px 15px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.qa-nav-btn:hover {
+    transform: translateY(-8px);
+    background: rgba(0, 210, 255, 0.08);
+    border-color: #00d2ff;
+    box-shadow: 0 12px 30px rgba(0, 210, 255, 0.35), 0 0 15px rgba(0, 210, 255, 0.15);
+}
+
+.qa-nav-btn .num {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #00d2ff;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+    margin-bottom: 8px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+}
+
+.qa-nav-btn:hover .num {
+    color: #ffaa00;
+    text-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+.qa-nav-btn .title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    color: #d0d0d0;
+    line-height: 1.3;
+}
+
+.back-to-qa-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.back-to-qa-btn:hover {
+    background: #00d2ff;
+    color: #0c1020;
+    border-color: #00d2ff;
+    box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
 }
 
 

@@ -1010,32 +1010,163 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
             </div>
         </section>
 
-        <!-- 슬라이드 18: 결론 및 Q&A -->
+        <!-- 슬라이드 18: 결론 및 향후 계획 -->
         <section class="slide" id="slide-17">
             <div class="content glass-card" style="max-width: 900px;">
-                <h2 class="section-title">결론 및 향후 계획 & 질의응답</h2>
-                <div class="problem-section" style="margin-top: 15px; grid-template-columns: 1.15fr 0.85fr;">
-                    <div class="problem-box" style="border-color: rgba(0, 210, 255, 0.2); border-left-color: #00d2ff; padding: 1.5rem;">
-                        <h3 style="color: #00d2ff;">📌 핵심 결론 및 향후 계획</h3>
-                        <ul class="bullet-list" style="margin-top: 5px;">
-                            <li><strong>정밀 센서 융합</strong>: GPS 정지 드리프트 99% 억제 및 ±1.2m 정밀도 확보</li>
-                            <li><strong>하드웨어 한계 극복</strong>: SGW 보안 장벽을 우회하기 위해 MOSFET PWM 직접 회로를 구현하여 안정적으로 디밍 스위칭 성공</li>
-                            <li><strong>향후 개발 방안</strong>: 실차 보드 패키징(소형 ECU 설계) 및 차량 공공데이터 포털 기반 전국의 터널 DB 맵 매칭 자동 연동 추진</li>
-                        </ul>
+                <h2 class="section-title">결론 및 향후 계획</h2>
+                <div class="problem-box" style="border-color: rgba(0, 210, 255, 0.2); border-left-color: #00d2ff; padding: 2rem; margin-top: 20px;">
+                    <h3 style="color: #00d2ff; font-size: 1.2rem;">📌 핵심 결론 및 향후 계획</h3>
+                    <ul class="bullet-list" style="margin-top: 15px; font-size: 0.95rem; line-height: 1.8;">
+                        <li><strong>정밀 센서 융합</strong>: GPS 정지 드리프트 99% 억제 및 ±1.2m 정밀도 확보</li>
+                        <li><strong>하드웨어 한계 극복</strong>: SGW 보안 장벽을 우회하기 위해 MOSFET PWM 직접 회로를 구현하여 안정적으로 디밍 스위칭 성공</li>
+                        <li><strong>향후 개발 방안</strong>: 실차 보드 패키징(소형 ECU 설계) 및 차량 공공데이터 포털 기반 전국의 터널 DB 맵 매칭 자동 연동 추진</li>
+                    </ul>
+                </div>
+                <div class="center" style="margin-top: 40px;">
+                    <div class="conclusion" style="margin-top: 0; font-size: 1.2rem; padding: 0.6rem 2rem;">
+                        경청해 주셔서 감사합니다 &nbsp;|&nbsp; <strong>fiveguys 일동</strong>
                     </div>
-                    <div class="solution-box" style="border-color: rgba(0, 255, 136, 0.2); border-left-color: #00ff88; padding: 1.5rem;">
-                        <h3 style="color: #00ff88;">🙋 Q & A (질의응답)</h3>
-                        <ul class="bullet-list" style="margin-top: 5px;">
-                            <li>GPS 드리프트 오차 보정 메커니즘</li>
-                            <li>자이로 MPU6050 오프셋 캘리브레이션</li>
-                            <li>MOSFET PWM 디밍 및 TC4427 회로의 안정성</li>
-                            <li>CAN 통신 패킷 충돌 현상과 우회 배선 경로</li>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 19: 질의응답 (Q&A 선택) -->
+        <section class="slide" id="slide-18">
+            <div class="content glass-card" style="max-width: 900px;">
+                <h2 class="section-title">🙋 Q & A (질의응답)</h2>
+                <p style="text-align: center; color: #a0a0a0; margin-bottom: 30px; font-size: 0.95rem;">
+                    원하시는 질의응답 항목 번호를 선택하시면 상세 답변 슬라이드로 이동합니다.
+                </p>
+                <div class="qa-grid-container">
+                    <button class="qa-nav-btn" data-target="slide-19">
+                        <span class="num">1</span>
+                        <span class="title">특허 출원 현황</span>
+                    </button>
+                    <button class="qa-nav-btn" data-target="slide-20">
+                        <span class="num">2</span>
+                        <span class="title">GPS 오차 보정</span>
+                    </button>
+                    <button class="qa-nav-btn" data-target="slide-21">
+                        <span class="num">3</span>
+                        <span class="title">자이로 센서 필터</span>
+                    </button>
+                    <button class="qa-nav-btn" data-target="slide-22">
+                        <span class="num">4</span>
+                        <span class="title">디밍 회로 안정성</span>
+                    </button>
+                    <button class="qa-nav-btn" data-target="slide-23">
+                        <span class="num">5</span>
+                        <span class="title">CAN 통신 패킷</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 20: Q&A 상세 1 (특허 관련) -->
+        <section class="slide" id="slide-19">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 1. 특허 출원 정보 조회</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
+                        <h3 style="color: #00d2ff; margin-bottom: 15px; width: 100%;">📄 특허 출원(심사) 정보 조회 결과</h3>
+                        <img src="patent_search_result.png" alt="특허 출원 심사 정보 조회" class="large-zoom-img" style="max-width: 100%; height: 240px; object-fit: contain; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);">
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0; margin-top: 15px; width: 100%; text-align: left;">
+                            - <strong>출원번호</strong>: 10-2026-0065642 (출원일자: 2026.05.11)<br>
+                            - <strong>특허 명칭</strong>: 터널사고 방지를 위한 미등제어 시스템<br>
+                            - <strong>출원인</strong>: 이승주 (진행 상태: 진행중)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 21: Q&A 상세 2 (GPS 오차 보정) -->
+        <section class="slide" id="slide-20">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 2. GPS 드리프트 오차 보정</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #00ff88; padding: 1.5rem;">
+                        <h3 style="color: #00ff88; margin-bottom: 12px;">🛰️ GPS 수신 특성 및 드리프트 오차 제어</h3>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
+                            차량이 정지 상태이거나 터널 진입 전 신호 감쇄가 발생할 때 GPS 좌표가 사방으로 튀는 <strong>드리프트(Drift) 오차</strong>를 억제하기 위한 핵심 메커니즘입니다.
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;">
+                            <li><strong>속도 기반 임계치 설정</strong>: 속도가 0.5km/h 이하일 경우 위치 업데이트를 제한하고 이전 신뢰값을 유지합니다.</li>
+                            <li><strong>HDOP(수평 정밀도 저하율) 모니터링</strong>: HDOP 값이 기준치(예: 2.0) 이상으로 저하되는 경우 터널 매칭 로직에서 해당 신호를 제외합니다.</li>
+                            <li><strong>방향 벡터 보정</strong>: 자이로 센서의 방위각 데이터를 활용하여 GPS 궤적과 차량 진행 방향의 평행 여부를 대조 검증합니다.</li>
                         </ul>
                     </div>
                 </div>
-                <div class="center" style="margin-top: 25px;">
-                    <div class="conclusion" style="margin-top: 0; font-size: 1.2rem; padding: 0.6rem 2rem;">
-                        경청해 주셔서 감사합니다 &nbsp;|&nbsp; <strong>fiveguys 일동</strong>
+            </div>
+        </section>
+
+        <!-- 슬라이드 22: Q&A 상세 3 (자이로 MPU6050 오프셋) -->
+        <section class="slide" id="slide-21">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 3. 자이로 MPU6050 오프셋 캘리브레이션</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #ffaa00; padding: 1.5rem;">
+                        <h3 style="color: #ffaa00; margin-bottom: 12px;">🔄 가속도·자이로 센서 융합 및 초기 오프셋 제거</h3>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
+                            터널 진입 각도 및 차량의 움직임을 실시간으로 추적하기 위해 MPU6050 센서의 초기 누적 오차(오프셋)를 제어하고 센서 데이터를 필터링하는 기법입니다.
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;">
+                            <li><strong>초기화 캘리브레이션</strong>: 부팅 시 첫 2~3초간 차량이 정지한 상태에서 200회 이상의 샘플을 채집하여 X, Y, Z축의 자이로/가속도 평균 편차를 초기 오프셋 값으로 저장 및 차감합니다.</li>
+                            <li><strong>보색 필터(Complementary Filter) 적용</strong>: 고주파 노이즈에 약한 가속도계 데이터와 적분 오차(드리프트)가 있는 자이로 데이터를 <code>Angle = 0.98 * (Angle + Gyro * dt) + 0.02 * (AccelAngle)</code> 수식으로 융합하여 빠르고 안정적인 반응성을 구현했습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 23: Q&A 상세 4 (MOSFET 및 TC4427) -->
+        <section class="slide" id="slide-22">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 4. MOSFET PWM 및 TC4427 안정성</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #ff3b30; padding: 1.5rem;">
+                        <h3 style="color: #ff3b30; margin-bottom: 12px;">⚡ 고속 스위칭 회로의 전력 안정성 확보</h3>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
+                            차량 미등의 디밍(Dimming) 제어를 위해 MOSFET 소자를 사용해 고주파 PWM 제어를 수행할 때, 회로 손상 및 발열을 예방하기 위한 설계 기법입니다.
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;">
+                            <li><strong>TC4427 게이트 드라이버 도입</strong>: MCU(ESP32 등)의 낮은 출력 전류(최대 20mA)로는 N-Channel MOSFET의 큰 게이트 커패시턴스를 고속으로 충전하기 어렵습니다. TC4427 드라이버를 통해 순간 최대 1.5A의 게이트 드라이브 전류를 인가함으로써 턴온/턴오프 시간을 최소화하고 발열을 방지했습니다.</li>
+                            <li><strong>역기전력 및 스파이크 전압 방지</strong>: 미등 벌브 및 배선의 유도성 부하(Inductive Load)로 인해 스위칭 시 발생하는 고전압 역기전력을 억제하기 위해 MOSFET 드레인-소스 단에 다이오드 및 풀다운 저항을 병렬 연결해 보호 회로를 완성했습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 24: Q&A 상세 5 (CAN 통신 패킷) -->
+        <section class="slide" id="slide-23">
+            <div class="content glass-card" style="max-width: 900px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 5. CAN 통신 패킷 충돌 및 우회</h2>
+                    <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
+                </div>
+                <div class="problem-section" style="grid-template-columns: 1fr;">
+                    <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.5rem;">
+                        <h3 style="color: #00d2ff; margin-bottom: 12px;">🚗 B-CAN 통신 패킷 충돌 억제 및 배선 라우팅</h3>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
+                            500kbps 속도로 통신하는 차량용 고속 B-CAN 버스에 디바이스가 연동될 때 발생하는 트래픽 간섭 및 게이트웨이(SGW) 우회를 위한 구현 방식입니다.
+                        </p>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;">
+                            <li><strong>하드웨어 필터 적용</strong>: CAN 컨트롤러(예: MCP2515 등)의 마스크(Mask)와 필터(Filter) 레지스터를 설정하여 불필요한 패킷을 하드웨어 수준에서 차단, MCU의 메시지 큐 오버플로우와 패킷 유실을 방지합니다.</li>
+                            <li><strong>정밀 우회 배선 (T-tap 방식)</strong>: 보안 게이트웨이(SGW)가 OBD2 포트의 CAN 쓰기 동작을 차단하므로, 대시보드 내부 정션박스 혹은 BCM 전용 CAN 단자대에 물리적인 T-tap 배선을 결선하여 안전하고 영구적인 패킷 모니터링 환경을 확보했습니다.</li>
+                        </ul>
                     </div>
                 </div>
             </div>

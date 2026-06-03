@@ -503,7 +503,7 @@ function animate() {
     }
 
     // Force LEDs off once we enter Slide 9 (major components page) or later (which is index 9, since we added cruise slides)
-    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 8.95 / 21) {
+    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 8.95 / 27) {
         SIM_STATE.lightActive = false;
     }
 
@@ -901,8 +901,8 @@ function init3DAnimations() {
         }
     });
 
-    // 22 Slides, 21 intervals. Each interval is 1/21 ~ 0.0476
-    const interval = 1 / 21;
+    // 28 Slides, 27 intervals. Each interval is 1/27 ~ 0.037
+    const interval = 1 / 27;
 
     // Slide 0 to Slide 4 (0 to 4 * interval): Car stays at Z = -100, camera at Z = -94
     timeline3D.to(carGroup.position, { z: -100, duration: 4 * interval }, 0);
@@ -922,9 +922,9 @@ function init3DAnimations() {
         ease: "power1.inOut"
     }, 4 * interval);
 
-    // Slide 6 -> Slide 22 (6 * interval to 1.0): Car and camera stay inside the tunnel (15 intervals remaining)
-    timeline3D.to(carGroup.position, { z: -900, duration: 15 * interval }, 6 * interval);
-    timeline3D.to(camera.position, { z: -894, duration: 15 * interval }, 6 * interval);
+    // Slide 6 -> Slide 28 (6 * interval to 1.0): Car and camera stay inside the tunnel (21 intervals remaining)
+    timeline3D.to(carGroup.position, { z: -900, duration: 21 * interval }, 6 * interval);
+    timeline3D.to(camera.position, { z: -894, duration: 21 * interval }, 6 * interval);
 
     ScrollTrigger.refresh();
 }
@@ -1157,6 +1157,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 tab.classList.add('active');
                 const activePane = document.getElementById(`demo-pane-${demoId}`);
                 if (activePane) activePane.classList.add('active');
+            });
+        });
+    }
+
+    // 9. Q&A Navigation Bindings
+    const qaNavButtons = document.querySelectorAll('.qa-nav-btn');
+    const backToQaButtons = document.querySelectorAll('.back-to-qa-btn');
+
+    if (qaNavButtons.length > 0) {
+        qaNavButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    if (backToQaButtons.length > 0) {
+        backToQaButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     }
