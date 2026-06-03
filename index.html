@@ -1052,7 +1052,7 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
                     </button>
                     <button class="qa-nav-btn" data-target="slide-22">
                         <span class="num">4</span>
-                        <span class="title">디밍 회로 안정성</span>
+                        <span class="title">제조사 OTA의 한계</span>
                     </button>
                     <button class="qa-nav-btn" data-target="slide-23">
                         <span class="num">5</span>
@@ -1072,7 +1072,7 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
                 <div class="problem-section" style="grid-template-columns: 1fr;">
                     <div class="problem-box" style="border-left-color: #00d2ff; padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
                         <h3 style="color: #00d2ff; margin-bottom: 15px; width: 100%;">📄 특허 출원(심사) 정보 조회 결과</h3>
-                        <img src="patent_search_result.png" alt="특허 출원 심사 정보 조회" class="large-zoom-img" style="max-width: 100%; height: 240px; object-fit: contain; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);">
+                        <img src="patent_search_result.png" alt="특허 출원 심사 정보 조회" class="no-zoom-img" style="max-width: 100%; height: 240px; object-fit: contain; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);">
                         <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0; margin-top: 15px; width: 100%; text-align: left;">
                             - <strong>출원번호</strong>: 10-2026-0065642 (출원일자: 2026.05.11)<br>
                             - <strong>특허 명칭</strong>: 터널사고 방지를 위한 미등제어 시스템<br>
@@ -1128,22 +1128,24 @@ brightness = <span class="function">constrain</span>(brightness, <span class="nu
             </div>
         </section>
 
-        <!-- 슬라이드 23: Q&A 상세 4 (MOSFET 및 TC4427) -->
+        <!-- 슬라이드 23: Q&A 상세 4 (제조사 OTA 한계 및 하드웨어 필요성) -->
         <section class="slide" id="slide-22">
             <div class="content glass-card" style="max-width: 900px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 4. MOSFET PWM 및 TC4427 안정성</h2>
+                    <h2 class="section-title" style="margin: 0;">🙋 Q&A 4. 제조사 OTA(무선 업데이트)만으로 활성화 불가능한 이유</h2>
                     <button class="back-to-qa-btn" data-target="slide-18">목록으로</button>
                 </div>
                 <div class="problem-section" style="grid-template-columns: 1fr;">
                     <div class="problem-box" style="border-left-color: #ff3b30; padding: 1.5rem;">
-                        <h3 style="color: #ff3b30; margin-bottom: 12px;">⚡ 고속 스위칭 회로의 전력 안정성 확보</h3>
+                        <h3 style="color: #ff3b30; margin-bottom: 12px;">⚠️ OTA 펌웨어 업데이트만으로 미등 제어가 불가능한 물리적 원인</h3>
                         <p style="font-size: 0.9rem; line-height: 1.6; color: #d0d0d0;">
-                            차량 미등의 디밍(Dimming) 제어를 위해 MOSFET 소자를 사용해 고주파 PWM 제어를 수행할 때, 회로 손상 및 발열을 예방하기 위한 설계 기법입니다.
+                            제조사가 OTA 업데이트를 배포하여 미등 제어를 능동화할 수 있다는 주장에 대해, 기존 운행 차량(특히 노후 및 보급형 차량)이 지닌 물리적 회로의 한계와 실증 통계를 바탕으로 반박합니다.
                         </p>
-                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;">
-                            <li><strong>TC4427 게이트 드라이버 도입</strong>: MCU(ESP32 등)의 낮은 출력 전류(최대 20mA)로는 N-Channel MOSFET의 큰 게이트 커패시턴스를 고속으로 충전하기 어렵습니다. TC4427 드라이버를 통해 순간 최대 1.5A의 게이트 드라이브 전류를 인가함으로써 턴온/턴오프 시간을 최소화하고 발열을 방지했습니다.</li>
-                            <li><strong>역기전력 및 스파이크 전압 방지</strong>: 미등 벌브 및 배선의 유도성 부하(Inductive Load)로 인해 스위칭 시 발생하는 고전압 역기전력을 억제하기 위해 MOSFET 드레인-소스 단에 다이오드 및 풀다운 저항을 병렬 연결해 보호 회로를 완성했습니다.</li>
+                        <ul class="bullet-list" style="margin-top: 10px; font-size: 0.85rem; line-height: 1.7;">
+                            <li><strong>물리적 스위칭 소자 결여 (릴레이 vs PWM IPS)</strong>: 대한민국 차량의 평균 차령은 약 <strong>15.6년</strong>에 이르며, 운행 중인 차량 중 <strong>40~50% 이상이 10년 이상 된 차량</strong>입니다. 이들 차량은 BCM(바디제어모듈)과 미등 라인 사이에 기계식 릴레이(Relay) 또는 PWM 디밍이 불가능한 일반 스위치(Non-PWM IPS)를 사용하여 단순 이진(ON/OFF) 제어만 지원하므로 소프트웨어 업데이트만으로는 디밍 제어가 물리적으로 원천 불가합니다.</li>
+                            <li><strong>광원의 한계 (Halogen vs LED)</strong>: 국내 다수 노후/저가 트림 차량의 미등은 할로겐 전구(Halogen Bulb)를 사용합니다. 할로겐은 LED와 달리 저주파 PWM 디밍 시 수명이 극단적으로 감축되거나 격렬하게 플리커(깜빡임)가 발생하므로 하드웨어 교체 없는 소프트웨어 디밍 적용은 원칙적으로 불가능합니다.</li>
+                            <li><strong>BCM 펌웨어 쓰기 및 무선 통신(OTA) 규제 제약</strong>: 국내 자동차의 안전 제어 장치(BCM 등)에 대한 무선 소프트웨어 업데이트(OTA)는 <strong>2020년 이후에야 임시허가 및 규제 완화</strong>를 통해 상용화되었습니다. 따라서 2020년 이전 출고된 노후 차량은 OTA 수신 통신 모듈 자체가 없거나 BCM 펌웨어 재기록(Flash) 기능이 차단되어 있습니다.</li>
+                            <li><strong>통계적 결론</strong>: 국내 운행 차량 중 공장 출고 시점부터 미등 전용 BCM PWM 회로, 디밍 지원 IPS 반도체 및 LED 모듈을 완비하고 OTA 시스템까지 모두 탑재하여 펌웨어만으로 이 기능이 활성화될 수 있는 비율은 <strong>약 20~30% 미만</strong>으로 추정됩니다. 나머지 <strong>70% 이상의 미지원 차량</strong>에 기능을 구현하기 위해서는 본 설계에서 제작한 **외장형 MOSFET PWM 제어 보드와 우회 배선(T-tap) 방식의 물리적 추가가 필수적**입니다.</li>
                         </ul>
                     </div>
                 </div>

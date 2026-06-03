@@ -2002,6 +2002,14 @@ p.sub-text {
     box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
 }
 
+.no-zoom-img,
+.no-zoom-img:hover {
+    transform: none !important;
+    cursor: default !important;
+    box-shadow: none !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
 
 
 
