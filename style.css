@@ -1553,7 +1553,7 @@ p.sub-text {
 .media-box img:hover,
 .patent-item-card img:hover,
 .team-member-card img:hover {
-    transform: scale(4.0);
+    transform: scale(3.0);
     z-index: 9999 !important;
     box-shadow: 0 15px 45px rgba(0, 210, 255, 0.6), 0 0 30px rgba(0, 210, 255, 0.3);
     border-color: #00d2ff !important;
@@ -1681,7 +1681,7 @@ p.sub-text {
 }
 
 .rotated-img:hover {
-    transform: scale(5.5) rotate(180deg) !important; /* Increased scale for better readability */
+    transform: scale(4.5) rotate(180deg) !important; /* Increased scale for better readability */
     z-index: 99999 !important;
     box-shadow: 0 -25px 60px rgba(0, 210, 255, 0.75), 0 0 40px rgba(0, 210, 255, 0.4) !important;
 }
@@ -1695,7 +1695,7 @@ p.sub-text {
 }
 
 .large-zoom-img:hover {
-    transform: scale(8.0) !important;
+    transform: scale(6.0) !important;
     z-index: 99999 !important;
     border-color: #00d2ff !important;
     box-shadow: 0 25px 60px rgba(0, 210, 255, 0.8), 0 0 45px rgba(0, 210, 255, 0.45) !important;
@@ -1727,7 +1727,7 @@ p.sub-text {
 }
 
 .medium-zoom-img:hover {
-    transform: scale(5.0) !important;
+    transform: scale(4.0) !important;
     z-index: 99999 !important;
     border-color: #00d2ff !important;
     box-shadow: 0 20px 50px rgba(0, 210, 255, 0.7), 0 0 35px rgba(0, 210, 255, 0.35) !important;
