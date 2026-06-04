@@ -503,7 +503,7 @@ function animate() {
     }
 
     // Force LEDs off once we enter Slide 9 (major components page) or later (which is index 9, since we added cruise slides)
-    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 8.95 / 29) {
+    if (timeline3D && timeline3D.scrollTrigger && timeline3D.scrollTrigger.progress >= 8.95 / 30) {
         SIM_STATE.lightActive = false;
     }
 
@@ -901,8 +901,8 @@ function init3DAnimations() {
         }
     });
 
-    // 30 Slides, 29 intervals. Each interval is 1/29 ~ 0.0345
-    const interval = 1 / 29;
+    // 31 Slides, 30 intervals. Each interval is 1/30 ~ 0.0333
+    const interval = 1 / 30;
 
     // Slide 0 to Slide 4 (0 to 4 * interval): Car stays at Z = -100, camera at Z = -94
     timeline3D.to(carGroup.position, { z: -100, duration: 4 * interval }, 0);
@@ -922,9 +922,9 @@ function init3DAnimations() {
         ease: "power1.inOut"
     }, 4 * interval);
 
-    // Slide 6 -> Slide 30 (6 * interval to 1.0): Car and camera stay inside the tunnel (23 intervals remaining)
-    timeline3D.to(carGroup.position, { z: -900, duration: 23 * interval }, 6 * interval);
-    timeline3D.to(camera.position, { z: -894, duration: 23 * interval }, 6 * interval);
+    // Slide 6 -> Slide 31 (6 * interval to 1.0): Car and camera stay inside the tunnel (24 intervals remaining)
+    timeline3D.to(carGroup.position, { z: -900, duration: 24 * interval }, 6 * interval);
+    timeline3D.to(camera.position, { z: -894, duration: 24 * interval }, 6 * interval);
 
     ScrollTrigger.refresh();
 }
